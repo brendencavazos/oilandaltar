@@ -612,7 +612,6 @@
       '  <h2 class="about-sub"><span class="kicker-numeral">03</span>Contact</h2>' +
       '  <ul class="about-contact">' +
       '    <li><a href="mailto:Brenden.cavazos@gmail.com">Brenden.cavazos@gmail.com</a></li>' +
-      '    <li><a href="https://www.instagram.com/oilandaltar/" rel="noopener" target="_blank">instagram.com/oilandaltar</a></li>' +
       '  </ul>' +
       '  <form id="inquiry-form" novalidate>' +
       "    <label><span>NAME</span><input name=\"name\" type=\"text\" required maxlength=\"200\" autocomplete=\"name\" /></label>" +

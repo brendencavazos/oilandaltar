@@ -1,6 +1,6 @@
 # Oil & Altar
 
-Portfolio site for photographer **Bren** ([@oilandaltar](https://www.instagram.com/oilandaltar/)).
+Portfolio site for photographer **Bren**.
 Swiss/editorial design after brandnewalias.com: white page, bold black Helvetica,
 red active nav, fixed corner identity block. Hash-routed pages — a crossfading
 landing carousel (~40 images), Bible Belt (flagship project), a Photography
