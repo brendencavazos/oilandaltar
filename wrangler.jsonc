@@ -1,0 +1,9 @@
+{
+  // Cloudflare Workers config — serves the static site in frontend/.
+  // No "main" field: there is no Worker script, just files.
+  "name": "oilandaltar",
+  "compatibility_date": "2026-09-09",
+  "assets": {
+    "directory": "./frontend"
+  }
+}
