@@ -1,117 +1,111 @@
 # Oil & Altar
 
-Portfolio site for photographer **Bren**.
-Swiss/editorial design after brandnewalias.com: white page, bold black Helvetica,
-red active nav, fixed corner identity block. Hash-routed pages — a crossfading
-landing carousel (~40 images), Bible Belt (flagship project), a Photography
-Portfolio dropdown (Abandoned America / Portraits / Everyday Exploration),
-Films & Videography (stacked mp4 bays), and About with an inquiry form.
+Portfolio site for photographer **Brenden Cavazos** — live at
+[oilandaltar.com](https://oilandaltar.com).
+
+Swiss/editorial design: white page, bold black Helvetica, red active nav, fixed
+corner identity block. Hash-routed pages — a crossfading landing carousel,
+Bible Belt (flagship project, with an Ephemera sub-page), Abandoned America,
+Portraits, Wanderings, In Passing (stills paired with mp4 bays), and About with
+an inquiry form.
 
 ## Structure
 
 ```
-frontend/   Static site (vanilla HTML/CSS/JS) — no build step
-backend/    FastAPI app: serves the frontend, gallery API, inquiries, photo uploads
+frontend/              The site. This folder is what gets published.
+scripts/               build_gallery.py — turns raw photos into web assets
+backend/               FastAPI app. NOT deployed; see "The backend" below.
+wrangler.jsonc         Cloudflare config: serve frontend/ as static files
 ```
 
-The gallery ships with generative canvas placeholders. Upload real photos via the
-admin endpoint and they replace the placeholders automatically.
+## Run it locally
 
-## Run it
+No build step, no dependencies — just serve the folder:
+
+```bash
+cd frontend
+python3 -m http.server 8000
+```
+
+Open <http://127.0.0.1:8000>. That is the whole site, exactly as published.
+
+## Adding or changing photos
+
+Raw files go in `photosandvideos/` at the repo root (untracked, full-res), in a
+subfolder named for the series. Then:
+
+```bash
+python3 scripts/build_gallery.py
+```
+
+That writes web-sized assets into `frontend/media/<slug>/` and regenerates
+`frontend/gallery-data.js` (the `window.GALLERY` global the site reads). It is
+incremental — re-runs only process new or removed files. To force a rebuild of
+one image, delete it from `frontend/media/` and run again.
+
+Each still is exported twice:
+
+| Path                     | Size              | Used for              |
+| ------------------------ | ----------------- | --------------------- |
+| `media/<slug>/NN.jpg`    | ≤ 2000px long edge | scroll pages, carousel |
+| `media/<slug>/t/NN.jpg`  | ≤ 900px long edge  | grids, via `srcset`    |
+
+`media/<slug>/.sources` records the original camera filenames. Requires macOS
+`sips` for images and `ffmpeg` for video; without ffmpeg the image build still
+completes and the video section is skipped with a warning.
+
+## Publishing
+
+```bash
+git push
+```
+
+That is the entire deploy. Cloudflare watches the `main` branch of
+[brendencavazos/oilandaltar](https://github.com/brendencavazos/oilandaltar),
+rebuilds, and publishes — usually live within a couple of minutes. There is no
+deploy command to run and no server to restart.
+
+Nothing reaches the public until that push, so local edits and commits are safe
+to make freely.
+
+## Hosting
+
+| | |
+| ----------------- | ----------------------------------------------------- |
+| Repo              | `github.com/brendencavazos/oilandaltar`               |
+| Host              | Cloudflare Workers (static assets), project `oilandaltar` |
+| Preview URL       | `oilandaltar.brenden-cavazos.workers.dev`             |
+| Domain            | `oilandaltar.com` + `www`, Cloudflare Registrar       |
+| Renews            | 29 July 2027                                          |
+| Contact form      | Formspree (`formspree.io/f/xkodydzp`) — no backend involved |
+
+`wrangler.jsonc` points the deploy at `frontend/`. It declares no `main` entry
+because there is no Worker script — the site is plain files, and Cloudflare
+serves them directly. Static asset requests are free and unmetered, which is why
+a 200MB photo site costs nothing to host.
+
+Migrated here in September 2026 from GitHub Pages, where the site was published
+out of a different account. TLS is issued and renewed by Cloudflare.
+
+## The backend
+
+`backend/` holds a FastAPI app — gallery API, inquiry inbox, photo uploads,
+SQLite storage. **It is not deployed and not used.** The published site is
+static: the frontend makes no API calls, and the contact form posts straight to
+Formspree. The `Dockerfile` exists to containerize this app and is likewise
+unused by the live site.
+
+It is kept because it still runs locally and may be useful if the site ever
+needs a server side. To work on it:
 
 ```bash
 cd backend
 uv sync
-uv run uvicorn app.main:app --reload
-```
-
-Open http://127.0.0.1:8000 — the backend serves the frontend, so that's the whole site.
-(Opening `frontend/index.html` directly also works; it falls back to embedded seed data.)
-
-## API
-
-| Method | Path                        | Auth          | Purpose                          |
-| ------ | --------------------------- | ------------- | -------------------------------- |
-| GET    | `/api/health`               | —             | Liveness check                   |
-| GET    | `/api/series`               | —             | Series + plates for the gallery  |
-| POST   | `/api/inquiries`            | —             | Contact-form submission          |
-| GET    | `/api/inquiries`            | `X-Admin-Token` | Read inquiries                 |
-| POST   | `/api/plates/{id}/image`    | `X-Admin-Token` | Upload a real photo for a plate |
-
-### Admin setup
-
-Set a token in the environment (see `.env.example`) — never commit it:
-
-```bash
-export OILANDALTAR_ADMIN_TOKEN="$(openssl rand -hex 24)"
-```
-
-Upload a photo onto plate 1:
-
-```bash
-curl -X POST http://127.0.0.1:8000/api/plates/1/image \
-  -H "X-Admin-Token: $OILANDALTAR_ADMIN_TOKEN" \
-  -F "file=@the-vigil.jpg"
-```
-
-Read inquiries:
-
-```bash
-curl http://127.0.0.1:8000/api/inquiries -H "X-Admin-Token: $OILANDALTAR_ADMIN_TOKEN"
-```
-
-## Develop
-
-```bash
-cd backend
+uv run uvicorn app.main:app --reload    # serves frontend/ + the API on :8000
 uv run ruff check . && uv run ruff format --check .
-uv run pytest          # coverage gate: 80%
+uv run pytest                            # coverage gate: 80%
 ```
 
-Data lives in SQLite at `backend/data/oilandaltar.db` (auto-created and seeded on
-first run); uploaded photos land in `backend/media/`. Both are gitignored.
-
-Config (env vars): `OILANDALTAR_ADMIN_TOKEN`, `OILANDALTAR_DB`, `OILANDALTAR_MEDIA_DIR`,
-`OILANDALTAR_CANONICAL_HOST` (see Deploy).
-
-## Deploy (oilandaltar.com)
-
-The whole site ships as one Docker image (API + frontend). SQLite means one
-machine with a persistent volume — plenty for a portfolio, no database server
-to run. Try it locally:
-
-```bash
-docker build -t oilandaltar .
-docker run -p 8000:8000 -v oilandaltar-data:/data \
-  -e OILANDALTAR_ADMIN_TOKEN="$(openssl rand -hex 24)" oilandaltar
-```
-
-The container keeps its state (db + photos) under `/data` — always mount a
-volume there, or uploads vanish on redeploy.
-
-### Example: Fly.io
-
-```bash
-fly launch --no-deploy            # detects the Dockerfile; pick a region near Bren
-fly volumes create data --size 3
-# in fly.toml: internal_port = 8000, and add
-#   [mounts]  source = "data"  destination = "/data"
-# and keep it to a single machine (SQLite): min_machines_running = 1
-fly secrets set OILANDALTAR_ADMIN_TOKEN="$(openssl rand -hex 24)"
-fly secrets set OILANDALTAR_CANONICAL_HOST="oilandaltar.com"
-fly deploy
-```
-
-### Point the domain at it
-
-1. Buy `oilandaltar.com` at any registrar.
-2. `fly certs add oilandaltar.com && fly certs add www.oilandaltar.com`
-   (the platform provisions and renews TLS automatically).
-3. At the registrar, add the records `fly certs add` prints — typically an
-   A/AAAA record on the apex (`@`) to the app's IPs from `fly ips list`, and a
-   CNAME on `www` to `<app>.fly.dev`.
-4. Done. `OILANDALTAR_CANONICAL_HOST` makes `www.oilandaltar.com` 308-redirect
-   to `https://oilandaltar.com`, so there's one canonical URL.
-
-Any Docker host works the same way (Render, Railway, a VPS behind Caddy):
-run the image, mount `/data`, set the two env vars, terminate TLS in front.
+Config (env vars): `OILANDALTAR_ADMIN_TOKEN`, `OILANDALTAR_DB`,
+`OILANDALTAR_MEDIA_DIR`, `OILANDALTAR_CANONICAL_HOST`. See `.env.example`;
+never commit real values. Its SQLite database and uploads are gitignored.
