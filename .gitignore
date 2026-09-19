@@ -24,3 +24,6 @@ photosandvideos/
 # os / editor
 .DS_Store
 .idea/
+
+# claude code — personal settings, not for the public repo
+.claude/settings.local.json
