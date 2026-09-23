@@ -442,7 +442,7 @@
     view.appendChild(intro);
   }
 
-  function addPiece(host, plate, kind, caption, layout) {
+  function addPiece(host, plate, kind, caption, layout, zoom) {
     var fig = document.createElement("figure");
     fig.className = "piece";
     fig.appendChild(mediaFor(plate, kind, layout));
@@ -451,12 +451,39 @@
       cap.textContent = plate.title;
       fig.appendChild(cap);
     }
+    // Mosaic frames open full-size on click; the title rides with the enlarged
+    // image rather than under every tile, which is what keeps the grid dense.
+    if (zoom) {
+      fig.classList.add("zoomable");
+      fig.tabIndex = 0;
+      fig.setAttribute("role", "button");
+      fig.setAttribute("aria-label", "Enlarge " + plate.title);
+      fig.addEventListener("click", function () { openLightbox(zoom.plates, zoom.index); });
+      fig.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openLightbox(zoom.plates, zoom.index);
+        }
+      });
+    }
     host.appendChild(fig);
   }
 
+  function seriesFor(slug) {
+    for (var i = 0; i < SERIES.length; i++) if (SERIES[i].slug === slug) return SERIES[i];
+    return null;
+  }
+
+  /* Grid pages: the work runs edge to edge and the nav retires on scroll.
+   * Ephemera isn't a series, so it's named directly. */
+  function isMosaicRoute(route) {
+    if (route === "bible-belt/ephemera") return true;
+    var s = seriesFor(route);
+    return !!s && s.layout === "mosaic";
+  }
+
   function renderProject(slug) {
-    var s = null;
-    for (var i = 0; i < SERIES.length; i++) if (SERIES[i].slug === slug) s = SERIES[i];
+    var s = seriesFor(slug);
     if (!s) return renderLanding();
 
     view.innerHTML = "";
@@ -467,6 +494,20 @@
     if (s.layout === "sessions") return renderSessions(s);
 
     var host = view;
+
+    if (s.layout === "mosaic") {
+      // Three tight columns of mixed frames — far less scrolling than the
+      // two-column masonry, and titles move to the enlarged view on click.
+      host = document.createElement("div");
+      host.className = "mosaic";
+      view.appendChild(host);
+      s.plates.forEach(function (p, i) {
+        addPiece(host, p, s.kind, false, "grid", { plates: s.plates, index: i });
+      });
+      armReveal(host);
+      return;
+    }
+
     if (s.layout === "grid") {
       // Masonry columns pack mixed portrait/landscape frames without gaps.
       host = document.createElement("div");
@@ -577,10 +618,15 @@
       view.appendChild(note);
       return;
     }
+    // Same mosaic as Bible Belt itself — Ephemera is part of that project, so
+    // it reads the same way: a dense wall, titles in the enlarged view.
     var host = document.createElement("div");
-    host.className = "grid2";
+    host.className = "mosaic";
     view.appendChild(host);
-    plates.forEach(function (p) { addPiece(host, p, "nocturne", true, "grid"); });
+    plates.forEach(function (p, i) {
+      addPiece(host, p, "nocturne", false, "grid", { plates: plates, index: i });
+    });
+    armReveal(host);
   }
 
   /* ---------- about ---------- */
@@ -600,10 +646,8 @@
       '    <div class="about-lede">' +
       '      <h1 class="about-name">Brenden Cavazos <span>| oilandaltar</span></h1>' +
       '      <p>Texas Panhandle native and traveling documentary photographer working in night photography, portraiture, and urban exploration, centered on gothic architecture and the American Bible Belt.</p>' +
+      '      <p>Background in content strategy, analytics, supply chain and merchandising at Fortune 1 scale. Fluent in both the creative and operational sides of building a body of work and getting it seen.</p>' +
       '    </div>' +
-      '  </div>' +
-      '  <div class="bio">' +
-      '    <p>Background in content strategy, analytics, supply chain and merchandising at Fortune 1 scale. Fluent in both the creative and operational sides of building a body of work and getting it seen.</p>' +
       '  </div>' +
       '  <h2 class="about-sub"><span class="kicker-numeral">01</span>What Oil and Altar is</h2>' +
       '  <p class="about-statement">Oil and Altar takes its name from the two things sitting at the center of the work: oil, the grit, grain, and rust of a place left to weather on its own while altar, is the sacred spaces built to hold belief in a region defined by it. The project moves between the two without resolving the tension: churches lit against the dark, roadside signage preaching salvation next to buildings falling into ruin, portraits held in the same exposure stillness as an abandoned house. It’s an ongoing documentary practice, not a single series, a way of looking at the American South that treats decay and devotion as part of the same picture, and leaves the interpretation to whoever’s looking.</p>' +
@@ -612,6 +656,7 @@
       '  <h2 class="about-sub"><span class="kicker-numeral">03</span>Contact</h2>' +
       '  <ul class="about-contact">' +
       '    <li><a href="mailto:Brenden.cavazos@gmail.com">Brenden.cavazos@gmail.com</a></li>' +
+      '    <li><a href="https://www.instagram.com/oilandaltar/" rel="noopener" target="_blank">instagram.com/oilandaltar</a></li>' +
       '  </ul>' +
       '  <form id="inquiry-form" novalidate>' +
       "    <label><span>NAME</span><input name=\"name\" type=\"text\" required maxlength=\"200\" autocomplete=\"name\" /></label>" +
@@ -673,12 +718,22 @@
 
   var bbMenu = document.getElementById("bb-menu");
   var bbToggle = document.getElementById("bb-toggle");
+  var cpMenu = document.getElementById("cp-menu");
+  var cpToggle = document.getElementById("cp-toggle");
+
+  function setOpen(menu, toggle, open) {
+    menu.classList.toggle("open", open);
+    toggle.classList.toggle("open", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  }
 
   bbToggle.addEventListener("click", function () {
-    var open = !bbMenu.classList.contains("open");
-    bbMenu.classList.toggle("open", open);
-    bbToggle.classList.toggle("open", open);
-    bbToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    setOpen(bbMenu, bbToggle, !bbMenu.classList.contains("open"));
+  });
+
+  // Curated Projects reveals Bible Belt and Abandoned America on click.
+  cpToggle.addEventListener("click", function () {
+    setOpen(cpMenu, cpToggle, !cpMenu.classList.contains("open"));
   });
 
   // Corner email icon → About page, landed on the contact form.
@@ -699,9 +754,12 @@
     // View Ephemera is a subcategory of Bible Belt — expand it in-section,
     // collapse it elsewhere (a manual caret open persists until you navigate).
     var inBibleBelt = route === "bible-belt" || route.indexOf("bible-belt/") === 0;
-    bbMenu.classList.toggle("open", inBibleBelt);
-    bbToggle.classList.toggle("open", inBibleBelt);
-    bbToggle.setAttribute("aria-expanded", inBibleBelt ? "true" : "false");
+    setOpen(bbMenu, bbToggle, inBibleBelt);
+
+    // Curated Projects stays open while you're inside one of its projects, so
+    // the page you're on is never hidden behind a collapsed group.
+    var inCurated = inBibleBelt || route === "abandoned-america";
+    if (inCurated) setOpen(cpMenu, cpToggle, true);
   }
 
   function currentRoute() {
@@ -710,9 +768,15 @@
 
   function renderRoute() {
     stopCarousel();
+    closeLightbox();
     var route = currentRoute();
     setNav(route);
     window.scrollTo(0, 0);
+
+    // Grid pages bleed to the edges; every page starts with the nav in view.
+    document.body.classList.toggle("bleed", isMosaicRoute(route));
+    document.body.classList.remove("nav-collapsed", "menu-open");
+    lastY = 0;
 
     if (route === "in-passing") renderInPassing();
     else if (route === "about") renderAbout();
@@ -758,6 +822,302 @@
       img.src = urls[i++];
     }
     idle(next);
+  }
+
+  /* ================================================================
+   * mosaic reveal — frames rise into place as they enter the viewport
+   *
+   * Driven by CSS (animation-timeline: view()) where the browser supports it,
+   * which costs no JavaScript at all. That has one real failure mode: .mosaic
+   * is a multi-column container, so every tile is a FRAGMENTED box, and
+   * fragmented boxes are poorly handled by view-based features — in testing
+   * the second and third columns never advanced and sat invisible forever.
+   *
+   * So the CSS path is watched. A tile sitting well inside the viewport that
+   * is still transparent half a second later proves the timeline isn't
+   * driving it, and the whole page switches to the observer path. A final
+   * sweep forces anything still hidden: a blank grid is never acceptable.
+   * ================================================================ */
+
+  var revealSupported = window.CSS && CSS.supports && CSS.supports("animation-timeline: view()");
+  var revealWatchdog = null;
+
+  function armReveal(host) {
+    var tiles = Array.prototype.slice.call(host.children);
+    if (!tiles.length) return;
+
+    // First screenful loads eagerly — lazy-loading a frame that is already on
+    // screen is what makes a grid look empty on arrival.
+    tiles.slice(0, 9).forEach(function (fig) {
+      var img = fig.querySelector("img");
+      if (!img) return;
+      img.loading = "eager";
+      img.setAttribute("fetchpriority", "high");
+    });
+
+    document.documentElement.classList.remove("js-reveal");
+    if (revealWatchdog) { revealWatchdog.disconnect(); revealWatchdog = null; }
+
+    if (reduceMotion || !revealSupported) { jsReveal(tiles); return; }
+
+    revealWatchdog = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        setTimeout(function () {
+          if (document.documentElement.classList.contains("js-reveal")) return;
+          var r = el.getBoundingClientRect();
+          var onScreen = r.top < window.innerHeight * 0.85 && r.bottom > 0;
+          if (onScreen && parseFloat(getComputedStyle(el).opacity) < 0.05) jsReveal(tiles);
+        }, 500);
+      });
+    }, { threshold: 0.5 });
+    tiles.forEach(function (f) { revealWatchdog.observe(f); });
+
+    // last resort: nothing stays invisible
+    setTimeout(function () {
+      tiles.forEach(function (f) {
+        var r = f.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0 &&
+            parseFloat(getComputedStyle(f).opacity) < 0.05) f.classList.add("shown");
+      });
+    }, 1500);
+  }
+
+  function jsReveal(tiles) {
+    document.documentElement.classList.add("js-reveal");
+    if (revealWatchdog) { revealWatchdog.disconnect(); revealWatchdog = null; }
+    if (reduceMotion) {
+      tiles.forEach(function (f) { f.classList.add("shown"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add("shown");
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: "200px 0px", threshold: 0 });
+    tiles.forEach(function (f) { io.observe(f); });
+  }
+
+  /* ================================================================
+   * collapsing identity block on the grid pages
+   * ================================================================ */
+
+  var navToggle = document.getElementById("nav-toggle");
+  var lastY = 0;
+  var ticking = false;
+  /* Past the statement, so the nav only retires once you're into the work. */
+  var COLLAPSE_AFTER = 220;
+
+  function setCollapsed(on) {
+    if (on === document.body.classList.contains("nav-collapsed")) return;
+    document.body.classList.toggle("nav-collapsed", on);
+    if (on) {
+      document.body.classList.remove("menu-open");
+      navToggle.setAttribute("aria-expanded", "false");
+    }
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      ticking = false;
+      var y = window.pageYOffset || document.documentElement.scrollTop;
+      if (!document.body.classList.contains("bleed")) { lastY = y; return; }
+      // Down past the statement hides it; any upward move brings it back.
+      if (y > COLLAPSE_AFTER && y > lastY + 4) setCollapsed(true);
+      else if (y < lastY - 4 || y <= COLLAPSE_AFTER) setCollapsed(false);
+      lastY = y;
+    });
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  navToggle.addEventListener("click", function () {
+    var open = !document.body.classList.contains("menu-open");
+    document.body.classList.toggle("menu-open", open);
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  /* ================================================================
+   * lightbox — click a mosaic frame to see it full-size with its title
+   * ================================================================ */
+
+  var lb = null;          // the overlay element, built once and reused
+  var lbPlates = [];
+  var lbIndex = 0;
+  var lbReturnTo = null;  // element that opened it, refocused on close
+  var lbPending = null;   // pending decode-then-swap
+  var lbToken = 0;        // invalidates a swap superseded by a later press
+  var SWIPE_MIN = 48;     // px of travel before a drag counts as a swipe
+
+  function buildLightbox() {
+    lb = document.createElement("div");
+    lb.className = "lightbox";
+    lb.setAttribute("role", "dialog");
+    lb.setAttribute("aria-modal", "true");
+    lb.hidden = true;
+    lb.innerHTML =
+      '<button type="button" class="lb-close" aria-label="Close">&#215;</button>' +
+      '<div class="lb-stage"><img class="lb-img" alt=""></div>' +
+      '<div class="lb-meta">' +
+        '<button type="button" class="lb-nav lb-prev" aria-label="Previous photo">&#8249;</button>' +
+        '<div class="lb-meta-text">' +
+          '<p class="lb-title"></p>' +
+          '<p class="lb-count"></p>' +
+        '</div>' +
+        '<button type="button" class="lb-nav lb-next" aria-label="Next photo">&#8250;</button>' +
+      '</div>' +
+      // Shown once per visitor, on touch devices only — see maybeShowHint().
+      '<div class="lb-hint" hidden>' +
+        '<svg class="lb-hand" viewBox="0 0 92 56" aria-hidden="true">' +
+          '<g class="glyph" fill="none" stroke="currentColor" stroke-width="2.2" ' +
+              'stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M14 28h-7m3-4-4 4 4 4"/>' +
+            '<path d="M78 28h7m-3-4 4 4-4 4"/>' +
+            '<path d="M46 44V26m0 0v-9a3 3 0 0 1 6 0v9m0 0v-5a3 3 0 0 1 6 0v5m0 0v-3a3 3 0 0 1 6 0v12' +
+              'a12 12 0 0 1-12 12h-4a10 10 0 0 1-8-4l-6-8a3.2 3.2 0 0 1 5-4l3 3"/>' +
+          '</g>' +
+        '</svg>' +
+        '<p class="lb-hint-say">Swipe to browse</p>' +
+        '<p class="lb-hint-sub">Tap anywhere to dismiss</p>' +
+      '</div>';
+
+    lb.querySelector(".lb-close").addEventListener("click", closeLightbox);
+    lb.querySelector(".lb-prev").addEventListener("click", function (e) { e.stopPropagation(); stepLightbox(-1); });
+    lb.querySelector(".lb-next").addEventListener("click", function (e) { e.stopPropagation(); stepLightbox(1); });
+    // Clicking the backdrop closes; clicking the photo itself does not.
+    lb.addEventListener("click", function (e) { if (e.target === lb) closeLightbox(); });
+
+    var hint = lb.querySelector(".lb-hint");
+    hint.addEventListener("click", function (e) { e.stopPropagation(); dismissHint(); });
+    hint.addEventListener("touchstart", dismissHint, { passive: true });
+
+    /* Swipe, where there is a finger to swipe with. A gesture counts only if it
+     * travels far enough horizontally AND is more horizontal than vertical, so
+     * scrolling never reads as a swipe. Left goes forward, as in every photo app. */
+    var sx = 0, sy = 0, tracking = false;
+    lb.addEventListener("touchstart", function (e) {
+      if (e.touches.length !== 1) { tracking = false; return; }
+      sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+    }, { passive: true });
+    lb.addEventListener("touchend", function (e) {
+      if (!tracking) return;
+      tracking = false;
+      var t = e.changedTouches[0];
+      var dx = t.clientX - sx, dy = t.clientY - sy;
+      if (Math.abs(dx) < SWIPE_MIN || Math.abs(dx) < Math.abs(dy)) return;
+      dismissHint();
+      stepLightbox(dx < 0 ? 1 : -1);
+    }, { passive: true });
+
+    document.body.appendChild(lb);
+  }
+
+  /* ---- one-time swipe hint -------------------------------------------
+   * Appears the first time a visitor opens a photo on a touch device, then
+   * never again — remembered in localStorage, so it returns if they clear
+   * site data. Pointer users never see it: they have arrows and arrow keys. */
+  var HINT_KEY = "oa-swipe-hint-seen";
+  var hintTimer = null;
+
+  function canSwipe() {
+    return window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  }
+  function hintSeen() {
+    try { return localStorage.getItem(HINT_KEY) === "1"; } catch (e) { return false; }
+  }
+  function maybeShowHint() {
+    if (!lb || !canSwipe() || hintSeen() || lbPlates.length < 2) return;
+    var hint = lb.querySelector(".lb-hint");
+    hint.hidden = false;
+    requestAnimationFrame(function () { hint.classList.add("show"); });
+    hintTimer = setTimeout(dismissHint, 3800);
+  }
+  function dismissHint() {
+    if (!lb) return;
+    var hint = lb.querySelector(".lb-hint");
+    if (hint.hidden) return;
+    clearTimeout(hintTimer);
+    try { localStorage.setItem(HINT_KEY, "1"); } catch (e) {}
+    hint.classList.remove("show");
+    var done = function () { hint.hidden = true; };
+    reduceMotion ? done() : setTimeout(done, 300);
+  }
+
+  function showLightboxPlate() {
+    var p = lbPlates[lbIndex];
+    var img = lb.querySelector(".lb-img");
+    img.src = p.image_url;
+    img.alt = p.title;
+    lb.querySelector(".lb-title").textContent = p.title;
+    lb.querySelector(".lb-count").textContent = (lbIndex + 1) + " / " + lbPlates.length;
+    var many = lbPlates.length > 1;
+    lb.querySelector(".lb-prev").hidden = !many;
+    lb.querySelector(".lb-next").hidden = !many;
+  }
+
+  function openLightbox(plates, index) {
+    if (!lb) buildLightbox();
+    lbPlates = plates;
+    lbIndex = index;
+    lbReturnTo = document.activeElement;
+    showLightboxPlate();
+    lb.hidden = false;
+    document.body.classList.add("lb-open");   // freeze the page behind it
+    lb.querySelector(".lb-close").focus();
+    document.addEventListener("keydown", lightboxKeys);
+    maybeShowHint();
+  }
+
+  function closeLightbox() {
+    if (!lb || lb.hidden) return;
+    dismissHint();
+    clearTimeout(lbPending);
+    lbPending = null;
+    lbToken++;
+    lb.classList.remove("stepping");
+    lb.hidden = true;
+    lb.querySelector(".lb-img").src = "";
+    document.body.classList.remove("lb-open");
+    document.removeEventListener("keydown", lightboxKeys);
+    if (lbReturnTo && lbReturnTo.focus) lbReturnTo.focus();
+  }
+
+  /* Decode the next photo off-screen before swapping it in, so a
+   * half-painted frame can never appear over the one it replaces. A second
+   * press supersedes the first rather than stacking on it, and a timeout
+   * guarantees a slow file never leaves the view empty. */
+  function stepLightbox(delta) {
+    if (!lbPlates.length) return;
+    var next = (lbIndex + delta + lbPlates.length) % lbPlates.length;
+    lbIndex = next;
+
+    if (reduceMotion) { showLightboxPlate(); return; }
+
+    var mine = ++lbToken;
+    clearTimeout(lbPending);
+    lb.classList.add("stepping");
+
+    var pre = new Image();
+    pre.src = lbPlates[next].image_url;
+    var show = function () {
+      if (mine !== lbToken) return;
+      showLightboxPlate();
+      lb.classList.remove("stepping");
+    };
+    if (pre.decode) pre.decode().then(show).catch(show);
+    else pre.onload = pre.onerror = show;
+    lbPending = setTimeout(show, 700);
+  }
+
+  function lightboxKeys(e) {
+    if (e.key === "Escape") closeLightbox();
+    else if (e.key === "ArrowLeft") stepLightbox(-1);
+    else if (e.key === "ArrowRight") stepLightbox(1);
   }
 
   /* ================================================================

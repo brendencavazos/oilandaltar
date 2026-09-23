@@ -15,7 +15,12 @@
   --accent: #c89b5c;     /* amber/gold, sampled from the tungsten range in the work */
   --alert: #c0392b;      /* muted red, error states only */
   --paper: #ffffff;
-  --col: 41%;            /* where the content column starts */
+  /* Where the content column starts. The identity block only needs its own
+   * width, so this clears the nav and stops — the rest of the page belongs to
+   * the work. Same on every tab, so sections don't shift as you move between
+   * them. */
+  --col: max(330px, 24%);
+  --topbar-h: 112px;     /* height of the top scrim; content clears its solid part */
   --edge: 20px;
   --prose: 15px;
   --caption: 19px;       /* photo/video titles (Bodoni Moda italic) */
@@ -41,6 +46,100 @@ a { color: inherit; text-decoration: none; }
 
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
+/* ======================= top scrim ======================= */
+
+/* A fixed bar across the top of the viewport: the page's own paper tone at
+ * full strength along the very top edge, fading to nothing by its lower edge,
+ * with the blur fading out on the same curve (the mask applies to the
+ * backdrop-filter as well as the background). Work scrolling up softens and
+ * lightens as it passes under, then emerges cleanly below.
+ *
+ * White, not black: this page is white, and the wordmark and nav sitting over
+ * it are near-black. A dark scrim would bury them.
+ *
+ * pointer-events: none is what keeps it honest — the bar covers the full width
+ * of the page but never takes a click. The identity block is a separate
+ * element on top of it (z-index 10 vs 5), so the wordmark and nav stay live. */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--topbar-h);
+  z-index: 5;
+  pointer-events: none;
+  /* The band is the blur itself, not a panel laid over the page: a heavy
+   * backdrop blur carries the photograph's own colour up through the header,
+   * with only a breath of paper tone over it so the wordmark stays legible
+   * against a dark frame. Over the white page it resolves to nothing, so the
+   * bar is invisible until work scrolls under it. */
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(26px) saturate(1.06);
+  -webkit-backdrop-filter: blur(26px) saturate(1.06);
+  /* holds full strength most of the way down, then releases over the last
+   * fifth so the blur doesn't end on a ruled line */
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 80%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 80%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* ============ full-bleed grid + collapsing identity block ============
+
+   On the grid pages the statement keeps the editorial column — type needs a
+   margin — and the work then runs the full width of the viewport.
+
+   Scrolling DOWN past the statement retires the nav so nothing overlaps the
+   photographs. Scrolling UP brings it straight back: leaving a page is the one
+   moment you want navigation, and it arrives on a gesture you were making
+   anyway. The wordmark never leaves, so you always know whose site this is,
+   and a Menu button covers the case where someone wants the nav without
+   scrolling for it. */
+
+body.bleed .mosaic {
+  /* pull out of main's column and gutter to reach both edges of the window */
+  margin-left: calc(-1 * var(--col));
+  margin-right: calc(-1 * var(--edge));
+  column-gap: 4px;
+}
+body.bleed .mosaic .piece { margin-bottom: 4px; }
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin-top: 12px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--eyebrow-ink);
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+.nav-toggle:hover { color: var(--accent); }
+body.nav-collapsed .nav-toggle { display: block; }
+
+body.nav-collapsed #nav,
+body.nav-collapsed .social {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+}
+#nav,
+.social {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+/* Menu overrides the collapse until the next scroll down */
+body.nav-collapsed.menu-open #nav,
+body.nav-collapsed.menu-open .social {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
 /* ======================= corner block ======================= */
 
 .corner {
@@ -48,7 +147,9 @@ a { color: inherit; text-decoration: none; }
   top: var(--edge);
   left: var(--edge);
   z-index: 10;
-  max-width: 34%;
+  /* never wider than the column it owns, so the identity block and the work
+   * can't collide however the window is sized */
+  max-width: calc(var(--col) - 28px);
 }
 
 .wordmark {
@@ -79,6 +180,40 @@ a { color: inherit; text-decoration: none; }
 .corner nav a:hover,
 .nav-parent:hover { color: var(--accent); }
 .corner nav a.active { color: var(--accent); }
+
+/* "Curated Projects" — a disclosure, not a link: click it to reveal the two
+ * projects under it. Set small and spaced in the same voice as the series
+ * eyebrow so it groups them without competing with the nav links. */
+.nav-group {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--eyebrow-ink);
+  cursor: pointer;
+  margin: 6px 0 4px;
+  transition: color 0.15s ease;
+}
+.nav-group:hover { color: var(--accent); }
+.nav-group .caret { font-size: 11px; }
+.nav-group.open .caret { transform: rotate(180deg); }
+
+/* Nested items are indented and nothing more — no rule down the side, which
+ * read as a stray mark poking out of the nav rather than as grouping. */
+.nav-nested {
+  overflow: hidden;
+  max-height: 0;
+  padding-left: 12px;
+  transition: max-height 0.3s ease;
+}
+.nav-nested.open { max-height: 420px; }
 
 .caret {
   display: inline-block;
@@ -128,7 +263,9 @@ a { color: inherit; text-decoration: none; }
 
 main {
   margin-left: var(--col);
-  padding: var(--edge) var(--edge) 120px 0;
+  /* top padding clears the scrim's solid portion, so the eyebrow and the first
+   * frame land in the clear rather than under it on load */
+  padding: var(--topbar-h) var(--edge) 120px 0;
   min-height: 100vh;
 }
 
@@ -173,17 +310,20 @@ main {
 
 /* project excerpt / description at the top of a series
  * (no top rule — the eyebrow above carries the hairline) */
+/* The statement runs the full width of the work below it — each paragraph a
+ * single block, read straight down in the usual order. Long lines get extra
+ * leading and a wider gap between paragraphs so the eye finds the next line
+ * and the next block without losing its place. */
 .project-intro {
-  max-width: 560px;
   margin-bottom: 64px;
 }
 .project-intro p {
   font-size: var(--prose);
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.8;
   color: var(--ink-soft);
 }
-.project-intro p + p { margin-top: 14px; }
+.project-intro p + p { margin-top: 22px; }
 
 /* portrait session headers — large captions, same serif voice as figcaptions */
 .session-head {
@@ -236,7 +376,7 @@ main {
 }
 .grid2 .piece { margin-bottom: 0; }
 
-/* masonry columns (Wanderings) — packs mixed frames without ragged rows */
+/* masonry columns — packs mixed frames without ragged rows */
 .masonry {
   columns: 2;
   column-gap: 18px;
@@ -244,6 +384,180 @@ main {
 .masonry .piece {
   break-inside: avoid;
   margin-bottom: 36px;
+}
+
+/* mosaic (Wanderings) — three tight columns. Titles live in the enlarged
+ * view instead of under every tile, so the wall reads as one field of work
+ * and the page stops being a long scroll. */
+.mosaic {
+  columns: 3;
+  column-gap: 6px;
+}
+.mosaic .piece {
+  break-inside: avoid;
+  margin-bottom: 6px;
+}
+.mosaic .piece.zoomable { cursor: zoom-in; }
+
+/* Frames rise into place as they enter the viewport. Driven by CSS where the
+ * browser can; app.js watches it and adds .js-reveal if the timeline isn't
+ * actually running (see the note there about fragmented boxes). */
+@keyframes piece-reveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+@supports (animation-timeline: view()) {
+  html:not(.js-reveal) .mosaic .piece {
+    animation: piece-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
+  }
+}
+html.js-reveal .mosaic .piece {
+  animation: none !important;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.52s ease, transform 0.52s cubic-bezier(.22,.61,.36,1);
+}
+html.js-reveal .mosaic .piece.shown { opacity: 1; transform: none; }
+/* backstop: nothing stays invisible */
+.mosaic .piece.shown { animation: none !important; opacity: 1 !important; transform: none !important; }
+
+/* Hover pushes the frame in slightly — the signal that it opens. */
+.mosaic .piece { overflow: hidden; }
+.mosaic .piece.zoomable img {
+  transition: opacity 0.4s ease, transform 0.34s cubic-bezier(.22,.61,.36,1), filter 0.25s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .mosaic .piece.zoomable:hover img { transform: scale(1.04); filter: brightness(1.06); }
+}
+@media (hover: none) {
+  .mosaic .piece.zoomable:active img { transform: scale(1.03); filter: brightness(1.05); }
+}
+.mosaic .piece.zoomable:focus-visible img { transform: scale(1.04); filter: brightness(1.06); }
+
+/* ---------- enlarged view (lightbox) ---------- */
+
+body.lb-open { overflow: hidden; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.98);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 72px 32px;
+}
+.lightbox[hidden] { display: none; }
+
+/* The photo sits in a stage of its own so stepping between a portrait and a
+ * landscape frame never reflows the caption or shifts the arrows. */
+.lb-stage {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lb-img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: opacity 0.16s ease;
+}
+.lightbox.stepping .lb-img { opacity: 0; }
+
+.lb-meta {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+.lb-meta-text { text-align: center; min-width: 0; }
+.lb-title {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: var(--caption);
+  font-weight: 600;
+  color: var(--caption-ink);
+}
+.lb-count {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute);
+  margin-top: 6px;
+}
+
+.lb-close,
+.lb-nav {
+  background: none;
+  border: 0;
+  color: var(--ink);
+  cursor: pointer;
+  font-family: inherit;
+  line-height: 1;
+  padding: 10px;
+  transition: color 0.15s ease;
+}
+.lb-close:hover,
+.lb-nav:hover { color: var(--accent); }
+
+.lb-close { position: absolute; top: 14px; right: 20px; font-size: 34px; }
+
+/* Desktop: arrows float either side of the photograph. */
+.lb-nav { position: absolute; top: 50%; transform: translateY(-50%); font-size: 46px; }
+.lb-prev { left: 12px; }
+.lb-next { right: 12px; }
+.lb-nav[hidden] { display: none; }
+
+/* ---- the one-time swipe hint (touch only) ---- */
+.lb-hint {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  color: var(--ink);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.lb-hint[hidden] { display: none; }
+.lb-hint.show { opacity: 1; }
+.lb-hand { width: 92px; height: 56px; }
+.lb-hand .glyph { animation: hand-swipe 2.1s ease-in-out infinite; }
+@keyframes hand-swipe {
+  0%, 100% { transform: translateX(-16px); opacity: 0.45; }
+  50%      { transform: translateX(16px);  opacity: 1; }
+}
+.lb-hint-say {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--caption-ink);
+}
+.lb-hint-sub {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
 }
 
 /* ---------- in passing (video) ---------- */
@@ -276,9 +590,10 @@ main {
 
 .about { max-width: 780px; }
 
-/* portrait + name/lede share a row on desktop (name top-aligned with the
- * frame, first bio graf under it); the rest of the bio flows below the
- * photo at full column width. Portrait stacks on top on mobile.
+/* portrait + name/bio share a row on desktop: the name sits top-aligned with
+ * the frame and both bio paragraphs run beside the photo, so the numbered
+ * sections start cleanly below it instead of after a stranded paragraph.
+ * Portrait stacks on top on mobile.
  * The photo is treated exactly like a gallery frame: full-bleed rectangle,
  * b&w, no radius/shadow — only a hairline to lift it off the white page. */
 .about-head {
@@ -307,6 +622,7 @@ main {
   line-height: 1.65;
   color: var(--ink-soft);
 }
+.about-lede p + p { margin-top: 14px; }
 
 .about-name {
   font-size: 26px;
@@ -316,14 +632,12 @@ main {
 }
 .about-name span { color: var(--mute); font-weight: 400; }
 
-.about .bio p,
 .about-statement {
   font-size: var(--prose);
   font-weight: 400;
   line-height: 1.65;
   color: var(--ink-soft);
 }
-.about .bio p + p { margin-top: 14px; }
 
 /* about-page eyebrows — same treatment as .kicker (amber numeral, rule below) */
 .about-sub {
@@ -413,6 +727,17 @@ main {
     max-width: none;
     padding: var(--edge) var(--edge) 0;
   }
+  /* the identity block scrolls with the page here, so the scrim is shorter —
+   * just enough to soften what passes under it without covering a whole
+   * phone-sized frame */
+  :root { --topbar-h: 68px; }
+  .corner { padding-top: 28px; }
+  /* the identity block scrolls with the page on phones, so it never overlaps
+   * the work — no need to retire it, and the grid is already edge to edge */
+  body.nav-collapsed #nav,
+  body.nav-collapsed .social { opacity: 1; visibility: visible; transform: none; }
+  body.nav-collapsed .nav-toggle { display: none; }
+  body.bleed .mosaic { margin-left: calc(-1 * var(--edge)); }
   main {
     margin-left: 0;
     padding: 28px var(--edge) 80px;
@@ -427,6 +752,32 @@ main {
   .masonry { columns: 1; }
   .masonry .piece { margin-bottom: 56px; }
   .session-head { margin-top: 48px; }
+
+  /* the nav sits above the content here, so the measure is already narrow */
+  .project-intro p { line-height: 1.65; }
+  .project-intro p + p { margin-top: 14px; }
+  .mosaic { columns: 2; }
+  .mosaic .piece { margin-bottom: 6px; }
+  /* Phone: the arrows leave the photograph and sit on the caption line, level
+   * with the title, one at each end. Over the image they competed with whatever
+   * was behind them — a dark frame swallowed them entirely. On the white
+   * caption row they are always legible, and they never cover the work. */
+  .lightbox { padding: 56px 14px 22px; }
+  .lb-meta { justify-content: space-between; gap: 10px; }
+  .lb-nav {
+    position: static;
+    transform: none;
+    font-size: 30px;
+    padding: 12px 14px;        /* ~48px target: thumb-sized */
+    flex: 0 0 auto;
+  }
+  .lb-meta-text { flex: 1 1 auto; }
+  .lb-title { font-size: 17px; }
+}
+
+/* between the phone and the full desktop the third column gets too narrow */
+@media (max-width: 1200px) and (min-width: 901px) {
+  .mosaic { columns: 2; }
 }
 
 @media (max-width: 600px) {
@@ -442,5 +793,19 @@ main {
   html { scroll-behavior: auto; }
   .slide { transition: none; }
   .submenu { transition: none; }
+  .nav-nested { transition: none; }
+  .caret { transition: none; }
+  /* the nav still retires on scroll — it just does it without sliding */
+  #nav, .social,
+  body.nav-collapsed #nav, body.nav-collapsed .social {
+    transition: none;
+    transform: none;
+  }
   .piece img.shot { transition: none; }
+  .mosaic .piece.zoomable img { transition: none; }
+  /* the reveal stops moving; the frames are simply present */
+  .mosaic .piece { animation: none !important; opacity: 1; transform: none; transition: none; }
+  .lb-img { transition: none; }
+  .lb-hint { transition: none; }
+  .lb-hand .glyph { animation: none; transform: none; opacity: 1; }
 }

@@ -6,7 +6,7 @@ window.GALLERY = {
       "numeral": "I",
       "title": "Bible Belt",
       "kind": "nocturne",
-      "layout": "scroll",
+      "layout": "mosaic",
       "excerpt": [
         "The Bible Belt gets its name for a reason: a church on nearly every corner, in a region where the culture built around them is visibly aging out. This project sits in the gap between traditionalism and modernism: the way a generation raised inside a specific era of Southern Baptist or Catholic practice finds comfort and identity in these buildings, and the way a Millennial or Gen Z viewer, raised in the same towns, often doesn't.",
         "That gap shows up in strange, specific ways. Small prairie towns with more than forty churches and barely twenty people aren't, as you'd assume, evidence of a community united by shared faith. They're the opposite. Even within the same race, ethnicity, and religious background, people have splintered into smaller factions, unable to agree closely enough on theology to worship under one roof.",
@@ -425,7 +425,7 @@ window.GALLERY = {
       "numeral": "II",
       "title": "Abandoned America",
       "kind": "votive",
-      "layout": "scroll",
+      "layout": "mosaic",
       "excerpt": [
         "Abandoned America documents what's left after the people have gone: farmhouses, water towers, and small-town landmarks weathering and falling in on themselves across the high plains of Texas, Oklahoma, and Kansas, and the forested hills of the Ozarks in Arkansas and Missouri. These were homes. These were the places everyone in town used to pass through. The project sits with one unanswerable question: how does a place get like this, and what does it mean that the people who left assumed, wrongly, it would stay the same without them."
       ],
@@ -1214,7 +1214,7 @@ window.GALLERY = {
       "numeral": "IV",
       "title": "Wanderings",
       "kind": "mixed",
-      "layout": "grid",
+      "layout": "mosaic",
       "excerpt": [
         "Wanderings holds the ordinary, unplanned frames from daily life noticed in passing, not staged, not repeated."
       ],

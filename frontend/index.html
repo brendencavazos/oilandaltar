@@ -18,26 +18,42 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- Fixed scrim across the top: the page tone fading to nothing, so work
+       scrolling up softens into the header instead of hitting a hard edge.
+       Purely decorative — it never takes a click (see .topbar in styles.css). -->
+  <div class="topbar" aria-hidden="true"></div>
+
   <!-- fixed corner block: wordmark + nav + socials (the site's identity) -->
   <aside class="corner">
     <a class="wordmark" href="#/">oilandaltar</a>
+    <!-- Only appears once the nav has collapsed on scroll, so navigation is
+         always one click away rather than only one gesture away. -->
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav id="nav">
-      <span class="nav-row">
-        <a href="#/bible-belt" data-route="bible-belt">Bible Belt</a>
-        <button type="button" class="subcaret" id="bb-toggle" aria-expanded="false" aria-label="Show View Ephemera"><span class="caret">&#9662;</span></button>
-      </span>
-      <div class="submenu" id="bb-menu">
-        <a href="#/bible-belt/ephemera" data-route="bible-belt/ephemera">View Ephemera</a>
+      <button type="button" class="nav-group" id="cp-toggle" aria-expanded="false" aria-controls="cp-menu">
+        Curated Projects<span class="caret">&#9662;</span>
+      </button>
+      <div class="nav-nested" id="cp-menu">
+        <span class="nav-row">
+          <a href="#/bible-belt" data-route="bible-belt">Bible Belt</a>
+          <button type="button" class="subcaret" id="bb-toggle" aria-expanded="false" aria-label="Show View Ephemera"><span class="caret">&#9662;</span></button>
+        </span>
+        <div class="submenu" id="bb-menu">
+          <a href="#/bible-belt/ephemera" data-route="bible-belt/ephemera">View Ephemera</a>
+        </div>
+        <a href="#/abandoned-america" data-route="abandoned-america">Abandoned America</a>
       </div>
-      <a href="#/abandoned-america" data-route="abandoned-america">Abandoned America</a>
       <a href="#/portraits" data-route="portraits">Portraits</a>
       <a href="#/wanderings" data-route="wanderings">Wanderings</a>
       <a href="#/in-passing" data-route="in-passing">In Passing</a>
       <a href="#/about" data-route="about">About</a>
     </nav>
     <div class="social">
-      <a href="#/about" data-contact aria-label="Contact">
+      <a href="#/about" data-contact aria-label="Contact" title="Contact">
         <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="2" y="4.5" width="20" height="15" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 6l9 7 9-7" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      </a>
+      <a href="https://www.instagram.com/oilandaltar/" rel="noopener" target="_blank" aria-label="Instagram — instagram.com/oilandaltar" title="instagram.com/oilandaltar">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.4" fill="currentColor"/></svg>
       </a>
     </div>
   </aside>
