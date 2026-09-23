@@ -43,7 +43,24 @@ A blank grid is never acceptable, so it cannot happen.
 
 Navigation groups the two documentary projects under a collapsible **Curated
 Projects** heading, and the whole identity block retires as you scroll down and
-returns as you scroll up, with a Menu button while it is away.
+returns as you scroll up, with a Menu button while it is away. The contact icons
+sit on the nav's own rhythm, as its last item rather than a detached block.
+
+A fixed scrim across the top of the viewport softens work as it scrolls under:
+a heavy backdrop blur masked so the blur and the paper tone fade out together,
+rather than ending on a ruled line. It takes no clicks — only the identity block
+above it does — and it is off on the landing page, which is a single centred
+photograph with nothing scrolling beneath it.
+
+Two things in here are easy to break by tidying, so they are worth naming:
+
+- **`.lightbox` must keep `flex-direction: column`.** It holds two children —
+  the photo stage and the caption row. In the default row direction they compete
+  for width, the photograph collapses, and you get a caption between two arrows
+  on an empty field.
+- **The enlarged photo is sized against the viewport, not its parent.**
+  `max-height: 100%` inside a flex item whose own height is `auto` resolves to
+  nothing on mobile Safari and collapses the image to zero height.
 
 ## Structure
 

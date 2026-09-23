@@ -267,7 +267,11 @@ body.nav-collapsed.menu-open .social {
 .social {
   display: flex;
   gap: 2.2rem;
-  margin-top: 30px;
+  /* Sits on the nav's own rhythm rather than floating well below it. The nav
+   * links space themselves by leading alone — (1.32 - 1) x 27px, about 9px —
+   * so 12px keeps the icons reading as the last item in that list instead of
+   * a detached block, and hands the gap back to the work below. */
+  margin-top: 12px;
   align-items: center;
 }
 .social a { color: var(--ink); transition: color 0.15s ease; }
