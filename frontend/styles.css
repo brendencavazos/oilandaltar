@@ -69,6 +69,12 @@ a { color: inherit; text-decoration: none; }
    sits over the wordmark, so it is off. */
 body.home .topbar { display: none; }
 
+/* The landing page is one photograph. Without this it inherited the top
+ * padding meant to clear the scrim (which is off here) plus the 120px tail
+ * every scrolling page carries, so the carousel sat in a column of empty
+ * white and the page scrolled past the bottom of the image for no reason. */
+body.home main { padding: var(--edge) var(--edge) var(--edge) 0; }
+
 .topbar {
   position: fixed;
   top: 0;
@@ -457,8 +463,13 @@ body.lb-open { overflow: hidden; }
    * photographs stacked behind the one you opened. */
   background: var(--paper);
   display: flex;
+  /* COLUMN, not the default row. The photo stage and the caption row are two
+   * children: laid out in a row they compete for width and the photograph gets
+   * shrunk to nothing, leaving only the caption and the arrows. */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 14px;
   padding: 40px 72px 32px;
 }
 .lightbox[hidden] { display: none; }
@@ -469,6 +480,7 @@ body.lb-open { overflow: hidden; }
   flex: 1 1 auto;
   width: 100%;
   min-height: 0;
+  overflow: hidden;      /* a tall frame can never shove the caption off screen */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -767,8 +779,13 @@ body.lb-open { overflow: hidden; }
   main {
     margin-left: 0;
     padding: 28px var(--edge) 80px;
+    /* the identity block sits ABOVE the content here, so a 100vh floor on the
+     * content added a screen of emptiness below every short page */
+    min-height: 0;
   }
-  .carousel { height: 62vh; }
+  body.home main { padding: 8px var(--edge) 24px; }
+  .carousel { height: 68vh; }
+  .slide { max-height: 96%; }   /* the frame fills the space it is given */
   .wordmark { font-size: 33px; }
   .corner nav a, .nav-parent { font-size: 22px; }
   .submenu a { font-size: 18px; }
@@ -835,4 +852,12 @@ body.lb-open { overflow: hidden; }
   .lb-img { transition: none; }
   .lb-hint { transition: none; }
   .lb-hand .glyph { animation: none; transform: none; opacity: 1; }
+}
+
+/* Mobile browsers change viewport height as their chrome slides away; dvh
+ * tracks that, vh does not. Declared last so it wins where supported. */
+@supports (height: 100dvh) {
+  @media (max-width: 900px) {
+    .lb-img { max-height: calc(100dvh - 170px); }
+  }
 }
