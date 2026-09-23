@@ -781,6 +781,8 @@
 
     // Grid pages bleed to the edges; every page starts with the nav in view.
     document.body.classList.toggle("bleed", isMosaicRoute(route));
+    // The landing carousel gets no top scrim — nothing scrolls under it there.
+    document.body.classList.toggle("home", route === "");
     document.body.classList.remove("nav-collapsed", "menu-open");
     lastY = 0;
 
