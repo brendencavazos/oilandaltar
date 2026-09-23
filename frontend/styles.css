@@ -2,7 +2,11 @@
  * white page, black Helvetica, amber/gold accent, fixed corner identity block,
  * content in a right-hand scrolling column. Navigation is loud (bold),
  * prose is quiet (regular), and photo/video titles are set in Bodoni Moda
- * italic — the one serif voice on the site, reserved for the work itself. */
+ * italic — the one serif voice on the site, reserved for the work itself.
+ *
+ * The column starts where the identity block ends (--col), not at a fixed
+ * fraction of the window, and on the mosaic pages the grid breaks out of it
+ * to both edges of the screen. Type keeps the column; the work does not. */
 
 :root {
   --ink: #1d1d1d;

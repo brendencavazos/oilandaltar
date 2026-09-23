@@ -3,11 +3,47 @@
 Portfolio site for photographer **Brenden Cavazos** — live at
 [oilandaltar.com](https://oilandaltar.com).
 
-Swiss/editorial design: white page, bold black Helvetica, red active nav, fixed
+Swiss/editorial design: white page, bold black Helvetica, amber active nav, fixed
 corner identity block. Hash-routed pages — a crossfading landing carousel,
 Bible Belt (flagship project, with an Ephemera sub-page), Abandoned America,
 Portraits, Wanderings, In Passing (stills paired with mp4 bays), and About with
 an inquiry form.
+
+## How the galleries behave
+
+Four sections — Bible Belt, Ephemera, Abandoned America and Wanderings — render
+as a **mosaic**: a three-column wall that breaks out of the text column to both
+edges of the window, 4px gutters, no captions on the tiles.
+
+| | |
+| ------------------ | --------------------------------------------------------- |
+| Reveal             | frames rise into place as they scroll in |
+| Hover              | a slight push-in; a press state on touch |
+| Click / Enter      | opens full-size with the title and a position counter |
+| In the enlarged view | arrow keys, on-screen arrows, swipe on touch, Esc to close |
+| First visit        | a one-time hint explains the swipe, then never again |
+
+A series joins that group purely by its `layout` flag in `gallery-data.js`
+(set in `scripts/build_gallery.py`, so it survives a rebuild):
+
+| `layout`   | Rendering |
+| ---------- | ------------------------------------------------ |
+| `mosaic`   | the three-column wall described above |
+| `sessions` | grouped under session headers, 2-col, captioned (Portraits) |
+| `scroll`   | one full-width frame per row, captioned |
+
+**The reveal has a fallback worth knowing about.** It is driven by CSS
+(`animation-timeline: view()`) where the browser supports it, which costs no
+JavaScript. But a multi-column container fragments every tile, and fragmented
+boxes are handled poorly by view-based features — whole columns stayed invisible
+in testing. So `armReveal()` in `app.js` watches at runtime: a tile sitting
+inside the viewport that is still transparent after 500ms switches the page to
+an IntersectionObserver instead, and a final sweep forces anything still hidden.
+A blank grid is never acceptable, so it cannot happen.
+
+Navigation groups the two documentary projects under a collapsible **Curated
+Projects** heading, and the whole identity block retires as you scroll down and
+returns as you scroll up, with a Menu button while it is away.
 
 ## Structure
 

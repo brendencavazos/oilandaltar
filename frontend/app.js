@@ -2,13 +2,19 @@
  *
  * Hash-routed single page:
  *   #/                      landing — crossfade carousel (real photos, 1.5s)
- *   #/bible-belt            flagship project, continuous full-bleed scroll
- *   #/bible-belt/ephemera   View Ephemera — sub-section of Bible Belt
- *   #/abandoned-america     continuous scroll (Photography Portfolio)
- *   #/portraits             grouped by session (Photography Portfolio)
- *   #/wanderings            2-col grid (Photography Portfolio)
+ *   #/bible-belt            flagship project, full-bleed 3-column mosaic
+ *   #/bible-belt/ephemera   View Ephemera — sub-section of Bible Belt, mosaic
+ *   #/abandoned-america     full-bleed 3-column mosaic
+ *   #/portraits             grouped by session, 2-col grids with captions
+ *   #/wanderings            full-bleed 3-column mosaic
  *   #/in-passing            stacked 16:9 video bays (atmospheric clips)
  *   #/about                 bio, statement, contact + inquiry form
+ *
+ * The mosaic pages share one behaviour: frames carry no caption, rise into
+ * place as they scroll in, and open full-size on click with the title, a
+ * position counter, arrow-key and on-screen navigation, and swipe on touch.
+ * A series is switched into that mode purely by its `layout: "mosaic"` flag
+ * in gallery-data.js — see renderProject().
  *
  * Gallery content is injected at load by gallery-data.js (window.GALLERY),
  * generated from photosandvideos/ by scripts/build_gallery.py. The embedded
