@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2. Staggered reveal — Bible Belt transition test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+
+.bb-grid figure {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 560ms ease, transform 560ms cubic-bezier(.22,.61,.36,1);
+}
+.bb-grid figure.in { opacity: 1; transform: none; }
+.rm .bb-grid figure { opacity: 1; transform: none; transition: none; }
+
+</style>
+</head>
+<body>
+<header class="bb-head">
+  <a class="bb-back" href="index.html">&larr; All experiments</a>
+  <h1 class="bb-title">2. Staggered reveal</h1>
+  <p class="bb-what">The same fade-up, but frames entering together are delayed in sequence so the grid cascades rather than appearing all at once.</p>
+  <p class="bb-note">Delay is capped at 5 steps (60ms each) so a fast scroll never leaves you waiting on a photograph. The cascade is per batch, not per index.</p>
+</header>
+
+<div class="bb-grid" id="bb-grid"></div>
+
+<!-- the site's real gallery data; images are referenced in place -->
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+
+var tiles = buildGrid();
+
+if (reducedMotion()) {
+  tiles.forEach(function (f) { f.classList.add("in"); });
+} else {
+  var STEP = 60;     // ms between siblings
+  var MAX  = 5;      // never delay more than 5 steps (300ms)
+  var io = new IntersectionObserver(function (entries) {
+    // Only the ones arriving in THIS callback are staggered against each
+    // other, so scrolling back never replays a long queue.
+    var arriving = entries.filter(function (e) { return e.isIntersecting; });
+    arriving.forEach(function (e, i) {
+      var d = Math.min(i, MAX) * STEP;
+      e.target.style.transitionDelay = d + "ms, " + d + "ms";
+      e.target.classList.add("in");
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
+  tiles.forEach(function (f) { io.observe(f); });
+}
+
+</script>
+</body>
+</html>

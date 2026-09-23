@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5. Ken Burns — Bible Belt transition test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+
+/* The figure clips; the image inside is what moves. */
+.bb-grid figure { overflow: hidden; }
+@keyframes bb-kb {
+  from { transform: scale(1)    translate3d(0, 0, 0); }
+  to   { transform: scale(1.06) translate3d(-1.2%, -1.2%, 0); }
+}
+.bb-grid img.kb {
+  animation-name: bb-kb;
+  animation-timing-function: ease-in-out;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;     /* started when scrolled into view */
+  will-change: transform;
+}
+.bb-grid figure.in img.kb { animation-play-state: running; }
+
+.rm .bb-grid img.kb { animation: none; }
+
+</style>
+</head>
+<body>
+<header class="bb-head">
+  <a class="bb-back" href="index.html">&larr; All experiments</a>
+  <h1 class="bb-title">5. Ken Burns</h1>
+  <p class="bb-what">A slow, continuous pan and zoom across every frame — scale 1 to 1.06 with a little drift, over 26 seconds, alternating direction.</p>
+  <p class="bb-note">Each tile gets a different duration and delay so the wall never pulses in sync. Only runs while a tile is on screen; stopped under reduced motion.</p>
+</header>
+
+<div class="bb-grid" id="bb-grid"></div>
+
+<!-- the site's real gallery data; images are referenced in place -->
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+
+var tiles = buildGrid(function (fig, img, i) {
+  if (reducedMotion()) return;
+  img.classList.add("kb");
+  // vary the timing so nothing beats in unison
+  img.style.animationDuration = (22 + (i % 7) * 2) + "s";
+  img.style.animationDelay = (-(i % 11) * 1.7) + "s";
+});
+
+if (!reducedMotion()) {
+  // Only animate what is on screen — 45 simultaneous transforms is wasteful.
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { e.target.classList.toggle("in", e.isIntersecting); });
+  }, { rootMargin: "120px 0px" });
+  tiles.forEach(function (f) { io.observe(f); });
+}
+
+</script>
+</body>
+</html>

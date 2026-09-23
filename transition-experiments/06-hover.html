@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6. Hover zoom + brightness — Bible Belt transition test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+
+.bb-grid figure { overflow: hidden; cursor: pointer; }
+.bb-grid img {
+  transition: transform 320ms cubic-bezier(.22,.61,.36,1), filter 320ms ease;
+}
+
+/* Only where a real pointer can hover — never on touch, where :hover sticks. */
+@media (hover: hover) and (pointer: fine) {
+  .bb-grid figure:hover img { transform: scale(1.035); filter: brightness(1.06); }
+}
+
+/* Touch equivalent: the same shift while the finger is down. */
+@media (hover: none) {
+  .bb-grid figure:active img { transform: scale(1.03); filter: brightness(1.05); }
+}
+
+/* Keyboard users get it too. */
+.bb-grid figure:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.bb-grid figure:focus-visible img { transform: scale(1.035); filter: brightness(1.06); }
+
+.rm .bb-grid img { transition: none; }
+.rm .bb-grid figure:hover img { transform: none; filter: brightness(1.04); }
+
+</style>
+</head>
+<body>
+<header class="bb-head">
+  <a class="bb-back" href="index.html">&larr; All experiments</a>
+  <h1 class="bb-title">6. Hover zoom + brightness</h1>
+  <p class="bb-what">A gentle push-in and lift on hover: scale 1.035 and a small brightness rise over 320ms.</p>
+  <p class="bb-note">Touch devices have no hover, so there it becomes a brief press state instead — detected with <code>@media (hover: hover)</code>, not by sniffing the device.</p>
+</header>
+
+<div class="bb-grid" id="bb-grid"></div>
+
+<!-- the site's real gallery data; images are referenced in place -->
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+
+buildGrid(function (fig) {
+  fig.tabIndex = 0;                 // hoverable things should be reachable
+  fig.setAttribute("role", "button");
+});
+
+</script>
+</body>
+</html>

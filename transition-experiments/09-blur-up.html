@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9. Blur-up loading — Bible Belt transition test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+
+.bb-grid figure { position: relative; overflow: hidden; background: #f4f4f4; }
+
+/* the placeholder: existing thumbnail, blurred and slightly overscaled so the
+   blur has no soft edge at the frame */
+.bb-ph {
+  filter: blur(14px);
+  transform: scale(1.06);
+  transition: opacity 500ms ease;
+}
+.bb-ph.gone { opacity: 0; }
+
+/* the real file fades in on top once decoded */
+.bb-full {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+.bb-full.ready { opacity: 1; }
+
+.rm .bb-ph, .rm .bb-full { transition: none; }
+
+</style>
+</head>
+<body>
+<header class="bb-head">
+  <a class="bb-back" href="index.html">&larr; All experiments</a>
+  <h1 class="bb-title">9. Blur-up loading</h1>
+  <p class="bb-what">Each frame shows the 900px thumbnail blurred, then sharpens as the full-size file arrives — combined with native lazy loading.</p>
+  <p class="bb-note">Uses the exports you already have: the existing thumbnail IS the placeholder. No new files, no re-encoding. Note this deliberately fetches the 2000px file for every tile, which is heavier than the site.</p>
+</header>
+
+<div class="bb-grid" id="bb-grid"></div>
+
+<!-- the site's real gallery data; images are referenced in place -->
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+
+buildGrid(function (fig, img) {
+  img.classList.add("bb-ph");
+
+  var full = document.createElement("img");
+  full.className = "bb-full";
+  full.alt = img.alt;
+  full.loading = "lazy";
+  full.decoding = "async";
+
+  // Only reach for the large file once the tile is near the viewport.
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      full.src = img.dataset.full;
+    });
+  }, { rootMargin: "300px 0px" });
+  io.observe(fig);
+
+  full.addEventListener("load", function () {
+    full.classList.add("ready");
+    img.classList.add("gone");       // drop the blurred stand-in
+  });
+
+  fig.appendChild(full);
+});
+
+</script>
+</body>
+</html>

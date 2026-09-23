@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3. CSS scroll-driven animation — Bible Belt transition test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+/* ============================================================
+   1. THE REVEAL
+   The CSS-only path. Note the guard: tiles are only hidden up front
+   if the browser supports the timeline AND we haven't fallen back.
+   Anything else leaves them visible — a blank grid is never acceptable.
+   ============================================================ */
+@keyframes bb-reveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@supports (animation-timeline: view()) {
+  html:not(.js-reveal) .bb-grid figure {
+    animation: bb-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
+  }
+}
+
+/* JS path: used where the timeline is unsupported, or where the watchdog
+   below finds it isn't actually driving the tiles. */
+html.js-reveal .bb-grid figure {
+  animation: none !important;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 520ms ease, transform 520ms cubic-bezier(.22,.61,.36,1);
+}
+html.js-reveal .bb-grid figure.in { opacity: 1; transform: none; }
+
+/* Absolute backstop: whatever else happens, a tile marked .force is visible. */
+.bb-grid figure.force { animation: none !important; opacity: 1 !important; transform: none !important; }
+
+/* ============================================================
+   2. HOVER — the affordance, not the trigger
+   ============================================================ */
+.bb-grid figure { overflow: hidden; cursor: zoom-in; }
+.bb-grid figure img { transition: transform 340ms cubic-bezier(.22,.61,.36,1), filter 340ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  .bb-grid figure:hover img { transform: scale(1.04); filter: brightness(1.06); }
+}
+@media (hover: none) { .bb-grid figure:active img { transform: scale(1.03); filter: brightness(1.05); } }
+.bb-grid figure:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.bb-grid figure:focus-visible img { transform: scale(1.04); filter: brightness(1.06); }
+
+/* ============================================================
+   3. THE OVERLAY
+   Opaque backdrop — at 98% the grid behind bled through and read as
+   photographs stacked behind the one you opened.
+   The image sits in a fixed-size stage so stepping between portrait and
+   landscape frames doesn't reflow the caption or shift the arrows.
+   ============================================================ */
+.bb-lb {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 14px;
+  padding: 44px 84px 30px;
+  background: #fff;                    /* fully opaque: nothing shows through */
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+.bb-lb[hidden] { display: none; }
+.bb-lb.show { opacity: 1; }
+
+.bb-stage {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bb-lb img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto; height: auto;
+  object-fit: contain;
+  transform: scale(.96);
+  transition: transform 300ms cubic-bezier(.22,.61,.36,1), opacity 160ms ease;
+}
+.bb-lb.show img { transform: none; }
+.bb-lb.stepping img { opacity: 0; }
+
+.bb-meta {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+.bb-meta-text { text-align: center; min-width: 0; }
+.bb-meta figcaption {
+  font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 19px;
+}
+.bb-count {
+  font-weight: 400; font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--mute); margin-top: 6px;
+}
+
+.bb-lb button {
+  background: none; border: 0; cursor: pointer;
+  color: var(--ink); line-height: 1; padding: 10px; transition: color .15s ease;
+}
+.bb-lb button:hover { color: var(--accent); }
+.bb-close { position: absolute; top: 14px; right: 20px; font-size: 34px; }
+
+/* Desktop: arrows float either side of the photograph. */
+.bb-prev, .bb-next { position: absolute; top: 50%; transform: translateY(-50%); font-size: 50px; }
+.bb-prev { left: 14px; } .bb-next { right: 14px; }
+
+/* Phone: arrows leave the photograph entirely and sit on the caption line,
+   level with the title, one at each end. Over the image they competed with
+   whatever was behind them — a dark frame swallowed them completely. On the
+   white caption row they are always legible, and they never cover the work. */
+@media (max-width: 700px) {
+  .bb-lb { padding: 52px 14px 22px; }
+  .bb-meta { justify-content: space-between; gap: 10px; }
+  .bb-prev, .bb-next {
+    position: static;
+    transform: none;
+    font-size: 30px;
+    padding: 12px 14px;        /* ~48px target: thumb-sized */
+    flex: 0 0 auto;
+  }
+  .bb-meta-text { flex: 1 1 auto; }
+  .bb-meta figcaption { font-size: 17px; }
+}
+
+/* ---- one-time swipe hint (touch only) ---- */
+.bb-hint {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 14px;
+  background: rgba(255,255,255,0.86);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+.bb-hint.show { opacity: 1; }
+.bb-hint[hidden] { display: none; }
+.bb-hint p {
+  font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 20px;
+  color: var(--ink);
+}
+.bb-hint small {
+  font-weight: 400; font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--mute); font-family: inherit;
+}
+.bb-hand { width: 92px; height: 56px; }
+.bb-hand .glyph { animation: bb-swipe 2.1s ease-in-out infinite; }
+@keyframes bb-swipe {
+  0%, 100% { transform: translateX(-16px); opacity: .45; }
+  50%      { transform: translateX(16px);  opacity: 1; }
+}
+.rm .bb-hand .glyph { animation: none; transform: none; opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .bb-hand .glyph { animation: none; transform: none; opacity: 1; }
+  .bb-hint { transition: none; }
+}
+
+/* debug readout, only with ?debug=1 */
+.bb-debug {
+  position: fixed; left: 10px; bottom: 10px; z-index: 90;
+  background: #111; color: #fff; font: 400 11px/1.5 ui-monospace, Menlo, monospace;
+  padding: 8px 10px; max-width: 340px; white-space: pre-wrap;
+}
+
+/* ============================================================
+   Reduced motion — behaviour stays, movement goes
+   ============================================================ */
+.rm .bb-grid figure { animation: none !important; opacity: 1; transform: none; transition: none; }
+.rm .bb-grid figure img, .rm .bb-lb, .rm .bb-lb img { transition: none; }
+.rm .bb-lb img { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .bb-grid figure { animation: none !important; opacity: 1; transform: none; }
+  .bb-lb, .bb-lb img { transition: none; }
+  .bb-lb img { transform: none; }
+}
+</style>
+</head>
+<body>
+<header class="bb-head">
+  <a class="bb-back" href="index.html">&larr; All experiments</a>
+  <h1 class="bb-title">3. CSS scroll-driven animation <span style="color:var(--mute)">+ hover + lightbox</span></h1>
+  <p class="bb-note" id="bb-support"></p>
+  <p class="bb-what">Reveal driven by <code>animation-timeline: view()</code> where the browser can,
+    with a watchdog that switches to JavaScript the moment it detects the timeline isn't actually
+    driving the tiles. Hover pushes a frame in; click opens the full overlay; arrows step through
+    all 45.</p>
+  <p class="bb-note">Inside the overlay: <strong>&larr; &rarr;</strong> to move, <strong>Esc</strong>
+    to close. Add <code>?debug=1</code> to the URL for a live readout of which reveal path is running.</p>
+</header>
+
+<div class="bb-grid" id="bb-grid"></div>
+
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+var DEBUG = new URLSearchParams(location.search).get("debug") === "1";
+var dbg = null;
+if (DEBUG) {
+  dbg = document.createElement("div");
+  dbg.className = "bb-debug";
+  document.body.appendChild(dbg);
+}
+function report(msg) { if (dbg) dbg.textContent = msg; }
+
+var supported = CSS.supports && CSS.supports("animation-timeline: view()");
+var usingJs = false;
+
+/* ---------------------------------------------------------------
+   BUG 1 FIX — blank columns.
+   .bb-grid is a multi-column container, so every tile is a *fragmented*
+   box. The CSS working group notes fragmented elements are poorly handled
+   by view-based features, and in practice the tiles in columns 2 and 3
+   never got a working timeline: they sat at opacity 0 forever.
+
+   Rather than assume, this detects it. A tile that is well inside the
+   viewport and still invisible after 500ms proves the timeline isn't
+   driving it — at which point the whole page switches to the JS reveal.
+   --------------------------------------------------------------- */
+function switchToJs(why) {
+  if (usingJs) return;
+  usingJs = true;
+  document.documentElement.classList.add("js-reveal");
+  startJsReveal();
+  report("reveal: JavaScript\nreason: " + why);
+}
+
+function startJsReveal() {
+  if (reducedMotion()) {
+    tiles.forEach(function (f) { f.classList.add("in"); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add("in");
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: "200px 0px", threshold: 0 });
+  tiles.forEach(function (f) { io.observe(f); });
+}
+
+/* ---------------------------------------------------------------
+   BUG 2 FIX — photographs appearing stacked behind the open one.
+   Two causes, both addressed:
+     a) the backdrop was rgba(...,0.98), so the grid behind bled through
+        and read as layered images. It is now fully opaque.
+     b) arrowing swapped src immediately, so a half-decoded new frame
+        could paint over the old one. Now the next file is decoded off
+        screen first and only swapped in once it is ready, and a rapid
+        second press cancels the pending swap instead of stacking.
+   --------------------------------------------------------------- */
+var plates = biblePlates();
+
+var lb = document.createElement("div");
+lb.className = "bb-lb";
+lb.hidden = true;
+lb.setAttribute("role", "dialog");
+lb.setAttribute("aria-modal", "true");
+lb.innerHTML =
+  '<button class="bb-close" aria-label="Close">&times;</button>' +
+  '<div class="bb-stage"><img alt=""></div>' +
+  '<div class="bb-meta">' +
+  '  <button class="bb-prev" aria-label="Previous photograph">&#8249;</button>' +
+  '  <div class="bb-meta-text"><figcaption></figcaption><p class="bb-count"></p></div>' +
+  '  <button class="bb-next" aria-label="Next photograph">&#8250;</button>' +
+  '</div>' +
+  '<div class="bb-hint" hidden>' +
+  '  <svg class="bb-hand" viewBox="0 0 92 56" aria-hidden="true">' +
+  '    <g class="glyph" fill="none" stroke="#1d1d1d" stroke-width="2.2" ' +
+  '       stroke-linecap="round" stroke-linejoin="round">' +
+  '      <path d="M14 28h-7m3-4-4 4 4 4"/>' +
+  '      <path d="M78 28h7m-3-4 4 4-4 4"/>' +
+  '      <path d="M46 44V26m0 0v-9a3 3 0 0 1 6 0v9m0 0v-5a3 3 0 0 1 6 0v5m0 0v-3a3 3 0 0 1 6 0v12' +
+  'a12 12 0 0 1-12 12h-4a10 10 0 0 1-8-4l-6-8a3.2 3.2 0 0 1 5-4l3 3"/>' +
+  '    </g>' +
+  '  </svg>' +
+  '  <p>Swipe to browse</p>' +
+  '  <small>Tap anywhere to dismiss</small>' +
+  '</div>';
+document.body.appendChild(lb);
+
+var lbImg = lb.querySelector("img");
+var lbCap = lb.querySelector("figcaption");
+var lbCount = lb.querySelector(".bb-count");
+var hint = lb.querySelector(".bb-hint");
+var index = 0, returnTo = null, pending = null, token = 0;
+
+/* ---------------------------------------------------------------
+   SWIPE — only where there is a finger to swipe with.
+   A gesture counts when it travels far enough horizontally AND is
+   more horizontal than vertical, so scrolling the page never reads
+   as a swipe. Left goes forward, matching every photo app.
+   --------------------------------------------------------------- */
+var canSwipe = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+var THRESHOLD = 48;   // px before a drag counts as a swipe
+var sx = 0, sy = 0, tracking = false;
+
+lb.addEventListener("touchstart", function (e) {
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, { passive: true });
+
+lb.addEventListener("touchend", function (e) {
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0];
+  var dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) < THRESHOLD || Math.abs(dx) < Math.abs(dy)) return;
+  dismissHint();
+  step(dx < 0 ? 1 : -1);      // swipe left = next
+}, { passive: true });
+
+/* ---------------------------------------------------------------
+   THE HINT — shown the first time someone opens a photograph on a
+   touch device, then never again. Remembered in localStorage, so it
+   returns if they clear site data, exactly as asked. Pointer users
+   get nothing: they have visible arrows and arrow keys already.
+   --------------------------------------------------------------- */
+var HINT_KEY = "bb-swipe-hint-seen";
+var hintTimer = null;
+
+function hintAlreadySeen() {
+  try { return localStorage.getItem(HINT_KEY) === "1"; }
+  catch (err) { return false; }        // private mode: just show it
+}
+function rememberHint() {
+  try { localStorage.setItem(HINT_KEY, "1"); } catch (err) {}
+}
+function maybeShowHint() {
+  if (!canSwipe || hintAlreadySeen()) return;
+  hint.hidden = false;
+  requestAnimationFrame(function () { hint.classList.add("show"); });
+  hintTimer = setTimeout(dismissHint, 3800);     // gets out of the way on its own
+}
+function dismissHint() {
+  if (hint.hidden) return;
+  clearTimeout(hintTimer);
+  rememberHint();
+  hint.classList.remove("show");
+  var done = function () { hint.hidden = true; };
+  reducedMotion() ? done() : setTimeout(done, 320);
+}
+hint.addEventListener("click", function (e) { e.stopPropagation(); dismissHint(); });
+hint.addEventListener("touchstart", dismissHint, { passive: true });
+
+function srcFor(i) { return "../frontend/" + plates[i].image_url; }
+
+function paint(i) {
+  lbImg.src = srcFor(i);
+  lbImg.alt = plates[i].title || "";
+  lbCap.textContent = plates[i].title || "";
+  lbCount.textContent = (i + 1) + " / " + plates.length;
+}
+
+function openAt(i, fig) {
+  index = i; returnTo = fig || null;
+  paint(i);
+  lb.hidden = false;
+  requestAnimationFrame(function () { lb.classList.add("show"); });
+  document.body.style.overflow = "hidden";
+  document.addEventListener("keydown", onKey);
+  lb.querySelector(".bb-close").focus();
+  maybeShowHint();
+}
+
+function close() {
+  dismissHint();
+  clearTimeout(pending); pending = null; token++;
+  lb.classList.remove("show", "stepping");
+  document.body.style.overflow = "";
+  document.removeEventListener("keydown", onKey);
+  var done = function () { lb.hidden = true; lbImg.removeAttribute("src"); };
+  reducedMotion() ? done() : setTimeout(done, 260);
+  if (returnTo) returnTo.focus();
+}
+
+function step(delta) {
+  var next = (index + delta + plates.length) % plates.length;
+  index = next;
+  var mine = ++token;                 // any newer press invalidates this one
+  clearTimeout(pending);
+
+  if (reducedMotion()) { paint(next); return; }
+
+  lb.classList.add("stepping");       // dip the current frame out
+
+  // Decode the next file before it is ever shown, so nothing half-painted
+  // can appear over the frame being replaced.
+  var pre = new Image();
+  pre.src = srcFor(next);
+  var show = function () {
+    if (mine !== token) return;       // superseded by a later press
+    paint(next);
+    lb.classList.remove("stepping");
+  };
+  if (pre.decode) pre.decode().then(show).catch(show);
+  else pre.onload = pre.onerror = show;
+
+  // never let a slow file leave the view blank
+  pending = setTimeout(show, 700);
+}
+
+function onKey(e) {
+  if (e.key === "Escape") close();
+  else if (e.key === "ArrowLeft") step(-1);
+  else if (e.key === "ArrowRight") step(1);
+}
+
+lb.addEventListener("click", function (e) { if (e.target === lb) close(); });
+lb.querySelector(".bb-close").addEventListener("click", close);
+lb.querySelector(".bb-prev").addEventListener("click", function (e) { e.stopPropagation(); step(-1); });
+lb.querySelector(".bb-next").addEventListener("click", function (e) { e.stopPropagation(); step(1); });
+
+/* ---------------------------------------------------------------
+   Build the grid. The first nine load eagerly at high priority: they are
+   above the fold, and lazy-loading a frame that is already on screen is
+   what makes a grid look empty on arrival.
+   --------------------------------------------------------------- */
+var tiles = buildGrid(function (fig, img, i) {
+  if (i < 9) { img.loading = "eager"; img.setAttribute("fetchpriority", "high"); }
+  fig.tabIndex = 0;
+  fig.setAttribute("role", "button");
+  fig.setAttribute("aria-label", "Enlarge " + (img.alt || "photograph"));
+  fig.addEventListener("click", function () { openAt(i, fig); });
+  fig.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openAt(i, fig); }
+  });
+});
+
+if (reducedMotion() || !supported) {
+  switchToJs(reducedMotion() ? "reduced motion" : "animation-timeline unsupported");
+} else {
+  report("reveal: CSS animation-timeline: view()\nwatchdog armed");
+
+  // Watchdog: any tile more than half inside the viewport that is still
+  // invisible half a second later means the timeline is not driving it.
+  var watch = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      setTimeout(function () {
+        if (usingJs) return;
+        var r = el.getBoundingClientRect();
+        var onScreen = r.top < innerHeight * 0.85 && r.bottom > 0;
+        if (onScreen && parseFloat(getComputedStyle(el).opacity) < 0.05) {
+          switchToJs("tiles stayed invisible (fragmented in a multi-column container)");
+        }
+      }, 500);
+    });
+  }, { threshold: 0.5 });
+  tiles.forEach(function (f) { watch.observe(f); });
+
+  // Last-resort sweep: 1.5s after load, force anything still invisible.
+  setTimeout(function () {
+    var stuck = 0;
+    tiles.forEach(function (f) {
+      var r = f.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0 &&
+          parseFloat(getComputedStyle(f).opacity) < 0.05) { f.classList.add("force"); stuck++; }
+    });
+    if (stuck && dbg) report(dbg.textContent + "\nforced visible: " + stuck);
+  }, 1500);
+}
+
+document.getElementById("bb-support").textContent = supported
+  ? "This browser supports animation-timeline: view(). A watchdog checks it is actually driving the tiles and switches to JavaScript if not."
+  : "This browser does not support animation-timeline: view() — running the JavaScript reveal.";
+</script>
+</body>
+</html>

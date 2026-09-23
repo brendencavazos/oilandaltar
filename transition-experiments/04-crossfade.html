@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4. Crossfade rotation — Bible Belt transition test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+
+/* Two stacked images per rotating tile; the top one fades away to reveal
+   the one behind, then they swap roles. */
+.bb-swap { position: relative; }
+.bb-swap img { transition: opacity 2400ms ease; }
+.bb-swap img.under { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.bb-swap img.hidden { opacity: 0; }
+
+.rm .bb-swap img { transition: none; }
+
+</style>
+</head>
+<body>
+<header class="bb-head">
+  <a class="bb-back" href="index.html">&larr; All experiments</a>
+  <h1 class="bb-title">4. Crossfade rotation</h1>
+  <p class="bb-what">Six frames in the grid slowly crossfade between two photographs from the series on a timer, so the wall is quietly alive.</p>
+  <p class="bb-note">2.4s crossfade every 7s, offset per tile so they never change in unison. Paused entirely under reduced motion and while the tab is hidden.</p>
+</header>
+
+<div class="bb-grid" id="bb-grid"></div>
+
+<!-- the site's real gallery data; images are referenced in place -->
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+
+/* Pick six tiles spread through the grid, and give each a partner photograph
+   from elsewhere in the same series. */
+var ROTATE = [2, 9, 16, 23, 30, 37];
+var PERIOD = 7000, OFFSET = 1100;
+
+var plates = biblePlates();
+var tiles = buildGrid(function (fig, img, i) {
+  if (ROTATE.indexOf(i) === -1) return;
+  fig.classList.add("bb-swap");
+  var partner = plates[(i + 17) % plates.length];
+  var second = document.createElement("img");
+  second.className = "under hidden";
+  second.alt = partner.title || "";
+  second.loading = "lazy";
+  second.decoding = "async";
+  second.src = "../frontend/" + (partner.thumb_url || partner.image_url);
+  fig.appendChild(second);
+});
+
+if (!reducedMotion()) {
+  ROTATE.forEach(function (idx, n) {
+    var fig = tiles[idx];
+    if (!fig) return;
+    var imgs = fig.querySelectorAll("img");
+    var showingSecond = false;
+    setTimeout(function () {
+      setInterval(function () {
+        if (document.hidden) return;        // don't animate in a background tab
+        showingSecond = !showingSecond;
+        imgs[1].classList.toggle("hidden", !showingSecond);
+        imgs[0].style.opacity = showingSecond ? "0" : "1";
+      }, PERIOD);
+    }, n * OFFSET);
+  });
+}
+
+</script>
+</body>
+</html>

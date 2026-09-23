@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8. Shared element transition — Bible Belt transition test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+
+.bb-lb {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 14px; padding: 40px 56px 28px;
+  background: rgba(255,255,255,0.98);
+}
+.bb-lb[hidden] { display: none; }
+.bb-lb img { max-width: 100%; max-height: calc(100vh - 130px); width: auto; height: auto; }
+.bb-lb figcaption { font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 19px; }
+.bb-lb-close { position: absolute; top: 12px; right: 18px; background: none; border: 0;
+  font-size: 34px; line-height: 1; cursor: pointer; color: var(--ink); }
+.bb-grid figure { cursor: zoom-in; }
+
+/* The morph itself: both ends carry the same view-transition-name, so the
+   browser knows they are the same photograph and tweens between them. */
+::view-transition-old(bb-photo),
+::view-transition-new(bb-photo) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(.22,.61,.36,1);
+}
+
+/* No-API fallback: a straight fade, same as variant 7. */
+.no-vt .bb-lb { opacity: 0; transition: opacity 280ms ease; }
+.no-vt .bb-lb.show { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+</style>
+</head>
+<body>
+<header class="bb-head">
+  <a class="bb-back" href="index.html">&larr; All experiments</a>
+  <h1 class="bb-title">8. Shared element transition</h1>
+  <p class="bb-what">The clicked frame morphs into the large view — the browser tweens the same photograph between two positions using the View Transitions API.</p>
+  <p class="bb-note" id="bb-support"></p>
+  <p class="bb-note">Chrome/Edge 111+ and Safari 18+. Elsewhere it degrades to the plain fade from variant 7, so the interaction is identical, only less fluid.</p>
+</header>
+
+<div class="bb-grid" id="bb-grid"></div>
+
+<!-- the site's real gallery data; images are referenced in place -->
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+
+var supported = typeof document.startViewTransition === "function" && !reducedMotion();
+if (!supported) document.documentElement.classList.add("no-vt");
+
+var lb = document.createElement("div");
+lb.className = "bb-lb";
+lb.hidden = true;
+lb.innerHTML = '<button class="bb-lb-close" aria-label="Close">&times;</button>' +
+               '<img alt=""><figcaption></figcaption>';
+document.body.appendChild(lb);
+var lbImg = lb.querySelector("img"), lbCap = lb.querySelector("figcaption");
+var current = null;
+
+function swap(fn) {
+  // Tag both ends with the same name for the duration of the change only —
+  // two elements may never share a view-transition-name at the same time.
+  if (!supported) { fn(); return; }
+  document.startViewTransition(fn);
+}
+
+function open(img, fig) {
+  current = img;
+  swap(function () {
+    img.style.viewTransitionName = "bb-photo";
+    lbImg.style.viewTransitionName = "bb-photo";
+    lbImg.src = img.dataset.full;
+    lbImg.alt = img.alt;
+    lbCap.textContent = img.dataset.title;
+    lb.hidden = false;
+    lb.classList.add("show");
+    img.style.viewTransitionName = "";     // the overlay now owns the name
+  });
+  document.body.style.overflow = "hidden";
+  document.addEventListener("keydown", onKey);
+}
+
+function close() {
+  swap(function () {
+    lb.hidden = true;
+    lb.classList.remove("show");
+    lbImg.style.viewTransitionName = "";
+    if (current) current.style.viewTransitionName = "bb-photo";
+  });
+  setTimeout(function () { if (current) current.style.viewTransitionName = ""; }, 500);
+  document.body.style.overflow = "";
+  document.removeEventListener("keydown", onKey);
+}
+function onKey(e) { if (e.key === "Escape") close(); }
+
+lb.addEventListener("click", function (e) { if (e.target === lb) close(); });
+lb.querySelector(".bb-lb-close").addEventListener("click", close);
+
+buildGrid(function (fig, img) {
+  fig.tabIndex = 0;
+  fig.setAttribute("role", "button");
+  fig.addEventListener("click", function () { open(img, fig); });
+});
+
+document.getElementById("bb-support").textContent =
+  (typeof document.startViewTransition === "function")
+    ? "This browser supports the View Transitions API — you are seeing the morph."
+    : "This browser does NOT support View Transitions — you are seeing the fade fallback.";
+
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1. Fade-in on scroll — Bible Belt transition test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+
+/* Tiles start lowered and transparent, then settle when they scroll in.
+   Only opacity/transform animate, so this stays on the compositor. */
+.bb-grid figure {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 520ms ease, transform 520ms cubic-bezier(.22,.61,.36,1);
+}
+.bb-grid figure.in { opacity: 1; transform: none; }
+
+/* Reduced motion: no travel, no fade — frames are simply present. */
+.rm .bb-grid figure { opacity: 1; transform: none; transition: none; }
+
+</style>
+</head>
+<body>
+<header class="bb-head">
+  <a class="bb-back" href="index.html">&larr; All experiments</a>
+  <h1 class="bb-title">1. Fade-in on scroll</h1>
+  <p class="bb-what">Each frame fades up into place as it enters the viewport, using an IntersectionObserver. 520ms, opacity and transform only.</p>
+  <p class="bb-note">The workhorse. Cheap, unobtrusive, and it never blocks a photograph from being seen — if the script fails, every frame is visible anyway.</p>
+</header>
+
+<div class="bb-grid" id="bb-grid"></div>
+
+<!-- the site's real gallery data; images are referenced in place -->
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+
+var tiles = buildGrid();
+
+if (reducedMotion()) {
+  tiles.forEach(function (f) { f.classList.add("in"); });
+} else {
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add("in");
+      io.unobserve(e.target);          // reveal once, then stop watching
+    });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
+  tiles.forEach(function (f) { io.observe(f); });
+}
+
+</script>
+</body>
+</html>

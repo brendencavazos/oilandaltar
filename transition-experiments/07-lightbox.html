@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7. Lightbox transition — Bible Belt transition test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+
+.bb-lb {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 14px;
+  padding: 40px 56px 28px;
+  background: rgba(255,255,255,0.98);
+  opacity: 0;
+  transition: opacity 280ms ease;
+}
+.bb-lb[hidden] { display: none; }
+.bb-lb.show { opacity: 1; }
+.bb-lb img {
+  max-width: 100%; max-height: calc(100vh - 130px);
+  width: auto; height: auto;
+  transform: scale(.96);
+  transition: transform 320ms cubic-bezier(.22,.61,.36,1);
+}
+.bb-lb.show img { transform: none; }
+.bb-lb figcaption {
+  font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 19px;
+}
+.bb-lb-close {
+  position: absolute; top: 12px; right: 18px;
+  background: none; border: 0; font-size: 34px; line-height: 1; cursor: pointer;
+  color: var(--ink);
+}
+.bb-grid figure { cursor: zoom-in; }
+
+.rm .bb-lb, .rm .bb-lb img { transition: none; }
+
+</style>
+</head>
+<body>
+<header class="bb-head">
+  <a class="bb-back" href="index.html">&larr; All experiments</a>
+  <h1 class="bb-title">7. Lightbox transition</h1>
+  <p class="bb-what">Clicking a frame expands it into a full-view overlay — the backdrop fades while the photograph scales up from 0.96 — and reverses on close.</p>
+  <p class="bb-note">Esc and a backdrop click close it; focus returns to the frame you came from. The full-size file loads only on open, not for all 45 up front.</p>
+</header>
+
+<div class="bb-grid" id="bb-grid"></div>
+
+<!-- the site's real gallery data; images are referenced in place -->
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+
+var lb = document.createElement("div");
+lb.className = "bb-lb";
+lb.hidden = true;
+lb.innerHTML = '<button class="bb-lb-close" aria-label="Close">&times;</button>' +
+               '<img alt=""><figcaption></figcaption>';
+document.body.appendChild(lb);
+
+var lbImg = lb.querySelector("img");
+var lbCap = lb.querySelector("figcaption");
+var returnTo = null;
+
+function open(img, fig) {
+  returnTo = fig;
+  lbImg.src = img.dataset.full;        // full-size fetched on demand only
+  lbImg.alt = img.alt;
+  lbCap.textContent = img.dataset.title;
+  lb.hidden = false;
+  requestAnimationFrame(function () { lb.classList.add("show"); });
+  document.body.style.overflow = "hidden";
+  document.addEventListener("keydown", onKey);
+}
+function close() {
+  lb.classList.remove("show");
+  document.body.style.overflow = "";
+  document.removeEventListener("keydown", onKey);
+  var done = function () { lb.hidden = true; lbImg.src = ""; };
+  reducedMotion() ? done() : setTimeout(done, 280);
+  if (returnTo) returnTo.focus();
+}
+function onKey(e) { if (e.key === "Escape") close(); }
+
+lb.addEventListener("click", function (e) { if (e.target === lb) close(); });
+lb.querySelector(".bb-lb-close").addEventListener("click", close);
+
+buildGrid(function (fig, img) {
+  fig.tabIndex = 0;
+  fig.setAttribute("role", "button");
+  fig.addEventListener("click", function () { open(img, fig); });
+  fig.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(img, fig); }
+  });
+});
+
+</script>
+</body>
+</html>

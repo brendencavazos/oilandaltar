@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bible Belt — transition experiments</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  body { max-width: 900px; margin: 0 auto; }
+  .ix-lede { font-weight: 400; font-size: 15px; line-height: 1.7; color: #2e2e2e; max-width: 68ch; }
+  .ix-lede + .ix-lede { margin-top: 12px; }
+
+  .ix-rm {
+    display: flex; align-items: center; gap: 10px;
+    margin: 26px 0 8px; padding: 14px 16px;
+    border: 1px solid var(--rule); background: #fbfaf8;
+  }
+  .ix-rm input { width: 17px; height: 17px; }
+  .ix-rm label { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+  .ix-rm span { font-weight: 400; font-size: 13px; color: var(--mute); }
+
+  ol.ix { list-style: none; margin-top: 26px; }
+  ol.ix li { border-top: 1px solid var(--rule); }
+  ol.ix li:last-child { border-bottom: 1px solid var(--rule); }
+  .ix-row { display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding: 16px 2px; }
+  .ix-n { font-size: 22px; letter-spacing: -.02em; color: var(--mute); font-variant-numeric: tabular-nums; }
+  .ix-row a { font-size: 19px; color: var(--ink); text-decoration: none; }
+  .ix-row a:hover { color: var(--accent); }
+  .ix-d { font-weight: 400; font-size: 14px; line-height: 1.6; color: #2e2e2e; margin-top: 4px; }
+  .ix-b { font-weight: 400; font-size: 12.5px; color: var(--mute); margin-top: 5px; }
+  @media (max-width: 700px) { .ix-row { grid-template-columns: 1fr; gap: 2px; } }
+</style>
+</head>
+<body>
+
+<header class="bb-head">
+  <h1 class="bb-title">Bible Belt — transition experiments</h1>
+  <p class="ix-lede">Nine ways the same 45 photographs could arrive on screen. Each page
+    rebuilds the real Bible Belt mosaic from the live image files, with one effect applied,
+    so they can be compared like for like.</p>
+  <p class="ix-lede">Nothing here touches the site. These are standalone pages in
+    <code>/transition-experiments/</code>; the live pages are unchanged.</p>
+</header>
+
+<div class="ix-rm">
+  <input type="checkbox" id="rm">
+  <label for="rm">Preview with reduced motion</label>
+  <span>Adds <code>?rm=1</code> to the links below — every variant then behaves as it
+    would for a visitor who has "reduce motion" switched on in their OS.</span>
+</div>
+
+<ol class="ix" id="list">
+  <li><div class="ix-row"><span class="ix-n">01</span><div>
+    <a href="01-fade-in.html">Fade-in on scroll</a>
+    <p class="ix-d">Frames fade and rise 14px into place as they enter the viewport. 520ms.</p>
+    <p class="ix-b">Universal support. The safe default.</p>
+  </div></div></li>
+
+  <li><div class="ix-row"><span class="ix-n">02</span><div>
+    <a href="02-stagger.html">Staggered reveal</a>
+    <p class="ix-d">The same reveal, cascaded 60ms apart so a row arrives in sequence.</p>
+    <p class="ix-b">Universal support. Delay capped at 300ms so fast scrolling never waits.</p>
+  </div></div></li>
+
+  <li><div class="ix-row"><span class="ix-n">03</span><div>
+    <a href="03-scroll-driven.html">CSS scroll-driven animation + hover + lightbox</a>
+    <p class="ix-d">Reveal tied to scroll position by <code>animation-timeline: view()</code> with no JavaScript, plus hover zoom, click-to-expand overlay, and arrows to step through all 45.</p>
+    <p class="ix-b">Chrome/Edge 115+, Safari 26+ for the reveal; falls back to variant 01 elsewhere. The overlay works everywhere. Closest thing here to a finished experience.</p>
+  </div></div></li>
+
+  <li><div class="ix-row"><span class="ix-n">04</span><div>
+    <a href="04-crossfade.html">Crossfade rotation</a>
+    <p class="ix-d">Six tiles slowly trade between two photographs on a 7s cycle, offset so they never change together.</p>
+    <p class="ix-b">Universal. Doubles the image requests for those six tiles; pauses in background tabs.</p>
+  </div></div></li>
+
+  <li><div class="ix-row"><span class="ix-n">05</span><div>
+    <a href="05-ken-burns.html">Ken Burns</a>
+    <p class="ix-d">Continuous slow pan and zoom, scale 1 → 1.06 over ~26s, alternating.</p>
+    <p class="ix-b">Universal, but the heaviest here: only on-screen tiles animate, and it still keeps the GPU busy. Watch battery on laptops.</p>
+  </div></div></li>
+
+  <li><div class="ix-row"><span class="ix-n">06</span><div>
+    <a href="06-hover.html">Hover zoom + brightness</a>
+    <p class="ix-d">Scale 1.035 and a small brightness lift on hover, 320ms. Keyboard focus gets it too.</p>
+    <p class="ix-b">Universal. Touch devices get a press state instead, via <code>@media (hover: hover)</code>.</p>
+  </div></div></li>
+
+  <li><div class="ix-row"><span class="ix-n">07</span><div>
+    <a href="07-lightbox.html">Lightbox transition</a>
+    <p class="ix-d">Click expands into a full-view overlay: backdrop fades, photograph scales from 0.96.</p>
+    <p class="ix-b">Universal. Closest to what the site does today. Full-size file loads only on open.</p>
+  </div></div></li>
+
+  <li><div class="ix-row"><span class="ix-n">08</span><div>
+    <a href="08-shared-element.html">Shared element transition</a>
+    <p class="ix-d">The clicked frame morphs into the large view — one continuous photograph, not a fade.</p>
+    <p class="ix-b">Chrome/Edge 111+, Safari 18+. Degrades to variant 07 elsewhere; the page reports which.</p>
+  </div></div></li>
+
+  <li><div class="ix-row"><span class="ix-n">09</span><div>
+    <a href="09-blur-up.html">Blur-up loading</a>
+    <p class="ix-d">The existing thumbnail shows blurred, then sharpens as the full-size file arrives.</p>
+    <p class="ix-b">Universal. Heavier than the live site — it fetches the 2000px file per tile rather than the thumbnail.</p>
+  </div></div></li>
+</ol>
+
+<script>
+/* The checkbox rewrites every link to carry ?rm=1, which each variant reads as
+ * "behave as though the visitor asked for reduced motion". A real OS setting is
+ * still honoured on its own; this only lets you preview both without changing it. */
+var box = document.getElementById("rm");
+box.addEventListener("change", function () {
+  document.querySelectorAll("#list a").forEach(function (a) {
+    var base = a.getAttribute("href").split("?")[0];
+    a.setAttribute("href", box.checked ? base + "?rm=1" : base);
+  });
+});
+</script>
+</body>
+</html>

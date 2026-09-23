@@ -1,0 +1,73 @@
+/* Shared scaffolding for the transition experiments — NOT part of the site.
+ *
+ * Every selector is prefixed .bb- so nothing here can collide with the real
+ * stylesheet if an effect is later copied across. The grid mirrors the live
+ * Bible Belt mosaic: three CSS columns, 4px gutters, break-inside: avoid. */
+
+:root {
+  --ink: #1d1d1d;
+  --mute: #8b8b8b;
+  --eyebrow-ink: #444;
+  --accent: #c89b5c;
+  --rule: #eee;
+  --paper: #fff;
+  --serif: "Bodoni Moda", Georgia, serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+  padding: 28px 24px 120px;
+}
+
+.bb-head { max-width: 900px; margin-bottom: 26px; }
+.bb-back {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--eyebrow-ink);
+  text-decoration: none;
+  margin-bottom: 18px;
+}
+.bb-back:hover { color: var(--accent); }
+.bb-title { font-size: 30px; letter-spacing: -0.02em; margin-bottom: 8px; }
+.bb-what {
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #2e2e2e;
+  max-width: 68ch;
+}
+.bb-what code {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 0.9em;
+  background: #f5f4f2;
+  padding: 1px 5px;
+}
+.bb-note {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--mute);
+  margin-top: 10px;
+  max-width: 68ch;
+}
+
+/* the live mosaic, reproduced */
+.bb-grid { columns: 3; column-gap: 4px; margin-top: 30px; }
+.bb-grid figure { break-inside: avoid; margin-bottom: 4px; position: relative; }
+.bb-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #f4f4f4;   /* reserves space; no layout shift */
+}
+
+@media (max-width: 1200px) { .bb-grid { columns: 2; } }
+@media (max-width: 700px)  { .bb-grid { columns: 2; } body { padding: 20px 14px 80px; } }
