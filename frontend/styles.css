@@ -787,9 +787,27 @@ body.lb-open { overflow: hidden; }
      * content added a screen of emptiness below every short page */
     min-height: 0;
   }
-  body.home main { padding: 8px var(--edge) 24px; }
-  .carousel { height: 68vh; }
-  .slide { max-height: 96%; }   /* the frame fills the space it is given */
+  /* Landing page on a phone: the identity block sits ABOVE the carousel here,
+   * so a fixed viewport-fraction height pushed the bottom of a tall frame below
+   * the fold and you had to scroll to see the whole photograph. Instead the
+   * page becomes a column the height of the screen and the carousel takes
+   * whatever is left after the nav — so the frame always fits, whatever the
+   * nav's height or the phone's, and nothing has to be pulled down. */
+  body.home { display: flex; flex-direction: column; min-height: 100vh; }
+  body.home main {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    padding: 4px var(--edge) 18px;
+  }
+  body.home .carousel {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
+    width: 100%;
+  }
+  /* portrait frames get the full height they are given; nothing is cropped */
+  .slide { max-height: 100%; max-width: 100%; }
   .wordmark { font-size: 33px; }
   .corner nav a, .nav-parent { font-size: 22px; }
   .submenu a { font-size: 18px; }
@@ -863,5 +881,13 @@ body.lb-open { overflow: hidden; }
 @supports (height: 100dvh) {
   @media (max-width: 900px) {
     .lb-img { max-height: calc(100dvh - 170px); }
+  }
+}
+
+/* Phones report 100vh as the tallest the viewport ever gets, so a full-height
+ * landing overflowed behind the browser chrome. dvh tracks the real height. */
+@supports (height: 100dvh) {
+  @media (max-width: 900px) {
+    body.home { min-height: 100dvh; }
   }
 }
