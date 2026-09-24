@@ -733,6 +733,22 @@
 
   /* Phones: six sections plus two icons cannot sit across a 390px bar, so the
    * links move into a sheet behind a Menu button. Desktop keeps the bar. */
+  /* ---- experiment only: menu icon picker (?icon=…) ---- */
+  var ICONS = [["lines","2 lines"],["three","3 lines"],["word","word"],
+               ["both","word+"],["dots","dots"],["grid","grid"]];
+  var pick = new URLSearchParams(location.search).get("icon") || "lines";
+  document.body.setAttribute("data-icon", pick);
+  var strip = document.getElementById("iconbar");
+  if (strip) {
+    ICONS.forEach(function (i) {
+      var a = document.createElement("a");
+      a.href = "?icon=" + i[0] + location.hash;
+      a.textContent = i[1];
+      if (i[0] === pick) a.className = "on";
+      strip.appendChild(a);
+    });
+  }
+
   var menuBtn = document.getElementById("menu-btn");
   var sheet = document.getElementById("sheet");
 

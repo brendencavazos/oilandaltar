@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C. Wordmark and Menu only — navigation test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 40;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 24px; color: #fff;
+  transition: color .3s ease;
+}
+.nav::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to bottom, rgba(0,0,0,.38), rgba(0,0,0,0));
+  transition: opacity .3s ease;
+}
+.nav.solid { color: var(--ink); }
+.nav.solid::before { opacity: 0; }
+.brand { font-size: 21px; letter-spacing: -.02em; }
+.menubtn {
+  font: inherit; background: none; border: 0; cursor: pointer; color: inherit;
+  font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+}
+.menubtn:hover { color: var(--accent); }
+
+.sheet {
+  position: fixed; inset: 0; z-index: 50;
+  background: rgba(255,255,255,.97);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px;
+  opacity: 0; visibility: hidden; transition: opacity .28s ease, visibility 0s linear .28s;
+}
+.sheet.open { opacity: 1; visibility: visible; transition-delay: 0s; }
+.sheet a { font-size: 34px; letter-spacing: -.02em; padding: 6px 10px; }
+.sheet a:hover { color: var(--accent); }
+.sheet .sub { font-size: 20px; color: var(--mute); }
+.sheet .close {
+  position: absolute; top: 14px; right: 22px;
+  font: inherit; background: none; border: 0; cursor: pointer;
+  font-size: 34px; line-height: 1; color: var(--ink);
+}
+@media (max-width: 700px) {
+  .nav { padding: 14px 16px; } .brand { font-size: 17px; }
+  .sheet a { font-size: 27px; } .sheet .sub { font-size: 17px; }
+}
+
+</style>
+</head>
+<body>
+<nav class="nav" id="nav">
+  <a class="brand" href="#">oilandaltar</a>
+  <button class="menubtn" id="open">Menu</button>
+</nav>
+<div class="sheet" id="sheet">
+  <button class="close" id="close" aria-label="Close">&times;</button>
+  <a href="#">Bible Belt</a>
+  <a class="sub" href="#">View Ephemera</a>
+  <a href="#">Abandoned America</a>
+  <a href="#">Portraits</a><a href="#">Wanderings</a><a href="#">In Passing</a><a href="#">About</a>
+</div>
+
+<div class="hero"><img alt=""></div>
+<div class="wall"></div>
+<div class="tail">
+  <strong>C. Wordmark and Menu only</strong><br>The quietest option: two words at the top, and the whole navigation opens as a full screen when asked for. Nothing competes with the photographs at any point — but every section is one click further away.<br><br>
+  <a href="index.html">&larr; all navigation options</a>
+</div>
+
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+buildContent(12);
+
+var nav = document.getElementById("nav"), sheet = document.getElementById("sheet");
+addEventListener("scroll", function () {
+  nav.classList.toggle("solid", scrollY > innerHeight * 0.72);
+}, { passive: true });
+function show(on) {
+  sheet.classList.toggle("open", on);
+  document.body.style.overflow = on ? "hidden" : "";
+}
+document.getElementById("open").addEventListener("click", function () { show(true); });
+document.getElementById("close").addEventListener("click", function () { show(false); });
+addEventListener("keydown", function (e) { if (e.key === "Escape") show(false); });
+
+</script>
+</body>
+</html>

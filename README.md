@@ -41,16 +41,21 @@ inside the viewport that is still transparent after 500ms switches the page to
 an IntersectionObserver instead, and a final sweep forces anything still hidden.
 A blank grid is never acceptable, so it cannot happen.
 
-Navigation groups the two documentary projects under a collapsible **Curated
-Projects** heading, and the whole identity block retires as you scroll down and
-returns as you scroll up, with a Menu button while it is away. The contact icons
-sit on the nav's own rhythm, as its last item rather than a detached block.
+## Navigation
 
-A fixed scrim across the top of the viewport softens work as it scrolls under:
-a heavy backdrop blur masked so the blur and the paper tone fade out together,
-rather than ending on a ruled line. It takes no clicks — only the identity block
-above it does — and it is off on the landing page, which is a single centred
-photograph with nothing scrolling beneath it.
+Navigation runs **across the top**, not down the side. That is what keeps it off
+the work: nothing sits beside a photograph where it can be covered, and nothing
+reappears over one as you scroll.
+
+| | |
+| ------------- | ------------------------------------------------------------ |
+| Desktop       | wordmark left; **Projects** opens a panel holding Bible Belt, Ephemera and Abandoned America; Portraits, Wanderings, In Passing, About and the contact icons follow |
+| Phone         | wordmark and a three-line button; the button opens a full-screen sheet with the same structure, Curated Projects opening to reveal the documentary work |
+| Both          | the bar retires as you scroll down and returns the moment you scroll up — leaving a page and scrolling back are the same impulse |
+| Landing page  | the frame runs edge to edge beneath the bar, which turns to glass: white type over a gradient, so the photograph reaches the top of the screen |
+
+Three lines rather than two on the phone button: two reads as an equals sign, and
+a page with this little chrome offers no other cue.
 
 Two things in here are easy to break by tidying, so they are worth naming:
 
@@ -70,11 +75,13 @@ Two things in here are easy to break by tidying, so they are worth naming:
   `100vh` is the viewport at its tallest, with the address bar hidden, so a
   `vh`-sized element overflows behind the browser chrome even when a simulator
   shows it fitting.
-
-On phones the identity block sits above the work rather than beside it, so the
-landing carousel is given the screen height minus 300px — the room the wordmark,
-nav and icons occupy. That number is the one to change if the landing frame ever
-feels too large or too small.
+- **`jsReveal()` waits two animation frames before revealing anything.** An
+  IntersectionObserver reports tiles that are already on screen almost at once,
+  so without the wait the class lands in the same frame the tiles were created
+  in — there is no previous state to transition from and the frames simply
+  appear. This looked like "the animation only works on Bible Belt", because the
+  watchdog's half-second delay on the first page happened to let the hidden
+  state paint.
 
 ## Structure
 

@@ -1,0 +1,1 @@
+/Users/brendencavazos/oil-and-altar/frontend/gallery-data.js
