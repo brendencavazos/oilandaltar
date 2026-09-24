@@ -27,3 +27,9 @@ photosandvideos/
 
 # claude code — personal settings, not for the public repo
 .claude/settings.local.json
+
+# the snapshot borrows its images and data from the live site at run time
+nav-experiments/site/media
+nav-experiments/site/gallery-data.js
+nav-experiments/site/favicon*
+nav-experiments/site/apple-touch-icon.png
