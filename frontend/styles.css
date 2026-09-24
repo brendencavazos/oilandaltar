@@ -762,9 +762,17 @@ body.lb-open { overflow: hidden; }
 
 @media (max-width: 900px) {
   .corner {
-    /* relative, not static: z-index does nothing on a static element, so the
-     * wordmark fell *under* the scrim and came out blurred. */
+    /* Relative, not static: z-index does nothing on a static element, so the
+     * wordmark fell under the scrim and came out blurred.
+     *
+     * top/left MUST be reset with it. The base rule sets them for the fixed
+     * desktop position, and a relative offset moves an element visually
+     * without moving its layout box — so the block was painted 20px down and
+     * 20px right of where the page believed it was, and that displaced bottom
+     * edge landed on top of the photograph below. */
     position: relative;
+    top: auto;
+    left: auto;
     z-index: 10;
     max-width: none;
     padding: var(--edge) var(--edge) 0;
@@ -788,25 +796,17 @@ body.lb-open { overflow: hidden; }
     min-height: 0;
   }
   /* Landing page on a phone: the identity block sits ABOVE the carousel here,
-   * so a fixed viewport-fraction height pushed the bottom of a tall frame below
-   * the fold and you had to scroll to see the whole photograph. Instead the
-   * page becomes a column the height of the screen and the carousel takes
-   * whatever is left after the nav — so the frame always fits, whatever the
-   * nav's height or the phone's, and nothing has to be pulled down. */
-  body.home { display: flex; flex-direction: column; min-height: 100vh; }
-  body.home main {
-    flex: 1 1 auto;
-    min-height: 0;
-    display: flex;
-    padding: 4px var(--edge) 18px;
+   * not beside it, so the frame only has the screen minus the nav to live in.
+   * That is subtracted directly — an explicit height, not a percentage of an
+   * auto-height parent, which is the arrangement that has collapsed on mobile
+   * Safari twice already. 300px covers the wordmark, nav, icons and padding;
+   * the floor keeps it sane on a very short screen. */
+  body.home main { padding: 4px var(--edge) 18px; }
+  .carousel {
+    height: calc(100vh - 300px);
+    min-height: 220px;
   }
-  body.home .carousel {
-    flex: 1 1 auto;
-    height: auto;
-    min-height: 0;
-    width: 100%;
-  }
-  /* portrait frames get the full height they are given; nothing is cropped */
+  /* the frame uses the height it is given and keeps its proportions */
   .slide { max-height: 100%; max-width: 100%; }
   .wordmark { font-size: 33px; }
   .corner nav a, .nav-parent { font-size: 22px; }
@@ -884,10 +884,11 @@ body.lb-open { overflow: hidden; }
   }
 }
 
-/* Phones report 100vh as the tallest the viewport ever gets, so a full-height
- * landing overflowed behind the browser chrome. dvh tracks the real height. */
+/* Phones report 100vh as the tallest the viewport ever gets — with the address
+ * bar hidden — so anything sized in vh overflows behind the browser chrome even
+ * when it looks right. dvh tracks the height actually available. */
 @supports (height: 100dvh) {
   @media (max-width: 900px) {
-    body.home { min-height: 100dvh; }
+    .carousel { height: calc(100dvh - 300px); }
   }
 }

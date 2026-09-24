@@ -61,6 +61,20 @@ Two things in here are easy to break by tidying, so they are worth naming:
 - **The enlarged photo is sized against the viewport, not its parent.**
   `max-height: 100%` inside a flex item whose own height is `auto` resolves to
   nothing on mobile Safari and collapses the image to zero height.
+- **`.corner` resets `top` and `left` on mobile.** It is `fixed` on desktop and
+  `relative` on phones, and the base rule's offsets belong to the fixed
+  position. A relative offset moves an element visually without moving its
+  layout box, so leaving them in painted the nav block 20px down and right of
+  where the page believed it was — and the icons landed on the photograph.
+- **Lengths that must fit a phone screen are in `dvh`, not `vh`.** On a phone
+  `100vh` is the viewport at its tallest, with the address bar hidden, so a
+  `vh`-sized element overflows behind the browser chrome even when a simulator
+  shows it fitting.
+
+On phones the identity block sits above the work rather than beside it, so the
+landing carousel is given the screen height minus 300px — the room the wordmark,
+nav and icons occupy. That number is the one to change if the landing frame ever
+feels too large or too small.
 
 ## Structure
 
