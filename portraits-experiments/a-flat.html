@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A. Flat three-column wall — Portraits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+
+.wall { columns: 3; column-gap: 4px; }
+.wall figure { break-inside: avoid; margin-bottom: 4px; overflow: hidden; cursor: zoom-in; }
+.wall img { display: block; width: 100%; height: auto; background: #f4f4f4;
+  transition: transform .34s cubic-bezier(.22,.61,.36,1), filter .3s ease; }
+@media (hover:hover) and (pointer:fine) { .wall figure:hover img { transform: scale(1.04); filter: brightness(1.06); } }
+@media (max-width: 1100px) { .wall { columns: 2; } }
+@media (max-width: 640px)  { .wall { columns: 2; } }
+
+</style></head><body>
+<header class="head">
+  <a class="back" href="index.html">&larr; all three</a>
+  <h1>A. Flat three-column wall</h1>
+  <p>The same mosaic as every other section: three columns, no session headings, nothing to distinguish it from Bible Belt or Wanderings. The name and date appear when a frame is opened.</p>
+  <p class="note">Most consistent with the rest of the site, and the lopsided sessions stop mattering — a shoot of one photograph sits as happily as a shoot of twelve. The cost is that your statement's point, that these are named collaborations, is no longer visible on the page.</p>
+</header>
+
+<div class="kicker"><span class="n">III</span><span>Portraits</span></div>
+<p class="excerpt" id="ex"></p>
+<div id="host"></div>
+
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+var data = portraits();
+document.getElementById("ex").textContent = data.excerpt[0] || "";
+var open = lightbox(data.plates);
+
+var host = document.getElementById("host");
+host.className = "wall";
+data.plates.forEach(function (p, i) {
+  var f = document.createElement("figure");
+  var im = document.createElement("img");
+  im.src = p.thumb; im.alt = p.session; im.width = p.w; im.height = p.h;
+  im.loading = i < 9 ? "eager" : "lazy";
+  f.appendChild(im); f.onclick = function () { open(i); };
+  host.appendChild(f);
+});
+
+</script></body></html>

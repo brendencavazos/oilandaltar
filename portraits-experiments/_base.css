@@ -1,0 +1,32 @@
+/* Shared scaffolding for the Portraits experiments — NOT part of the site. */
+:root{--ink:#1d1d1d;--mute:#8b8b8b;--eyebrow:#444;--accent:#c89b5c;--rule:#eee;--paper:#fff;
+--serif:"Bodoni Moda",Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+font-weight:700;-webkit-font-smoothing:antialiased;padding:34px 20px 100px}
+a{color:inherit;text-decoration:none}
+.head{max-width:900px;margin-bottom:26px}
+.back{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+color:var(--eyebrow);margin-bottom:16px}
+.back:hover{color:var(--accent)}
+.head h1{font-size:27px;letter-spacing:-.02em;margin-bottom:10px}
+.head p{font-weight:400;font-size:15px;line-height:1.7;color:#2e2e2e;max-width:66ch}
+.head .note{font-size:13px;color:var(--mute);margin-top:10px}
+.kicker{display:flex;gap:12px;align-items:baseline;border-bottom:1px solid var(--rule);
+padding-bottom:9px;margin-bottom:18px;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.kicker .n{color:var(--accent)}
+.excerpt{font-weight:400;font-size:15px;line-height:1.8;color:#2e2e2e;margin-bottom:34px}
+/* the enlarged view, shared */
+.lb{position:fixed;inset:0;z-index:50;background:#fff;display:flex;flex-direction:column;
+align-items:center;justify-content:center;gap:14px;padding:44px 72px 26px}
+.lb[hidden]{display:none}
+.lb-stage{position:relative;flex:1 1 auto;width:100%;min-height:0}
+.lb img{position:absolute;inset:0;margin:auto;max-width:100%;max-height:100%;width:auto;height:auto;
+object-fit:contain}
+.lb .who{font-family:var(--serif);font-style:italic;font-weight:600;font-size:19px}
+.lb .num{font-weight:400;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute);margin-top:6px}
+.lb button{position:absolute;background:none;border:0;cursor:pointer;color:var(--ink);line-height:1;padding:10px}
+.lb button:hover{color:var(--accent)}
+.lb .x{top:14px;right:20px;font-size:32px}
+.lb .p{top:50%;left:12px;transform:translateY(-50%);font-size:44px}
+.lb .n2{top:50%;right:12px;transform:translateY(-50%);font-size:44px}

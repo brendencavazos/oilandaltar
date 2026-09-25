@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E. Session index, three columns — Portraits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<link rel="stylesheet" href="_sess.css">
+<style>
+
+.index { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px 20px; }
+.index .card { cursor: pointer; }
+.index .frame:hover img { transform: scale(1.03); }
+.index .meta { margin-top: 10px; }
+
+.shoot { columns: 3; column-gap: 4px; }
+.shoot .item { break-inside: avoid; margin-bottom: 4px; }
+.shoot .frame:hover img { transform: scale(1.03); }
+
+@media (max-width: 1000px) { .index { grid-template-columns: repeat(2, 1fr); } .shoot { columns: 2; } }
+@media (max-width: 560px)  { .index { grid-template-columns: repeat(2, 1fr); gap: 18px 12px; } }
+
+</style></head><body>
+<header class="head">
+  <a class="back" href="index.html">&larr; all layouts</a>
+  <h1>E. Session index, three columns</h1>
+  <p>Eleven sessions, not forty-three photographs. Each person gets one cover frame with their name and date; clicking opens that shoot as its own three-column wall.</p>
+  <p class="note">The whole section fits on one screen. Nobody scrolls past someone they were not looking for, and the names are the structure rather than a caption. Every frame reserves its shape before it loads, so nothing shifts.</p>
+</header>
+
+<div class="kicker"><span class="n">III</span><span>Portraits</span></div>
+<p class="excerpt" id="ex"></p>
+<div id="host"></div>
+
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script src="_sess.js"></script>
+<script>
+var data = portraits();
+document.getElementById("ex").textContent = data.excerpt[0] || "";
+var groups = sessions(data.plates);
+var host = document.getElementById("host");
+var ex = document.getElementById("ex");
+
+
+function showIndex() {
+  host.className = "index";
+  host.innerHTML = "";
+  ex.style.display = "";
+  groups.forEach(function (g) {
+    var card = document.createElement("div"); card.className = "card";
+    var open = function () { showShoot(g); };
+    var box = frame(g.plates[0], open, true);
+    var meta = document.createElement("div"); meta.className = "meta";
+    var who = document.createElement("p"); who.className = "who"; who.textContent = g.name;
+    var c = document.createElement("p"); c.className = "count-note";
+    c.textContent = g.plates.length + (g.plates.length === 1 ? " photograph" : " photographs");
+    meta.append(who, c);
+    card.append(box, meta);
+    host.appendChild(card);
+  });
+}
+
+function showShoot(g) {
+  host.className = "";
+  host.innerHTML = "";
+  ex.style.display = "none";
+  scrollTo(0, 0);
+
+  var crumb = document.createElement("div"); crumb.className = "crumb";
+  var b = document.createElement("button"); b.textContent = "\u2190 All sessions";
+  b.onclick = showIndex;
+  crumb.appendChild(b);
+
+  var h = document.createElement("h2"); h.className = "sess-head"; h.textContent = g.name;
+
+  var wall = document.createElement("div"); wall.className = "shoot";
+  var openLb = lightbox(g.plates);
+  g.plates.forEach(function (p, i) {
+    var item = document.createElement("div"); item.className = "item";
+    item.appendChild(frame(p, function () { openLb(i); }));
+    wall.appendChild(item);
+  });
+
+  host.append(crumb, h, wall);
+}
+
+
+showIndex();
+</script></body></html>

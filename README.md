@@ -9,6 +9,29 @@ Bible Belt (flagship project, with an Ephemera sub-page), Abandoned America,
 Portraits, Wanderings, In Passing (stills paired with mp4 bays), and About with
 an inquiry form.
 
+## Portraits
+
+The section is people, not photographs. A **session** — a shoot of more than one
+frame — gets a cover with the sitter's name, date and frame count, and opens as
+its own wall at `#/portraits/s/<n>`. Eleven covers fit on a screen where
+forty-three photographs never could, and nobody scrolls past someone they were
+not looking for.
+
+A **lone frame** was caught rather than arranged, so those gather under
+**Places and Faces** (`#/portraits/places-and-faces`) — portraits made at events
+and in daily life, kept apart from the sessions for that reason. They enlarge but
+do not drill in.
+
+The two rooms are reached by **tabs on the page**, not by an entry in the top
+bar. Navigation depth should track importance rather than structure: three
+photographs should not hold a slot in a navigation a visitor scans before they
+know anything about the work, and tabs show both rooms at once so neither can be
+mistaken for the whole section.
+
+Portraits is routed by name in `renderRoute()`, so its `layout: "sessions"` flag
+in `gallery-data.js` no longer decides anything — the flag table below applies to
+the other series.
+
 ## In Passing
 
 The video section is a **contact sheet**: poster frames in the same mosaic as the

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D. Single centred column — Portraits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+/* ============================================================
+   One photograph per row, centred, at its own proportions.
+   No grid, no crop, nothing competing for the same screen.
+   ============================================================ */
+.col { max-width: 780px; margin: 0 auto; }
+
+.col figure { margin-bottom: 8px; }
+
+/* The box is sized from the real dimensions BEFORE the file arrives, so the
+   page never jumps as photographs load — the same trick the reference uses. */
+.frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #ededed;
+  cursor: zoom-in;
+}
+.frame.loading::after {          /* quiet pulse while it is on its way */
+  content: "";
+  position: absolute; inset: 0;
+  background: #e4e4e4;
+  animation: breathe 1.6s ease-in-out infinite;
+}
+@keyframes breathe { 0%,100% { opacity: .55; } 50% { opacity: .15; } }
+
+.frame img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity .45s ease;
+}
+.frame img.ready { opacity: 1; }
+
+.col figcaption {
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: .04em;
+  color: var(--mute);
+  margin: 9px 2px 34px;
+}
+
+@media (max-width: 820px) {
+  .col { max-width: 100%; }
+  .col figcaption { margin-bottom: 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .frame.loading::after { animation: none; }
+  .frame img { transition: none; }
+}
+</style></head><body>
+<header class="head">
+  <a class="back" href="index.html">&larr; all four</a>
+  <h1>D. Single centred column</h1>
+  <p>One photograph per row, centred and capped around 780px, each at its own
+    proportions. Nothing is cropped and nothing shares a screen. A grey box holds the
+    exact shape of each frame before it arrives, so the page never jumps as you scroll,
+    and the photograph fades in over it.</p>
+  <p class="note">The opposite instinct to the grids: this treats a portrait as something
+    to look at one at a time rather than scan. It is a long page — 43 photographs — which
+    is the trade. Names sit quietly beneath each frame; they can come off entirely if you
+    want it as bare as the reference.</p>
+</header>
+
+<div class="kicker"><span class="n">III</span><span>Portraits</span></div>
+<p class="excerpt" id="ex"></p>
+<div class="col" id="host"></div>
+
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+var data = portraits();
+document.getElementById("ex").textContent = data.excerpt[0] || "";
+var open = lightbox(data.plates);
+var host = document.getElementById("host");
+
+data.plates.forEach(function (p, i) {
+  var fig = document.createElement("figure");
+
+  var box = document.createElement("div");
+  box.className = "frame loading";
+  // reserve the true shape up front — this is what stops the page jumping
+  box.style.aspectRatio = p.w + " / " + p.h;
+
+  var img = document.createElement("img");
+  img.src = p.thumb;
+  img.alt = p.session;
+  img.loading = i < 3 ? "eager" : "lazy";
+  img.decoding = "async";
+  img.addEventListener("load", function () {
+    img.classList.add("ready");
+    box.classList.remove("loading");
+  });
+  if (img.complete) { img.classList.add("ready"); box.classList.remove("loading"); }
+
+  box.appendChild(img);
+  box.addEventListener("click", function () { open(i); });
+
+  var cap = document.createElement("figcaption");
+  cap.textContent = p.session;
+
+  fig.append(box, cap);
+  host.appendChild(fig);
+});
+</script></body></html>

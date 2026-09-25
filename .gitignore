@@ -39,3 +39,9 @@ video-experiments/site/media
 video-experiments/site/gallery-data.js
 video-experiments/site/favicon*
 video-experiments/site/apple-touch-icon.png
+
+# the Portraits snapshot borrows its media and data from the live site
+portraits-experiments/site/media
+portraits-experiments/site/gallery-data.js
+portraits-experiments/site/favicon*
+portraits-experiments/site/apple-touch-icon.png

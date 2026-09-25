@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B. Sessions, three columns each — Portraits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+
+.sess { margin-bottom: 54px; }
+.sess h2 { font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 21px;
+  color: #111; border-top: 1px solid var(--ink); padding-top: 11px; margin-bottom: 14px; }
+.sess .grid { columns: 3; column-gap: 4px; }
+.sess figure { break-inside: avoid; margin-bottom: 4px; overflow: hidden; cursor: zoom-in; }
+.sess img { display: block; width: 100%; height: auto; background: #f4f4f4;
+  transition: transform .34s cubic-bezier(.22,.61,.36,1), filter .3s ease; }
+@media (hover:hover) and (pointer:fine) { .sess figure:hover img { transform: scale(1.04); filter: brightness(1.06); } }
+@media (max-width: 1100px) { .sess .grid { columns: 2; } }
+
+</style></head><body>
+<header class="head">
+  <a class="back" href="index.html">&larr; all three</a>
+  <h1>B. Sessions, three columns each</h1>
+  <p>The session headings stay — <em>Brooke N. · March 2026</em> — and each shoot runs as its own three-column group beneath its name.</p>
+  <p class="note">Honours what the section says it is. The risk is visible: four of the eleven sessions are a single photograph, and a heading over one frame can look thin.</p>
+</header>
+
+<div class="kicker"><span class="n">III</span><span>Portraits</span></div>
+<p class="excerpt" id="ex"></p>
+<div id="host"></div>
+
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+var data = portraits();
+document.getElementById("ex").textContent = data.excerpt[0] || "";
+var open = lightbox(data.plates);
+
+var host = document.getElementById("host");
+var idx = 0;
+sessions(data.plates).forEach(function (s) {
+  var wrap = document.createElement("section"); wrap.className = "sess";
+  var h = document.createElement("h2"); h.textContent = s.name;
+  var g = document.createElement("div"); g.className = "grid";
+  s.plates.forEach(function (p) {
+    var my = idx++;
+    var f = document.createElement("figure");
+    var im = document.createElement("img");
+    im.src = p.thumb; im.alt = p.session; im.width = p.w; im.height = p.h;
+    im.loading = my < 9 ? "eager" : "lazy";
+    f.appendChild(im); f.onclick = function () { open(my); };
+    g.appendChild(f);
+  });
+  wrap.append(h, g); host.appendChild(wrap);
+});
+
+</script></body></html>
