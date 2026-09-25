@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4. Viewing room — In Passing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+
+.room { display: flex; flex-direction: column; height: calc(100dvh - 150px); padding: 0 16px 16px; gap: 12px; }
+.stage { flex: 1 1 auto; min-height: 0; position: relative; background: #000; }
+.stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.stage figcaption {
+  position: absolute; left: 16px; bottom: 14px;
+  font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 19px;
+  color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.7);
+}
+.strip { flex: 0 0 auto; display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+.strip button {
+  flex: 0 0 auto; width: 132px; height: 76px; padding: 0; border: 0; cursor: pointer;
+  background: #111 center/cover no-repeat; position: relative;
+  opacity: .5; transition: opacity .2s ease;
+}
+.strip button:hover { opacity: .85; }
+.strip button.on { opacity: 1; outline: 2px solid var(--accent); outline-offset: -2px; }
+@media (max-width: 700px) {
+  .room { height: calc(100dvh - 190px); }
+  .strip button { width: 104px; height: 60px; }
+}
+
+</style>
+</head>
+<body>
+<header class="head">
+  <a class="back" href="index.html">&larr; all four</a>
+  <h1>4. Viewing room</h1>
+  <p>One clip playing large, filling the space, with the rest as a strip of stills beneath it. Choosing one swaps it into the stage. A room with the work on, rather than a page to scroll.</p>
+  <p class="note">Everything is reachable without scrolling and only one clip ever loads at a time. The strip needs somewhere to live on a phone, which is the awkward part.</p>
+</header>
+
+<div class="room">
+  <div class="stage" id="stage"><figcaption id="cap"></figcaption></div>
+  <div class="strip" id="strip"></div>
+</div>
+
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+
+var list = clips(), stage = document.getElementById("stage"),
+    strip = document.getElementById("strip"), cap = document.getElementById("cap");
+var current = -1;
+
+function show(i) {
+  if (i === current) return;
+  current = i;
+  var old = stage.querySelector("video"); if (old) old.remove();
+  var v = makeVideo(list[i], { preload: "auto" });
+  v.autoplay = true; v.controls = true;
+  stage.insertBefore(v, cap);
+  cap.textContent = list[i].title;
+  strip.querySelectorAll("button").forEach(function (b, n) { b.classList.toggle("on", n === i); });
+}
+
+list.forEach(function (c, i) {
+  var b = document.createElement("button");
+  b.style.backgroundImage = "url(" + c.poster + ")";
+  b.setAttribute("aria-label", c.title);
+  b.addEventListener("click", function () { show(i); });
+  strip.appendChild(b);
+});
+show(0);
+
+</script>
+</body>
+</html>

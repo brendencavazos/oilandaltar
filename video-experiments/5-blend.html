@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5. Contact sheet → cinema — In Passing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+/* ============================================================
+   THE SHEET — quiet, consistent with the photographic sections.
+   Still frames only: a visitor downloads the one clip they choose.
+   ============================================================ */
+.sheet { columns: 3; column-gap: 4px; padding: 0 4px 90px; }
+.sheet figure {
+  break-inside: avoid; margin-bottom: 4px;
+  position: relative; cursor: pointer; overflow: hidden;
+}
+.sheet img {
+  display: block; width: 100%; height: auto; background: #111;
+  transition: transform .34s cubic-bezier(.22,.61,.36,1), filter .3s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .sheet figure:hover img { transform: scale(1.03); filter: brightness(1.05); }
+}
+@media (hover: none) { .sheet figure:active img { transform: scale(1.02); } }
+.sheet figure:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+/* the one cue that says "this one moves" */
+.sheet .cue {
+  position: absolute; left: 12px; bottom: 12px;
+  width: 0; height: 0;
+  border-left: 13px solid rgba(255,255,255,.95);
+  border-top: 8px solid transparent; border-bottom: 8px solid transparent;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,.6));
+  pointer-events: none;
+}
+.sheet figcaption {
+  position: absolute; left: 34px; bottom: 9px; right: 10px;
+  font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 15px;
+  color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.7);
+  pointer-events: none;
+}
+@media (max-width: 1200px) { .sheet { columns: 2; } }
+@media (max-width: 700px)  { .sheet { columns: 1; } }
+
+/* ============================================================
+   THE CINEMA — what opens on click. One clip, the whole screen,
+   black rather than white: the page gets out of the way entirely.
+   ============================================================ */
+.cine {
+  position: fixed; inset: 0; z-index: 60; background: #000;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 14px; padding: 44px 76px 26px;
+  opacity: 0; transition: opacity .26s ease;
+}
+.cine[hidden] { display: none; }
+.cine.show { opacity: 1; }
+
+.cine-stage { position: relative; flex: 1 1 auto; width: 100%; min-height: 0; }
+.cine video {
+  position: absolute; inset: 0; margin: auto;
+  max-width: 100%; max-height: 100%;
+  width: auto; height: auto;
+  /* contain, never cover: the two vertical clips keep their shape */
+  object-fit: contain;
+  transition: opacity .18s ease;
+}
+.cine.stepping video { opacity: 0; }
+
+.cine-meta { flex: 0 0 auto; width: 100%; display: flex; align-items: center; justify-content: center; gap: 18px; }
+.cine-text { text-align: center; min-width: 0; }
+.cine-title { font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 19px; color: #fff; }
+.cine-count { font-weight: 400; font-size: 11px; letter-spacing: .13em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-top: 6px; }
+
+.cine button {
+  background: none; border: 0; cursor: pointer; color: #fff;
+  font-family: inherit; line-height: 1; padding: 10px;
+  transition: color .15s ease;
+}
+.cine button:hover { color: var(--accent); }
+.cine-close { position: absolute; top: 14px; right: 20px; font-size: 32px; }
+.cine-sound {
+  position: absolute; top: 18px; left: 20px;
+  font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  background: rgba(255,255,255,.12); padding: 9px 13px; border-radius: 2px;
+}
+.cine-nav { position: absolute; top: 50%; transform: translateY(-50%); font-size: 46px; }
+.cine-prev { left: 12px; } .cine-next { right: 12px; }
+
+@media (max-width: 700px) {
+  .cine { padding: 52px 14px 22px; }
+  .cine-meta { justify-content: space-between; gap: 10px; }
+  .cine-nav { position: static; transform: none; font-size: 30px; padding: 12px 14px; }
+  .cine-text { flex: 1 1 auto; }
+  .cine-title { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cine, .cine video, .sheet img { transition: none; }
+}
+</style>
+</head>
+<body>
+<header class="head">
+  <a class="back" href="index.html">&larr; all treatments</a>
+  <h1>5. Contact sheet &rarr; cinema</h1>
+  <p>The section stays quiet: still frames in a grid, exactly like the photographic
+    sections, so nothing moves until asked and a visitor downloads only the clip they
+    choose. Clicking one hands it the whole screen on black, with the arrows, swipe and
+    keyboard already built for the photographs.</p>
+  <p class="note">Sound is on from the first tap where the browser allows it — you asked
+    for the clip, so it plays. Where autoplay rules forbid it, it starts muted and the
+    button in the corner turns it on. Vertical clips keep their shape; nothing is cropped.</p>
+</header>
+
+<div class="sheet" id="sheet"></div>
+
+<div class="cine" id="cine" hidden role="dialog" aria-modal="true">
+  <button class="cine-close" id="cine-close" aria-label="Close">&times;</button>
+  <button class="cine-sound" id="cine-sound">Sound off</button>
+  <div class="cine-stage" id="cine-stage"></div>
+  <div class="cine-meta">
+    <button class="cine-nav cine-prev" id="cine-prev" aria-label="Previous clip">&#8249;</button>
+    <div class="cine-text">
+      <p class="cine-title" id="cine-title"></p>
+      <p class="cine-count" id="cine-count"></p>
+    </div>
+    <button class="cine-nav cine-next" id="cine-next" aria-label="Next clip">&#8250;</button>
+  </div>
+</div>
+
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+var list = clips();
+var sheet = document.getElementById("sheet");
+var cine = document.getElementById("cine");
+var stage = document.getElementById("cine-stage");
+var titleEl = document.getElementById("cine-title");
+var countEl = document.getElementById("cine-count");
+var soundBtn = document.getElementById("cine-sound");
+var index = 0, wantSound = true, returnTo = null, stepTimer = null;
+
+/* ---------- the sheet ---------- */
+list.forEach(function (c, i) {
+  var fig = document.createElement("figure");
+  fig.tabIndex = 0;
+  fig.setAttribute("role", "button");
+  fig.setAttribute("aria-label", "Play " + c.title);
+
+  var img = document.createElement("img");
+  img.src = c.poster; img.alt = c.title;
+  img.width = c.w; img.height = c.h;        // reserves the box, no layout shift
+  img.loading = i < 6 ? "eager" : "lazy";
+  img.decoding = "async";
+
+  var cue = document.createElement("span"); cue.className = "cue";
+  var cap = document.createElement("figcaption"); cap.textContent = c.title;
+
+  fig.append(img, cue, cap);
+  fig.addEventListener("click", function () { openAt(i, fig); });
+  fig.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openAt(i, fig); }
+  });
+  sheet.appendChild(fig);
+});
+
+/* ---------- the cinema ---------- */
+function mount(i) {
+  var old = stage.querySelector("video");
+  if (old) { old.pause(); old.remove(); }
+
+  var v = makeVideo(list[i], { preload: "auto", loop: false });
+  v.controls = false;
+  v.muted = !wantSound;
+  stage.appendChild(v);
+
+  titleEl.textContent = list[i].title;
+  countEl.textContent = (i + 1) + " / " + list.length;
+
+  /* They clicked to watch it, so try with sound. Browsers reject unmuted
+   * autoplay in plenty of situations; when that happens, fall back to muted
+   * rather than leaving a still frame, and let the button turn it on. */
+  var p = v.play();
+  if (p) p.catch(function () {
+    v.muted = true;
+    wantSound = false;
+    paintSound();
+    var q = v.play(); if (q) q.catch(function () {});
+  });
+  paintSound();
+}
+
+function paintSound() {
+  soundBtn.textContent = wantSound ? "Sound on" : "Sound off";
+}
+
+function openAt(i, fig) {
+  index = i; returnTo = fig || null;
+  cine.hidden = false;
+  requestAnimationFrame(function () { cine.classList.add("show"); });
+  document.body.style.overflow = "hidden";
+  document.addEventListener("keydown", onKey);
+  mount(i);
+  document.getElementById("cine-close").focus();
+}
+
+function close() {
+  clearTimeout(stepTimer);
+  cine.classList.remove("show", "stepping");
+  var v = stage.querySelector("video");
+  if (v) { v.pause(); v.remove(); }        // stop the download on close
+  document.body.style.overflow = "";
+  document.removeEventListener("keydown", onKey);
+  setTimeout(function () { cine.hidden = true; }, 260);
+  if (returnTo) returnTo.focus();
+}
+
+/* Dip out, swap, come back — the same motion the photographs use. */
+function step(delta) {
+  index = (index + delta + list.length) % list.length;
+  clearTimeout(stepTimer);
+  cine.classList.add("stepping");
+  stepTimer = setTimeout(function () {
+    mount(index);
+    cine.classList.remove("stepping");
+  }, 170);
+}
+
+function onKey(e) {
+  if (e.key === "Escape") close();
+  else if (e.key === "ArrowLeft") step(-1);
+  else if (e.key === "ArrowRight") step(1);
+  else if (e.key === " ") {
+    e.preventDefault();
+    var v = stage.querySelector("video");
+    if (v) v.paused ? v.play() : v.pause();
+  }
+}
+
+document.getElementById("cine-close").addEventListener("click", close);
+document.getElementById("cine-prev").addEventListener("click", function (e) { e.stopPropagation(); step(-1); });
+document.getElementById("cine-next").addEventListener("click", function (e) { e.stopPropagation(); step(1); });
+soundBtn.addEventListener("click", function (e) {
+  e.stopPropagation();
+  wantSound = !wantSound;
+  var v = stage.querySelector("video");
+  if (v) v.muted = !wantSound;
+  paintSound();
+});
+/* clicking the black backdrop closes; clicking the clip toggles play */
+cine.addEventListener("click", function (e) { if (e.target === cine || e.target === stage) close(); });
+stage.addEventListener("click", function (e) {
+  if (e.target.tagName !== "VIDEO") return;
+  e.target.paused ? e.target.play() : e.target.pause();
+});
+
+/* swipe, where there is a finger */
+var sx = 0, sy = 0, tracking = false;
+cine.addEventListener("touchstart", function (e) {
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, { passive: true });
+cine.addEventListener("touchend", function (e) {
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy)) return;
+  step(dx < 0 ? 1 : -1);
+}, { passive: true });
+</script>
+</body>
+</html>

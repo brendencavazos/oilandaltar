@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1. Contact sheet — In Passing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+
+.sheet { columns: 3; column-gap: 4px; padding: 0 4px 80px; }
+.sheet figure { break-inside: avoid; margin-bottom: 4px; position: relative; cursor: pointer; }
+.sheet img { display: block; width: 100%; height: auto; background: #111; }
+.sheet figure::after {           /* the only thing saying "this moves" */
+  content: ""; position: absolute; left: 12px; bottom: 12px;
+  width: 0; height: 0; border-left: 13px solid rgba(255,255,255,.95);
+  border-top: 8px solid transparent; border-bottom: 8px solid transparent;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.5));
+}
+.sheet figcaption {
+  position: absolute; left: 34px; bottom: 9px; right: 10px;
+  font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 15px;
+  color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.65);
+}
+@media (max-width: 900px) { .sheet { columns: 1; } }
+
+.player {
+  position: fixed; inset: 0; z-index: 50; background: #000;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; padding: 40px 20px 26px;
+}
+.player[hidden] { display: none; }
+.player video { max-width: 100%; max-height: calc(100dvh - 130px); }
+.player .title { color: #fff; }
+.player .count { color: rgba(255,255,255,.6); }
+.player button {
+  position: absolute; top: 12px; right: 18px; background: none; border: 0;
+  color: #fff; font-size: 32px; line-height: 1; cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+<header class="head">
+  <a class="back" href="index.html">&larr; all four</a>
+  <h1>1. Contact sheet</h1>
+  <p>Still frames in a grid, exactly like the photographic sections. Clicking one opens it full screen with sound. Nothing moves until you ask it to.</p>
+  <p class="note">Cheapest by far — a visitor downloads one clip, the one they chose, instead of 31 MB of video. The most consistent with the rest of the site, and the least arresting.</p>
+</header>
+
+<div class="sheet" id="sheet"></div>
+<div class="player" id="player" hidden><button id="close" aria-label="Close">&times;</button></div>
+
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+
+var list = clips(), host = document.getElementById("sheet");
+var player = document.getElementById("player");
+
+list.forEach(function (c, i) {
+  var fig = document.createElement("figure");
+  var img = document.createElement("img");
+  img.src = c.poster; img.alt = c.title; img.loading = i < 6 ? "eager" : "lazy";
+  img.width = c.w; img.height = c.h;
+  var cap = document.createElement("figcaption");
+  cap.textContent = c.title;
+  fig.append(img, cap);
+  fig.addEventListener("click", function () { open(i); });
+  host.appendChild(fig);
+});
+
+function open(i) {
+  var c = list[i];
+  player.querySelectorAll("video,.title,.count").forEach(function (n) { n.remove(); });
+  var v = makeVideo(c, { muted: false, controls: true, preload: "auto" });
+  v.autoplay = true;
+  var t = document.createElement("p"); t.className = "title"; t.textContent = c.title;
+  var n = document.createElement("p"); n.className = "count"; n.textContent = (i + 1) + " / " + list.length;
+  player.append(v, t, n);
+  player.hidden = false;
+  document.body.style.overflow = "hidden";
+}
+function close() {
+  player.hidden = true;
+  var v = player.querySelector("video"); if (v) v.pause();
+  document.body.style.overflow = "";
+}
+document.getElementById("close").addEventListener("click", close);
+addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+
+</script>
+</body>
+</html>

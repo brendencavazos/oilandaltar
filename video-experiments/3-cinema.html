@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3. Cinema — In Passing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+
+.reel { scroll-snap-type: y mandatory; height: 100dvh; overflow-y: scroll; }
+.frame {
+  position: relative; scroll-snap-align: start;
+  height: 100dvh; width: 100%; background: #000;
+  display: flex; align-items: center; justify-content: center;
+}
+.frame video { width: 100%; height: 100%; object-fit: contain; }
+/* the two vertical clips keep their shape rather than being cropped to 16:9 */
+.frame.portrait video { object-fit: contain; }
+.frame figcaption {
+  position: absolute; left: 22px; bottom: 26px;
+  font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 20px;
+  color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.7);
+}
+.frame .idx {
+  position: absolute; right: 22px; bottom: 28px;
+  font-weight: 400; font-size: 11px; letter-spacing: .14em;
+  color: rgba(255,255,255,.7);
+}
+.sound {
+  position: fixed; right: 20px; top: 20px; z-index: 20;
+  background: rgba(0,0,0,.45); border: 0; cursor: pointer;
+  color: #fff; font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  font-weight: 700; font-family: inherit; padding: 9px 13px; border-radius: 2px;
+}
+.head { position: relative; z-index: 5; background: #fff; }
+
+</style>
+</head>
+<body>
+<header class="head">
+  <a class="back" href="index.html">&larr; all four</a>
+  <h1>3. Cinema</h1>
+  <p>One clip per screen, filling it. Scrolling snaps from one to the next, each plays silently as it arrives, and a speaker button turns sound on. The title sits over the bottom corner.</p>
+  <p class="note">The closest to what your own statement describes — a few seconds of someone else's ordinary life, held long enough. Nothing competes. Eleven clips is a long way to scroll, which is the cost.</p>
+</header>
+
+<button class="sound" id="sound">Sound off</button>
+<div class="reel" id="reel"></div>
+
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+
+var list = clips(), reel = document.getElementById("reel"), frames = [], sound = false;
+
+list.forEach(function (c, i) {
+  var f = document.createElement("section");
+  f.className = "frame" + (c.portrait ? " portrait" : "");
+  f.appendChild(makeVideo(c, { preload: i < 2 ? "metadata" : "none" }));
+  var cap = document.createElement("figcaption"); cap.textContent = c.title;
+  var idx = document.createElement("span"); idx.className = "idx";
+  idx.textContent = (i + 1) + " / " + list.length;
+  f.append(cap, idx);
+  reel.appendChild(f); frames.push(f);
+});
+
+// play the frame you have landed on, pause the rest
+var io = new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+    var v = e.target.querySelector("video");
+    if (e.isIntersecting && e.intersectionRatio > 0.6) {
+      v.preload = "auto"; var p = v.play(); if (p) p.catch(function () {});
+    } else v.pause();
+  });
+}, { root: reel, threshold: [0, 0.6] });
+frames.forEach(function (f) { io.observe(f); });
+
+document.getElementById("sound").addEventListener("click", function () {
+  sound = !sound;
+  this.textContent = sound ? "Sound on" : "Sound off";
+  frames.forEach(function (f) { f.querySelector("video").muted = !sound; });
+});
+
+</script>
+</body>
+</html>

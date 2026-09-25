@@ -9,6 +9,22 @@ Bible Belt (flagship project, with an Ephemera sub-page), Abandoned America,
 Portraits, Wanderings, In Passing (stills paired with mp4 bays), and About with
 an inquiry form.
 
+## In Passing
+
+The video section is a **contact sheet**: poster frames in the same mosaic as the
+photographs, so nothing moves until asked and a visitor downloads the one clip
+they choose rather than the 31 MB the set weighs. A small triangle in the corner
+of a frame is the only thing saying it moves.
+
+Clicking hands that clip the whole screen on black — the one place the site goes
+dark — with the arrows, swipe, keyboard and counter the photographs already use.
+Sound plays from the first tap where the browser allows it, falling back to muted
+where autoplay rules forbid it, with a button to turn it on. Closing stops the
+download rather than leaving a clip streaming.
+
+Clips are sized `object-fit: contain`, never `cover`: two of the eleven are shot
+vertically and cropping them to a landscape box would be a lie about the work.
+
 ## How the galleries behave
 
 Four sections — Bible Belt, Ephemera, Abandoned America and Wanderings — render

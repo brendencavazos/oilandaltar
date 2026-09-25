@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="Oil &amp; Altar — photography portfolio" />
+  <title>Oil &amp; Altar</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="preload" as="image" href="media/carousel/01.jpg" />
+  <!-- Bodoni Moda italic — photo/video titles only; everything else stays sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,600;1,6..96,500;1,6..96,600&display=swap">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Top bar: wordmark left, sections right. Projects gathers the documentary
+       work behind a panel; the bar retires on scroll down and returns on scroll
+       up, so nothing sits over a photograph while you are looking at it. -->
+  <header class="bar" id="bar">
+    <a class="bar-brand" href="#/">oilandaltar</a>
+
+    <nav class="bar-nav" id="nav">
+      <span class="bar-has-panel">
+        <button type="button" class="bar-link bar-panel-btn" id="pj-toggle"
+                aria-expanded="false" aria-controls="pj-panel">Projects<span class="caret">&#9662;</span></button>
+        <div class="bar-panel" id="pj-panel">
+          <a href="#/bible-belt" data-route="bible-belt">Bible Belt</a>
+          <a class="sub" href="#/bible-belt/ephemera" data-route="bible-belt/ephemera">View Ephemera</a>
+          <a href="#/abandoned-america" data-route="abandoned-america">Abandoned America</a>
+        </div>
+      </span>
+      <a class="bar-link" href="#/portraits" data-route="portraits">Portraits</a>
+      <a class="bar-link" href="#/wanderings" data-route="wanderings">Wanderings</a>
+      <a class="bar-link" href="#/in-passing" data-route="in-passing">In Passing</a>
+      <a class="bar-link" href="#/about" data-route="about">About</a>
+
+      <button type="button" class="bar-menu" id="menu-btn" aria-expanded="false" aria-controls="sheet" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <span class="bar-social">
+        <a href="#/about" data-contact aria-label="Contact" title="Contact">
+          <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><rect x="2" y="4.5" width="20" height="15" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 6l9 7 9-7" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        </a>
+        <a href="https://www.instagram.com/oilandaltar/" rel="noopener" target="_blank" aria-label="Instagram — instagram.com/oilandaltar" title="instagram.com/oilandaltar">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.4" fill="currentColor"/></svg>
+        </a>
+      </span>
+    </nav>
+  </header>
+
+  <!-- Phone navigation: the bar's links live here instead of across the top. -->
+  <div class="sheet" id="sheet">
+    <nav>
+      <button type="button" class="sheet-group" id="sheet-cp" aria-expanded="false" aria-controls="sheet-cp-menu">
+        Curated Projects<span class="caret">&#9662;</span>
+      </button>
+      <div class="sheet-nested" id="sheet-cp-menu">
+        <a href="#/bible-belt" data-route="bible-belt">Bible Belt</a>
+        <a class="sub" href="#/bible-belt/ephemera" data-route="bible-belt/ephemera">View Ephemera</a>
+        <a href="#/abandoned-america" data-route="abandoned-america">Abandoned America</a>
+      </div>
+      <a href="#/portraits" data-route="portraits">Portraits</a>
+      <a href="#/wanderings" data-route="wanderings">Wanderings</a>
+      <a href="#/in-passing" data-route="in-passing">In Passing</a>
+      <a href="#/about" data-route="about">About</a>
+    </nav>
+    <div class="sheet-social">
+      <a href="#/about" data-contact aria-label="Contact">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="2" y="4.5" width="20" height="15" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 6l9 7 9-7" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      </a>
+      <a href="https://www.instagram.com/oilandaltar/" rel="noopener" target="_blank" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.4" fill="currentColor"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <main id="view"><!-- rendered by app.js --></main>
+
+  <script src="gallery-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

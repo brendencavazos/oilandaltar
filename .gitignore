@@ -33,3 +33,9 @@ nav-experiments/site/media
 nav-experiments/site/gallery-data.js
 nav-experiments/site/favicon*
 nav-experiments/site/apple-touch-icon.png
+
+# the In Passing snapshot borrows its media and data from the live site
+video-experiments/site/media
+video-experiments/site/gallery-data.js
+video-experiments/site/favicon*
+video-experiments/site/apple-touch-icon.png

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2. Living wall — In Passing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css">
+<style>
+
+.wall { columns: 3; column-gap: 4px; padding: 0 4px 80px; }
+.wall figure { break-inside: avoid; margin-bottom: 4px; position: relative; cursor: pointer; }
+.wall video { display: block; width: 100%; height: auto; background: #111; }
+.wall figcaption {
+  position: absolute; left: 12px; bottom: 9px; right: 10px;
+  font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 15px;
+  color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.65);
+  opacity: 0; transition: opacity .25s ease;
+}
+.wall figure:hover figcaption { opacity: 1; }
+@media (hover: none) { .wall figcaption { opacity: 1; } }
+@media (max-width: 900px) { .wall { columns: 1; } }
+
+.player { position: fixed; inset: 0; z-index: 50; background: #000;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; padding: 40px 20px 26px; }
+.player[hidden] { display: none; }
+.player video { max-width: 100%; max-height: calc(100dvh - 130px); }
+.player .title { color: #fff; }
+.player button { position: absolute; top: 12px; right: 18px; background: none;
+  border: 0; color: #fff; font-size: 32px; line-height: 1; cursor: pointer; }
+
+</style>
+</head>
+<body>
+<header class="head">
+  <a class="back" href="index.html">&larr; all four</a>
+  <h1>2. Living wall</h1>
+  <p>Everything up front and alive: the same grid, but every clip plays silently and loops while it is on screen. Tap one for sound and full screen.</p>
+  <p class="note">The most arresting, and the most expensive — a visitor loads several clips whether or not they watch them. Only what is on screen ever plays, but on cellular this is real data.</p>
+</header>
+
+<div class="wall" id="wall"></div>
+<div class="player" id="player" hidden><button id="close" aria-label="Close">&times;</button></div>
+
+<script src="../frontend/gallery-data.js"></script>
+<script src="_base.js"></script>
+<script>
+
+var list = clips(), host = document.getElementById("wall"), player = document.getElementById("player");
+var figs = [];
+
+list.forEach(function (c, i) {
+  var fig = document.createElement("figure");
+  fig.appendChild(makeVideo(c, { preload: "none" }));
+  var cap = document.createElement("figcaption"); cap.textContent = c.title;
+  fig.appendChild(cap);
+  fig.addEventListener("click", function () { open(i); });
+  host.appendChild(fig); figs.push(fig);
+});
+playWhenVisible(figs);          // only what is on screen decodes
+
+function open(i) {
+  var c = list[i];
+  player.querySelectorAll("video,.title").forEach(function (n) { n.remove(); });
+  var v = makeVideo(c, { muted: false, controls: true, preload: "auto" });
+  v.autoplay = true;
+  var t = document.createElement("p"); t.className = "title"; t.textContent = c.title;
+  player.append(v, t);
+  player.hidden = false; document.body.style.overflow = "hidden";
+}
+function close() {
+  player.hidden = true;
+  var v = player.querySelector("video"); if (v) v.pause();
+  document.body.style.overflow = "";
+}
+document.getElementById("close").addEventListener("click", close);
+addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+
+</script>
+</body>
+</html>
