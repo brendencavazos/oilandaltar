@@ -233,6 +233,13 @@ there however many others share its name. The build records the room on each
 plate and the site reads it; nothing infers it from how many frames a shoot
 happened to keep.
 
+**The raw photographs are not in this repository and never were.** They are
+several hundred megabytes of full-resolution files, so `photosandvideos/` is
+gitignored — cloning gets you the built website, not the masters. They live
+wherever the last build was run. If `photosandvideos/` is missing or empty on a
+machine, that machine simply does not have them, and `build_gallery.py` will
+stop rather than delete the exports it finds under `frontend/media/`.
+
 ### Moving to the folders
 
 `scripts/reorganize_portraits.py` converts the old flat folder — files named

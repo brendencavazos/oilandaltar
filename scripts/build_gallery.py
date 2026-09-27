@@ -124,6 +124,19 @@ def ensure_index_sync(
     current = "\n".join(keys or [p.name for p in srcs])
     if manifest.exists() and manifest.read_text(encoding="utf-8") == current:
         return
+
+    # An empty source folder next to a folder full of exports means the raw
+    # files are missing, not that the series was emptied on purpose. Wiping
+    # here would throw away the only copy of the published photographs, so the
+    # build stops and says so instead.
+    if not srcs and (MEDIA / slug).exists() and any((MEDIA / slug).glob("*.jpg")):
+        raise SystemExit(
+            f"\n!! {slug}: no source photographs found in photosandvideos/, but\n"
+            f"   frontend/media/{slug}/ already holds exports.\n\n"
+            f"   Refusing to delete them. This almost always means the raw files\n"
+            f"   are not on this computer. Put them back, or delete\n"
+            f"   frontend/media/{slug}/ by hand if you really mean to start over."
+        )
     if (MEDIA / slug).exists():
         if manifest.exists():
             print(f"    · source list changed — rebuilding {slug} exports")
