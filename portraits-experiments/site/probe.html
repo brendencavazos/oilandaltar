@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reveal probe</title>
+<style>
+  body { margin: 0; font: 13px/1.5 -apple-system, "Helvetica Neue", Arial, sans-serif; background: #111; color: #eee; }
+  h1 { font-size: 15px; margin: 0; padding: 12px 14px; background: #000; border-bottom: 1px solid #333; }
+  #out { padding: 12px 14px; white-space: pre-wrap; font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
+  .ok { color: #6f6; } .bad { color: #f66; } .dim { color: #999; }
+  iframe { position: fixed; bottom: 0; left: 0; width: 380px; height: 620px; border: 0; visibility: hidden; }
+</style>
+</head>
+<body>
+<h1>Oil &amp; Altar — reveal probe</h1>
+<div id="out">measuring…</div>
+
+<!-- The real page, loaded same-origin so its computed styles can be read. It
+     is parked out of sight: this page reports on it, it is not the view. -->
+<iframe id="f" src="/#/wanderings"></iframe>
+
+<script>
+var out = document.getElementById("out");
+var f = document.getElementById("f");
+var lines = [];
+function say(s, cls) { lines.push(cls ? '<span class="' + cls + '">' + s + '</span>' : s); out.innerHTML = lines.join("\n"); }
+
+function sample(doc, win) {
+  var tiles = doc.querySelectorAll(".mosaic .piece");
+  var r = [];
+  for (var i = 0; i < Math.min(tiles.length, 8); i++) {
+    var c = win.getComputedStyle(tiles[i]);
+    r.push({
+      i: i,
+      op: Math.round(parseFloat(c.opacity) * 100) / 100,
+      anim: c.animationName,
+      shown: tiles[i].classList.contains("shown"),
+      top: Math.round(tiles[i].getBoundingClientRect().top)
+    });
+  }
+  return r;
+}
+
+f.addEventListener("load", function () {
+  setTimeout(function () {
+    var win = f.contentWindow, doc = f.contentDocument;
+    if (!doc) { say("BLOCKED: cannot read the frame", "bad"); return; }
+
+    say("viewport   " + window.innerWidth + " x " + window.innerHeight + "   dpr " + window.devicePixelRatio);
+    say("frame      " + win.innerWidth + " x " + win.innerHeight);
+    say("");
+
+    var sup = win.CSS && win.CSS.supports && win.CSS.supports("animation-timeline: view()");
+    var rm = win.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var js = doc.documentElement.classList.contains("js-reveal");
+    say("supports view()      " + sup, sup ? "ok" : "bad");
+    say("reduced motion ON    " + rm, rm ? "bad" : "ok");
+    say("fell back to JS      " + js, js ? "dim" : "ok");
+    say("");
+
+    var before = sample(doc, win);
+    say("tiles found          " + doc.querySelectorAll(".mosaic .piece").length);
+    say("");
+    say("BEFORE SCROLL  (tile: opacity / animation / .shown / top)");
+    before.forEach(function (t) {
+      say("  " + t.i + ":  op " + t.op + "   " + (t.anim || "none") +
+          (t.shown ? "   SHOWN" : "") + "   top " + t.top,
+          t.shown ? "bad" : "");
+    });
+
+    /* Scroll the frame and look again. A scroll-driven animation is defined by
+     * opacity tracking scroll position, so that is the only thing worth
+     * measuring — but only if the scroll actually happened. A probe that
+     * reports "broken" when it simply failed to scroll is worse than none. */
+    var scroller = doc.scrollingElement || doc.documentElement;
+    var y0 = scroller.scrollTop;
+    win.scrollTo(0, 500);
+    scroller.scrollTop = 500;
+
+    setTimeout(function () {
+      var y1 = scroller.scrollTop;
+      var after = sample(doc, win);
+      say("");
+      say("AFTER SCROLLING:  scrollTop " + y0 + " -> " + y1);
+
+      if (y1 === y0) {
+        say("");
+        say("The frame did not scroll, so nothing can be concluded.", "bad");
+        say("Scroll the real page on this phone instead and watch whether", "dim");
+        say("the photographs rise into place or simply appear.", "dim");
+        return;
+      }
+
+      var moved = 0;
+      after.forEach(function (t, n) {
+        var was = before[n] ? before[n].op : -1;
+        if (Math.abs(t.op - was) > 0.02) moved++;
+        say("  " + t.i + ":  op " + was + " -> " + t.op +
+            (t.shown ? "   SHOWN" : "") + "   top " + t.top);
+      });
+      say("");
+      say("tiles whose opacity changed with scroll: " + moved,
+          moved > 0 ? "ok" : "bad");
+      say("");
+      say(moved > 0
+        ? "VERDICT: the reveal IS running on this device."
+        : "VERDICT: the reveal is NOT running — tiles sit at fixed opacity.",
+        moved > 0 ? "ok" : "bad");
+    }, 900);
+  }, 2600);
+});
+</script>
+</body>
+</html>

@@ -286,6 +286,15 @@ SESSION_YEARS = {
 }
 
 
+# Where a session was shot. A place says what a name cannot — it tells one
+# shoot apart from another by the same person, and reads as a real occasion
+# rather than an invented title. Sessions absent from here simply render as the
+# sitter's name, so this list can stay as short as Brenden wants it.
+SESSION_PLACES = {
+    "Pranav N. - April": "World Cup",
+}
+
+
 def session_of(path: Path) -> str:
     """Derive 'Name - Month' session key from a portrait filename."""
     stem = path.stem
@@ -326,12 +335,14 @@ def build_portraits(slug: str, folder: str) -> list[dict]:
             )
         else:
             header = f"{header} {year}"
+        place = SESSION_PLACES.get(key)
         for src in groups[key]:
             i += 1
-            plates.append(
-                {"title": header, "session": header, **process_image(src, slug, i)}
-            )
-        print(f"    {header}: {len(groups[key])} photo(s)")
+            plate = {"title": header, "session": header, **process_image(src, slug, i)}
+            if place:
+                plate["place"] = place
+            plates.append(plate)
+        print(f"    {header}{f' — {place}' if place else ''}: {len(groups[key])} photo(s)")
     return plates
 
 

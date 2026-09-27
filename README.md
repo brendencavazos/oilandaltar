@@ -12,15 +12,36 @@ an inquiry form.
 ## Portraits
 
 The section is people, not photographs. A **session** — a shoot of more than one
-frame — gets a cover with the sitter's name, date and frame count, and opens as
-its own wall at `#/portraits/s/<n>`. Eleven covers fit on a screen where
-forty-three photographs never could, and nobody scrolls past someone they were
-not looking for.
+frame — gets a cover and opens as its own wall at `#/portraits/s/<n>`. Eleven
+covers fit on a screen where forty-three photographs never could, and nobody
+scrolls past someone they were not looking for.
 
 A **lone frame** was caught rather than arranged, so those gather under
 **Places and Faces** (`#/portraits/places-and-faces`) — portraits made at events
 and in daily life, kept apart from the sessions for that reason. They enlarge but
 do not drill in.
+
+**The sitter's name is said once in each place it means something different**,
+which is what stops three screens in a row from repeating it:
+
+| Where | What it says |
+| ----- | ------------ |
+| Cover on the index | the name, plus the place if one is on record, and the frame count — this is the invitation |
+| Head of the session | a rule ruled across with the frame count on its end, then the name, then the month — this confirms you landed where you meant to, and is the only place the date appears |
+| Enlarged photograph | the position (`2 / 5`), right-aligned to the edge of the photograph, and nothing else |
+
+The enlarged view carries no name because nothing about the sitter changes from
+frame to frame — you arrived from a page that named them, and every frame in the
+set is the same person on the same day. The position is the only thing that
+actually changes as you step through, so it is the only thing shown. This holds
+for Places and Faces too. Every other series keeps its title and counter.
+
+A **place** is not a title. `Pranav N. — World Cup` tells one shoot apart from
+another by the same person — which matters for Hannah L., who has four — and
+reads as an occasion rather than an invented name. Sessions with no place on
+record show the name alone and look no less finished for it. Places live in
+`SESSION_PLACES` in `scripts/build_gallery.py`, so they survive a rebuild and no
+filename has to change.
 
 The two rooms are reached by **tabs on the page**, not by an entry in the top
 bar. Navigation depth should track importance rather than structure: three
@@ -58,7 +79,7 @@ edges of the window, 4px gutters, no captions on the tiles.
 | ------------------ | --------------------------------------------------------- |
 | Reveal             | frames rise into place as they scroll in |
 | Hover              | a slight push-in; a press state on touch |
-| Click / Enter      | opens full-size with the title and a position counter |
+| Click / Enter      | opens full-size with the title and a position counter (Portraits shows the counter alone — see above) |
 | In the enlarged view | arrow keys, on-screen arrows, swipe on touch, Esc to close |
 | First visit        | a one-time hint explains the swipe, then never again |
 
@@ -110,6 +131,15 @@ Two things in here are easy to break by tidying, so they are worth naming:
   position. A relative offset moves an element visually without moving its
   layout box, so leaving them in painted the nav block 20px down and right of
   where the page believed it was — and the icons landed on the photograph.
+- **The enlarged caption is measured against the photograph, not its text.**
+  `fitCaption()` in `app.js` sets the caption block's width from the rendered
+  image on every load and resize, above 900px only. Without it the block shrinks
+  to fit its own words and the counter drifts inward instead of sitting at the
+  edge of the frame. Below 900px the arrows move onto the caption line and it
+  already stretches between them, so the measurement steps aside.
+- **`.lb-break` and `.lb-date` are switched off and nothing shows them.** They
+  are left from a draft that ruled the caption off and dated it. Deleting them
+  is safe; styling them is not, because no page expects them to appear.
 - **Lengths that must fit a phone screen are in `dvh`, not `vh`.** On a phone
   `100vh` is the viewport at its tallest, with the address bar hidden, so a
   `vh`-sized element overflows behind the browser chrome even when a simulator
@@ -162,6 +192,19 @@ Each still is exported twice:
 | ------------------------ | ----------------- | --------------------- |
 | `media/<slug>/NN.jpg`    | ≤ 2000px long edge | scroll pages, carousel |
 | `media/<slug>/t/NN.jpg`  | ≤ 900px long edge  | grids, via `srcset`    |
+
+Two lookup tables in `scripts/build_gallery.py` carry what a filename cannot:
+`SESSION_YEARS` (filenames hold only the month, so the year comes from file
+metadata and is confirmed before publishing) and `SESSION_PLACES` (where a
+portrait session was shot, shown on its cover). Both are keyed the same way —
+`"Pranav N. - April"` — and a session missing from either simply renders without
+that piece. Add a line rather than renaming a file:
+
+```python
+SESSION_PLACES = {
+    "Pranav N. - April": "World Cup",
+}
+```
 
 `media/<slug>/.sources` records the original camera filenames. Requires macOS
 `sips` for images and `ffmpeg` for video; without ffmpeg the image build still

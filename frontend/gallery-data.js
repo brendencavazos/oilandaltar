@@ -1038,7 +1038,7 @@ window.GALLERY = {
         },
         {
           "title": "Pranav N. · April 2026",
-          "session": "Pranav N. · April 2026",
+          "session": "Pranav N. · April 2026", "place": "World Cup",
           "image_url": "media/portraits/25.jpg",
           "thumb_url": "media/portraits/t/25.jpg",
           "w": 1648,
@@ -1047,7 +1047,7 @@ window.GALLERY = {
         },
         {
           "title": "Pranav N. · April 2026",
-          "session": "Pranav N. · April 2026",
+          "session": "Pranav N. · April 2026", "place": "World Cup",
           "image_url": "media/portraits/26.jpg",
           "thumb_url": "media/portraits/t/26.jpg",
           "w": 1496,
@@ -1056,7 +1056,7 @@ window.GALLERY = {
         },
         {
           "title": "Pranav N. · April 2026",
-          "session": "Pranav N. · April 2026",
+          "session": "Pranav N. · April 2026", "place": "World Cup",
           "image_url": "media/portraits/27.jpg",
           "thumb_url": "media/portraits/t/27.jpg",
           "w": 1747,
@@ -1065,7 +1065,7 @@ window.GALLERY = {
         },
         {
           "title": "Pranav N. · April 2026",
-          "session": "Pranav N. · April 2026",
+          "session": "Pranav N. · April 2026", "place": "World Cup",
           "image_url": "media/portraits/28.jpg",
           "thumb_url": "media/portraits/t/28.jpg",
           "w": 1766,
@@ -1074,7 +1074,7 @@ window.GALLERY = {
         },
         {
           "title": "Pranav N. · April 2026",
-          "session": "Pranav N. · April 2026",
+          "session": "Pranav N. · April 2026", "place": "World Cup",
           "image_url": "media/portraits/29.jpg",
           "thumb_url": "media/portraits/t/29.jpg",
           "w": 1542,

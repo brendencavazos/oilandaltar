@@ -44,3 +44,19 @@ for f in media gallery-data.js favicon.svg favicon-16x16.png favicon-32x32.png a
   ln -sf ../../frontend/$f $f
 done
 ```
+
+## site/probe.html — measuring the reveal on a real device
+
+Serve `site/` and open `/probe.html` on the phone in question. It loads the real
+Wanderings page in a hidden frame and reports what is actually happening to the
+photographs: whether the browser supports `animation-timeline: view()`, whether
+reduced motion is on, whether the JavaScript fallback took over, and each tile's
+opacity before and after a scroll.
+
+It exists because the reveal has twice been "fixed" on a theory that turned out
+to be wrong, at the cost of several rounds each time. The rule now is to measure
+the device that shows the fault before changing any reveal code.
+
+It refuses to reach a verdict if the frame did not scroll — an earlier version
+reported the animation broken when it had merely failed to scroll, which is the
+kind of false reading that starts the guessing all over again.

@@ -526,6 +526,15 @@
    * than arranged, and those gather under Places and Faces.
    * ------------------------------------------------------------------- */
 
+  /* "Paul S. · February 2025" is one string in the data, but the two halves
+   * belong in different places: the name identifies a cover, the date belongs
+   * with the photograph you are looking at. Only Portraits carries a session,
+   * so nothing else is affected. */
+  function splitSession(str) {
+    var bits = String(str || "").split("\u00b7");
+    return { name: bits[0].trim(), date: (bits[1] || "").trim() };
+  }
+
   function portraitGroups() {
     var s = seriesFor("portraits");
     if (!s) return { sessions: [], singles: [] };
@@ -537,7 +546,7 @@
     });
     var sessions = [], singles = [];
     order.forEach(function (k) {
-      var g = { name: k, plates: by[k] };
+      var g = { name: k, plates: by[k], place: by[k][0].place || "" };
       (by[k].length > 1 ? sessions : singles).push(g);
     });
     return { sessions: sessions, singles: singles };
@@ -594,7 +603,10 @@
       }));
       var who = document.createElement("p");
       who.className = "sess-who";
-      who.textContent = g.name;
+      /* A place tells one shoot apart from another by the same person and reads
+       * as an occasion rather than an invented title. Sessions with no place on
+       * record show the name alone. */
+      who.textContent = splitSession(g.name).name + (g.place ? " \u2014 " + g.place : "");
       var n = document.createElement("p");
       n.className = "sess-count";
       n.textContent = g.plates.length + (g.plates.length === 1 ? " photograph" : " photographs");
@@ -621,10 +633,35 @@
     crumb.appendChild(back);
     view.appendChild(crumb);
 
-    var h = document.createElement("h1");
-    h.className = "sess-head";
-    h.textContent = g.name;
-    view.appendChild(h);
+    /* The session is headed by a rule ruled across with the frame count on its
+     * end, then the sitter's name and the month beneath it. The rule parts the
+     * name from the date, so nothing has to sit between them. */
+    var who = splitSession(g.name);
+    var colo = document.createElement("footer");
+    colo.className = "colophon";
+    var brow = document.createElement("div");
+    brow.className = "colo-brow";
+    var line = document.createElement("span");
+    line.className = "colo-break";
+    var frames = document.createElement("span");
+    frames.className = "colo-frames";
+    frames.textContent = g.plates.length + (g.plates.length === 1 ? " photograph" : " photographs");
+    brow.appendChild(line);
+    brow.appendChild(frames);
+    colo.appendChild(brow);
+
+    var name = document.createElement("h1");
+    name.className = "colo-name";
+    name.textContent = who.name;
+    colo.appendChild(name);
+
+    if (who.date) {
+      var when = document.createElement("p");
+      when.className = "colo-when";
+      when.textContent = who.date;
+      colo.appendChild(when);
+    }
+    view.appendChild(colo);
 
     var host = document.createElement("div");
     host.className = "mosaic";
@@ -639,9 +676,7 @@
   function renderPlacesAndFaces() {
     view.innerHTML = "";
     renderKicker("III", "Portraits / Places and Faces");
-    renderIntro(["Portraits caught in events and in daily life rather than arranged — " +
-      "people met once, photographed where they stood. Less intimate than a session, " +
-      "and kept apart from them for that reason."]);
+    renderIntro(["Portraits caught in events and in daily life rather than arranged sessions."]);
 
     var tabs2 = portraitTabs("places");
     if (tabs2) view.appendChild(tabs2);
@@ -1131,8 +1166,9 @@
       '<div class="lb-meta">' +
         '<button type="button" class="lb-nav lb-prev" aria-label="Previous photo">&#8249;</button>' +
         '<div class="lb-meta-text">' +
+          '<div class="lb-brow"><span class="lb-break"></span><span class="lb-count"></span></div>' +
           '<p class="lb-title"></p>' +
-          '<p class="lb-count"></p>' +
+          '<p class="lb-date"></p>' +
         '</div>' +
         '<button type="button" class="lb-nav lb-next" aria-label="Next photo">&#8250;</button>' +
       '</div>' +
@@ -1150,6 +1186,9 @@
         '<p class="lb-hint-say">Swipe to browse</p>' +
         '<p class="lb-hint-sub">Tap anywhere to dismiss</p>' +
       '</div>';
+
+    lb.querySelector(".lb-img").addEventListener("load", fitCaption);
+    window.addEventListener("resize", fitCaption);
 
     lb.querySelector(".lb-close").addEventListener("click", closeLightbox);
     lb.querySelector(".lb-prev").addEventListener("click", function (e) { e.stopPropagation(); stepLightbox(-1); });
@@ -1213,13 +1252,37 @@
     reduceMotion ? done() : setTimeout(done, 300);
   }
 
+  /* The rule is meant to rule off the photograph, so the caption block is set
+   * to the photograph's width rather than to its own text — a block sized by
+   * its text leaves the rule a stub under the name. The width is only knowable
+   * once the file has decoded, and changes when the window does. Below 900px
+   * the arrows move onto the caption line and the block already stretches
+   * between them, so the measurement is left alone there. */
+  function fitCaption() {
+    if (!lb || lb.hidden) return;
+    var meta = lb.querySelector(".lb-meta-text");
+    if (window.innerWidth <= 900) { meta.style.width = ""; return; }
+    var w = lb.querySelector(".lb-img").getBoundingClientRect().width;
+    meta.style.width = w > 40 ? Math.round(w) + "px" : "";
+  }
+
   function showLightboxPlate() {
     var p = lbPlates[lbIndex];
     var img = lb.querySelector(".lb-img");
     img.src = p.image_url;
     img.alt = p.title;
-    lb.querySelector(".lb-title").textContent = p.title;
-    lb.querySelector(".lb-count").textContent = (lbIndex + 1) + " / " + lbPlates.length;
+    /* A portrait enlarges to the count and nothing else: you arrived from a page
+     * that named the sitter, and a caption under the photograph would only say
+     * it again. Every other series has no session, and keeps the caption it has
+     * always had — none of this reaches it. */
+    var pos = (lbIndex + 1) + " / " + lbPlates.length;
+    var who = p.session ? splitSession(p.session) : null;
+    var meta = lb.querySelector(".lb-meta-text");
+    meta.classList.toggle("portrait", !!who);
+    lb.querySelector(".lb-title").textContent = who ? who.name : p.title;
+    lb.querySelector(".lb-date").textContent = "";
+    lb.querySelector(".lb-count").textContent = pos;
+    fitCaption();
     var many = lbPlates.length > 1;
     lb.querySelector(".lb-prev").hidden = !many;
     lb.querySelector(".lb-next").hidden = !many;
