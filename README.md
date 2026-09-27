@@ -88,6 +88,12 @@ edges of the window, 4px gutters, no captions on the tiles.
 A series joins that group purely by its `layout` flag in `gallery-data.js`
 (set in `scripts/build_gallery.py`, so it survives a rebuild):
 
+Portrait plates carry two extra fields the build writes from the folder tree:
+`room` (`"session"` or `"places"` — which of the two rooms the photograph is
+filed under) and `place` (the occasion in the folder name, if any). Plates
+without a `room` fall back to the old rule, which is what keeps data built
+before the folders working.
+
 | `layout`   | Rendering |
 | ---------- | ------------------------------------------------ |
 | `mosaic`   | the three-column wall described above |
@@ -300,6 +306,22 @@ than 2000px, cropped and re-exported at full size, or printed from. When the
 originals turn up, drop them into these same folders replacing what is there —
 they are larger, so they get resized once, exactly as they always were, and the
 folder names and structure carry on unchanged.
+
+**The thumbnails are the exception, and they are worth protecting.** Grid
+thumbnails are 900px and always *generated*, never copied — there is no
+passthrough for them, because nothing in the folders is already that size. The
+ones committed under `frontend/media/<slug>/t/` outside Portraits were made
+from the real masters, so they are better than anything that can be derived
+from a 2000px copy, and they cannot be recreated at that quality on this
+machine.
+
+They are deleted and regenerated whenever a series' source list changes — which
+means adding, removing or renaming a single file in a series rebuilds all of
+that series' thumbnails one generation down. This already happened once, during
+the move to the folders, and they were restored from git. If a build reports a
+series rebuilding and you did not expect it, check
+`git status frontend/media/<slug>/t/` before committing, and
+`git checkout -- frontend/media/<slug>/t` puts them back.
 
 ### If the folders are missing or empty
 
