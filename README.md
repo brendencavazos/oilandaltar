@@ -11,15 +11,18 @@ an inquiry form.
 
 ## Portraits
 
-The section is people, not photographs. A **session** — a shoot of more than one
-frame — gets a cover and opens as its own wall at `#/portraits/s/<n>`. Eleven
-covers fit on a screen where forty-three photographs never could, and nobody
-scrolls past someone they were not looking for.
+The section is people, not photographs. A **session** gets a cover and opens as
+its own wall at `#/portraits/s/<n>`. Eleven covers fit on a screen where
+forty-three photographs never could, and nobody scrolls past someone they were
+not looking for.
 
-A **lone frame** was caught rather than arranged, so those gather under
-**Places and Faces** (`#/portraits/places-and-faces`) — portraits made at events
-and in daily life, kept apart from the sessions for that reason. They enlarge but
-do not drill in.
+**Places and Faces** (`#/portraits/places-and-faces`) holds portraits made at
+events and in daily life — caught rather than arranged, and kept apart from the
+sessions for that reason. They enlarge but do not drill in.
+
+Which room a photograph belongs to is Brenden's call, made by which folder it
+sits in — not a rule about how many frames a shoot kept. A session of one
+photograph is a session. See *Portraits: a folder per session*.
 
 **The sitter's name is said once in each place it means something different**,
 which is what stops three screens in a row from repeating it:
@@ -155,7 +158,11 @@ Two things in here are easy to break by tidying, so they are worth naming:
 
 ```
 frontend/              The site. This folder is what gets published.
-scripts/               build_gallery.py — turns raw photos into web assets
+photosandvideos/       The raw drop. Gitignored — see "Adding or changing photos".
+scripts/
+  build_gallery.py               turns the raw drop into web assets + gallery data
+  seed_portraits_from_exports.py fills the portrait folders from built exports
+  reorganize_portraits.py        converts an old flat portrait drop into folders
 backend/               FastAPI app. NOT deployed; see "The backend" below.
 wrangler.jsonc         Cloudflare config: serve frontend/ as static files
 ```
@@ -173,10 +180,18 @@ Open <http://127.0.0.1:8000>. That is the whole site, exactly as published.
 
 ## Adding or changing photos
 
-Raw files go in `photosandvideos/` at the repo root (untracked, full-res), in a
-subfolder named for the series. Then:
+Two shapes, depending on the series:
+
+- **Portraits** is filed as folders — a folder per session. The folders are the
+  instructions; see below.
+- **Everything else** is a flat folder per series under `photosandvideos/`,
+  named for the series (`Bible Belt/`, `Wanderings/`, `In Passing/`…). Drop
+  files in, and they appear in filename order.
+
+Either way, one command turns the raw drop into the website:
 
 ```bash
+cd ~/oil-and-altar
 python3 scripts/build_gallery.py
 ```
 
@@ -194,10 +209,6 @@ Each still is exported twice:
 
 ### Portraits: a folder per session
 
-Portraits are filed as folders, and the folders are the instructions — there is
-nothing to edit in the build script to add a session, move a photograph between
-rooms, or change what a cover says.
-
 ```
 photosandvideos/Portraits/
 ├── Sessions/
@@ -213,19 +224,25 @@ photosandvideos/Portraits/
     └── Dani And Flavie - June 2026.jpg
 ```
 
+Everything the site shows comes from that tree, so adding a shoot, renaming
+one, moving a photograph between the two rooms or changing a cover is done by
+dragging and renaming in Finder. Nothing in the code has to change.
+
 | To do this | Do this |
 | ---------- | ------- |
 | Add a session | make a folder `Name - Month Year`, drop the photographs in, name one `cover.jpg` |
-| Add a place to a session | rename the folder `Name - Month Year - Place` |
-| Move a photograph into Places and Faces | drag the file there and give it a name |
+| Name the shoot | rename the folder `Name - Month Year - Place` |
+| Move a photograph into Places and Faces | drag the file there, give it a name |
 | Move one back into a session | drag it into that session's folder |
+| Promote a lone frame to its own session | make it a folder under `Sessions/`, rename the file `cover.jpg` |
 | Change a cover | rename the current `cover.jpg` to a number, rename the one you want to `cover.jpg` |
 | Reorder a wall | renumber the files; `cover.jpg` always leads |
+| Remove a photograph | delete it from the folder |
 
-A folder name is read as **`Name - Month Year`**, with an optional **`- Place`**
-after it. Anything that does not parse is used verbatim and a warning is
-printed, so a typo is loud rather than silent. Without a `cover.jpg` the first
-file does both jobs.
+A folder name is read as **`Name - Month Year`**, with an optional
+**`- Place`** after it. Anything that does not parse is used verbatim and a
+warning is printed, so a typo is loud rather than silent. Without a `cover.jpg`
+the first file does both jobs.
 
 **Which room a photograph sits in is a decision, not a count.** A session folder
 holding one photograph is a session, and a frame under Places and Faces stays
@@ -233,48 +250,71 @@ there however many others share its name. The build records the room on each
 plate and the site reads it; nothing infers it from how many frames a shoot
 happened to keep.
 
-`scripts/seed_portraits_from_exports.py` fills the folders from the web-sized
-copies already committed under `frontend/media/portraits/`, reading
-`gallery-data.js` for which photograph belongs to which session and which one
-the index uses as its hero. It is how the filing was set up without the masters
-present. What it writes is 2000px, already compressed once — enough to see and
-rearrange, not to rebuild from. When the masters turn up, drop them into the
-same folders, replacing what is there, and keep the folder names.
+`photosandvideos/Portraits/HOW TO FILE PHOTOS.txt` says the same thing in plain
+language, next to the folders, for reading in Finder.
+
+### After you rearrange the folders
+
+Say what changed and what you want done with it. The useful shapes are:
+
+| Say | What happens |
+| --- | ------------ |
+| "I've rearranged the portrait folders, rebuild it" | build runs, site updated locally, you review it |
+| "…and push it live" | the same, then committed and deployed |
+| "show me what the portraits look like now" | the folder map — every session with its cover |
+| "what would change if I rebuilt?" | the differences, before anything is written |
+
+Publishing still needs saying out loud, every time. A rebuild on its own only
+changes files on this computer.
+
+### The state of the folders right now
+
+**The folders hold web-sized copies, not masters.** The originals are not on
+this machine, so the folders were filled from the published exports — 2000px,
+already JPEG-compressed once. That is right for seeing and rearranging the
+filing, which is what they are for today.
+
+It means one thing to watch: rebuilding from these re-compresses an
+already-compressed file, and the photographs lose a little quality each time.
+Rearranging costs nothing; rebuilding does. Say what you have changed and it
+can be weighed before anything is written.
+
+The fix is to get the masters onto this Mac and drop them into these same
+folders, replacing what is there and keeping the folder names. The structure is
+already correct and waiting. Delete this section once that is done.
+
+### If the folders are missing or empty
 
 **The raw photographs are not in this repository and never were.** They are
 several hundred megabytes of full-resolution files, so `photosandvideos/` is
 gitignored — cloning gets you the built website, not the masters. They live
 wherever the last build was run. If `photosandvideos/` is missing or empty on a
-machine, that machine simply does not have them, and `build_gallery.py` will
-stop rather than delete the exports it finds under `frontend/media/`.
+machine, that machine simply does not have them, and `build_gallery.py` stops
+rather than deleting the exports under `frontend/media/`.
 
-### Moving to the folders
-
-`scripts/reorganize_portraits.py` converts the old flat folder — files named
-`Name - Month.jpg` — into the layout above, reading the grouping, the years and
-the places from the tables the site is already built from, so the result
-reproduces what is on the site today. Lone frames start under Places and Faces,
-which is where the old rule put them; move any of them afterwards.
+Two scripts exist for getting back to a filled tree. Both are dry-run by
+default and print every file they would touch:
 
 ```bash
-python3 scripts/reorganize_portraits.py            # show every move, change nothing
-python3 scripts/reorganize_portraits.py --apply    # do it
-python3 scripts/build_gallery.py                   # rebuild from the folders
+# fill the folders from the exports committed in this repo
+python3 scripts/seed_portraits_from_exports.py --apply
+
+# convert an old flat drop of "Name - Month.jpg" files into the folders
+python3 scripts/reorganize_portraits.py --apply
 ```
 
-It moves rather than copies, refuses to overwrite, and stops before touching
-anything if a destination already exists. The first build afterwards re-exports
-every portrait, because the source list it keys exports against has changed —
-expect it to take a few minutes.
+`seed_portraits_from_exports.py` reads `gallery-data.js` for which photograph
+belongs to which session and which one the index uses as its hero, so the tree
+it writes reproduces the live site exactly. `reorganize_portraits.py` moves
+rather than copies, refuses to overwrite, and reads the year and place tables
+the flat layout depended on (`SESSION_YEARS`, `SESSION_PLACES` in
+`scripts/build_gallery.py`) — both now only matter for anything still flat,
+since a folder name carries its own year and place.
 
-Until that conversion is run the flat layout still builds exactly as before, so
-nothing breaks by waiting. The old layout reads two lookup tables that the
-folders make unnecessary: `SESSION_YEARS` (filenames carried only the month) and
-`SESSION_PLACES`. Both stay for whatever has not been moved across.
+The first build after either one re-exports every portrait, because the source
+list that exports are keyed against has changed. Expect a few minutes.
 
-`media/<slug>/.sources` records the original camera filenames. Requires macOS
-`sips` for images and `ffmpeg` for video; without ffmpeg the image build still
-completes and the video section is skipped with a warning.
+`media/<slug>/.sources` records the original camera filenames.
 
 ## Publishing
 
