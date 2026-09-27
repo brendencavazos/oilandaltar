@@ -39,9 +39,8 @@ for Places and Faces too. Every other series keeps its title and counter.
 A **place** is not a title. `Pranav N. — World Cup` tells one shoot apart from
 another by the same person — which matters for Hannah L., who has four — and
 reads as an occasion rather than an invented name. Sessions with no place on
-record show the name alone and look no less finished for it. Places live in
-`SESSION_PLACES` in `scripts/build_gallery.py`, so they survive a rebuild and no
-filename has to change.
+record show the name alone and look no less finished for it. A place is written
+into the session's folder name — see *Portraits: a folder per session* below.
 
 The two rooms are reached by **tabs on the page**, not by an entry in the top
 bar. Navigation depth should track importance rather than structure: three
@@ -193,18 +192,70 @@ Each still is exported twice:
 | `media/<slug>/NN.jpg`    | ≤ 2000px long edge | scroll pages, carousel |
 | `media/<slug>/t/NN.jpg`  | ≤ 900px long edge  | grids, via `srcset`    |
 
-Two lookup tables in `scripts/build_gallery.py` carry what a filename cannot:
-`SESSION_YEARS` (filenames hold only the month, so the year comes from file
-metadata and is confirmed before publishing) and `SESSION_PLACES` (where a
-portrait session was shot, shown on its cover). Both are keyed the same way —
-`"Pranav N. - April"` — and a session missing from either simply renders without
-that piece. Add a line rather than renaming a file:
+### Portraits: a folder per session
 
-```python
-SESSION_PLACES = {
-    "Pranav N. - April": "World Cup",
-}
+Portraits are filed as folders, and the folders are the instructions — there is
+nothing to edit in the build script to add a session, move a photograph between
+rooms, or change what a cover says.
+
 ```
+photosandvideos/Portraits/
+├── Sessions/
+│   ├── Pranav N. - April 2026 - World Cup/
+│   │   ├── cover.jpg        the hero on the Portraits index
+│   │   ├── 01.jpg           the wall, in this order
+│   │   └── 02.jpg
+│   └── Paul S. - February 2025/
+│       ├── cover.jpg
+│       └── 01.jpg
+└── Places and Faces/
+    ├── Diego and Isaac - May 2026.jpg
+    └── Dani And Flavie - June 2026.jpg
+```
+
+| To do this | Do this |
+| ---------- | ------- |
+| Add a session | make a folder `Name - Month Year`, drop the photographs in, name one `cover.jpg` |
+| Add a place to a session | rename the folder `Name - Month Year - Place` |
+| Move a photograph into Places and Faces | drag the file there and give it a name |
+| Move one back into a session | drag it into that session's folder |
+| Change a cover | rename the current `cover.jpg` to a number, rename the one you want to `cover.jpg` |
+| Reorder a wall | renumber the files; `cover.jpg` always leads |
+
+A folder name is read as **`Name - Month Year`**, with an optional **`- Place`**
+after it. Anything that does not parse is used verbatim and a warning is
+printed, so a typo is loud rather than silent. Without a `cover.jpg` the first
+file does both jobs.
+
+**Which room a photograph sits in is a decision, not a count.** A session folder
+holding one photograph is a session, and a frame under Places and Faces stays
+there however many others share its name. The build records the room on each
+plate and the site reads it; nothing infers it from how many frames a shoot
+happened to keep.
+
+### Moving to the folders
+
+`scripts/reorganize_portraits.py` converts the old flat folder — files named
+`Name - Month.jpg` — into the layout above, reading the grouping, the years and
+the places from the tables the site is already built from, so the result
+reproduces what is on the site today. Lone frames start under Places and Faces,
+which is where the old rule put them; move any of them afterwards.
+
+```bash
+python3 scripts/reorganize_portraits.py            # show every move, change nothing
+python3 scripts/reorganize_portraits.py --apply    # do it
+python3 scripts/build_gallery.py                   # rebuild from the folders
+```
+
+It moves rather than copies, refuses to overwrite, and stops before touching
+anything if a destination already exists. The first build afterwards re-exports
+every portrait, because the source list it keys exports against has changed —
+expect it to take a few minutes.
+
+Until that conversion is run the flat layout still builds exactly as before, so
+nothing breaks by waiting. The old layout reads two lookup tables that the
+folders make unnecessary: `SESSION_YEARS` (filenames carried only the month) and
+`SESSION_PLACES`. Both stay for whatever has not been moved across.
 
 `media/<slug>/.sources` records the original camera filenames. Requires macOS
 `sips` for images and `ffmpeg` for video; without ffmpeg the image build still

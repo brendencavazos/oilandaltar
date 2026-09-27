@@ -113,13 +113,15 @@ def source_images(folder: str) -> list[Path]:
     return sorted(files, key=natural_key)
 
 
-def ensure_index_sync(slug: str, srcs: list[Path]) -> None:
+def ensure_index_sync(
+    slug: str, srcs: list[Path], keys: list[str] | None = None
+) -> None:
     """Exports are named by list position (NN.jpg), so an insert/rename that
     shifts the order would silently pair old exports with new titles. Keep a
     manifest of the ordered source names; when it changes, wipe the series
     folder so every index is re-exported from the right source."""
     manifest = MEDIA / slug / ".sources"
-    current = "\n".join(p.name for p in srcs)
+    current = "\n".join(keys or [p.name for p in srcs])
     if manifest.exists() and manifest.read_text(encoding="utf-8") == current:
         return
     if (MEDIA / slug).exists():
@@ -286,13 +288,124 @@ SESSION_YEARS = {
 }
 
 
-# Where a session was shot. A place says what a name cannot — it tells one
-# shoot apart from another by the same person, and reads as a real occasion
-# rather than an invented title. Sessions absent from here simply render as the
-# sitter's name, so this list can stay as short as Brenden wants it.
+# Where a session was shot, for folders still on the flat layout. The foldered
+# layout carries the place in the folder name instead, so this table only
+# covers what has not been moved across yet.
 SESSION_PLACES = {
     "Pranav N. - April": "World Cup",
 }
+
+# ---- the foldered layout ---------------------------------------------------
+#
+#   photosandvideos/Portraits/
+#     Sessions/
+#       Pranav N. - April 2026 - World Cup/     <- name, month+year, place
+#         cover.jpg                             <- the hero on the index
+#         01.jpg  02.jpg  ...                   <- the rest of the wall
+#     Places and Faces/
+#       any-name.jpg                            <- one frame, stands alone
+#
+# A folder is a session. Its name carries everything the site shows, so nothing
+# has to be edited in here to add one. Moving a file between Sessions/ and
+# Places and Faces/ is how the two rooms are decided — that judgment belongs to
+# Brenden, not to a rule about how many frames a folder happens to hold.
+SESSIONS_DIR = "Sessions"
+SINGLES_DIR = "Places and Faces"
+
+# "Pranav N. - April 2026 - World Cup"  ->  name / month / year / place
+FOLDER_RE = re.compile(
+    r"^(?P<name>.+?)\s+-\s+(?P<month>[A-Za-z]+)\s+(?P<year>\d{4})"
+    r"(?:\s+-\s+(?P<place>.+))?$"
+)
+
+
+def is_foldered(folder: str) -> bool:
+    """True once the series has been moved to the folder-per-session layout."""
+    return (SRC / folder / SESSIONS_DIR).is_dir()
+
+
+def images_in(d: Path) -> list[Path]:
+    files = [
+        p for p in d.iterdir() if p.suffix in IMAGE_EXTS and not p.name.startswith(".")
+    ]
+    return sorted(files, key=natural_key)
+
+
+def cover_first(files: list[Path]) -> list[Path]:
+    """The frame named cover.* leads the wall and is the hero on the index.
+    Without one the first frame does both jobs, exactly as it always has."""
+    cover = [p for p in files if p.stem.lower() == "cover"]
+    if not cover:
+        return files
+    return cover[:1] + [p for p in files if p not in cover]
+
+
+def read_foldered(folder: str) -> tuple[list[dict], list[Path]]:
+    """Read the folder tree. Returns (sessions, singles) where each session is
+    {header, place, files} in shoot order and singles are lone frames."""
+    root = SRC / folder
+    sessions: list[dict] = []
+
+    for d in sorted((root / SESSIONS_DIR).iterdir(), key=lambda p: p.name.lower()):
+        if not d.is_dir() or d.name.startswith("."):
+            continue
+        files = cover_first(images_in(d))
+        if not files:
+            print(f"    !! {d.name}: no photographs in the folder — skipped")
+            continue
+        m = FOLDER_RE.match(d.name.strip())
+        if not m:
+            print(
+                f"    !! {d.name}: expected 'Name - Month Year' "
+                f"(optionally '- Place') — using the folder name as-is"
+            )
+            sessions.append(
+                {"header": d.name.strip(), "place": "", "files": files, "rank": (9999, 99)}
+            )
+            continue
+        g = m.groupdict()
+        header = f"{g['name'].strip()} \u00b7 {g['month'].strip()} {g['year']}"
+        sessions.append(
+            {
+                "header": header,
+                "place": (g["place"] or "").strip(),
+                "files": files,
+                "rank": (int(g["year"]), MONTHS.get(g["month"].strip().lower(), 99)),
+            }
+        )
+
+    sessions.sort(key=lambda s: (s["rank"], s["header"].lower()))
+
+    # Lone frames read in shoot order too, where the filename says when. A name
+    # that does not carry a date falls to the end, in natural order.
+    singles_dir = root / SINGLES_DIR
+    singles = images_in(singles_dir) if singles_dir.is_dir() else []
+
+    def single_rank(path: Path):
+        m = FOLDER_RE.match(re.sub(r"\s+", " ", path.stem).strip())
+        if not m:
+            return (9999, 99, natural_key(path))
+        g = m.groupdict()
+        return (
+            int(g["year"]),
+            MONTHS.get(g["month"].strip().lower(), 99),
+            natural_key(path),
+        )
+
+    singles.sort(key=single_rank)
+    return sessions, singles
+
+
+def single_header(path: Path) -> str:
+    """A lone frame keeps whatever its filename says. If that reads as
+    'Name - Month Year' it is formatted like a session for consistency;
+    otherwise the filename stands on its own."""
+    stem = re.sub(r"\s+", " ", path.stem).strip()
+    m = FOLDER_RE.match(stem)
+    if not m:
+        return stem
+    g = m.groupdict()
+    return f"{g['name'].strip()} \u00b7 {g['month'].strip()} {g['year']}"
 
 
 def session_of(path: Path) -> str:
@@ -308,6 +421,66 @@ def session_of(path: Path) -> str:
 def build_portraits(slug: str, folder: str) -> list[dict]:
     """Group by session; each plate carries its session header, sessions in shoot order."""
     print(f"[{slug}] {folder}")
+    if is_foldered(folder):
+        return build_portraits_foldered(slug, folder)
+    return build_portraits_flat(slug, folder)
+
+
+def build_portraits_foldered(slug: str, folder: str) -> list[dict]:
+    """A folder per session under Sessions/, lone frames under Places and Faces/.
+    Which room a photograph belongs in is decided by which folder it sits in."""
+    sessions, singles = read_foldered(folder)
+
+    ordered: list[tuple[str, str, str, Path]] = []  # (room, header, place, file)
+    for ses in sessions:
+        for f in dedup(ses["files"]):
+            ordered.append(("session", ses["header"], ses["place"], f))
+
+    seen: dict[str, int] = {}
+    for f in dedup(singles):
+        header = single_header(f)
+        # Two lone frames sharing a header would merge into a session on the
+        # site, so a repeat is made distinct rather than silently joined.
+        if header in seen:
+            seen[header] += 1
+            header = f"{header} ({seen[header]})"
+        else:
+            seen[header] = 1
+        ordered.append(("places", header, "", f))
+
+    ensure_index_sync(
+        slug,
+        [f for _, _, _, f in ordered],
+        [str(f.relative_to(SRC)) for _, _, _, f in ordered],
+    )
+
+    plates: list[dict] = []
+    for i, (room, header, place, src) in enumerate(ordered, start=1):
+        # The room is recorded per plate so the folder decides it, not a rule
+        # about how many frames a session happens to hold. A session of one is
+        # a session; a frame under Places and Faces stays there however many
+        # others share its name.
+        plate = {
+            "title": header,
+            "session": header,
+            "room": room,
+            **process_image(src, slug, i),
+        }
+        if place:
+            plate["place"] = place
+        plates.append(plate)
+
+    for ses in sessions:
+        tail = f" \u2014 {ses['place']}" if ses["place"] else ""
+        print(f"    {ses['header']}{tail}: {len(ses['files'])} photo(s)")
+    if singles:
+        print(f"    Places and Faces: {len(singles)} photo(s)")
+    return plates
+
+
+def build_portraits_flat(slug: str, folder: str) -> list[dict]:
+    """The original layout: one folder of files named 'Name - Month'. Kept so a
+    build still works before the folders are rearranged."""
     imgs = dedup(source_images(folder))
 
     groups: dict[str, list[Path]] = {}

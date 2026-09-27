@@ -538,16 +538,25 @@
   function portraitGroups() {
     var s = seriesFor("portraits");
     if (!s) return { sessions: [], singles: [] };
+    /* Grouped by room first, then by name. A frame moved out of a session and
+     * into Places and Faces keeps the sitter's name, so name alone would file
+     * it straight back into the session it was taken out of. */
     var order = [], by = {};
     (s.plates || []).forEach(function (p) {
-      var k = p.session || "—";
-      if (!by[k]) { by[k] = []; order.push(k); }
-      by[k].push(p);
+      var k = (p.room || "") + "\u0000" + (p.session || "—");
+      if (!by[k]) { by[k] = { name: p.session || "—", room: p.room || "", plates: [] }; order.push(k); }
+      by[k].plates.push(p);
     });
+    /* Which room a group belongs in is recorded on the plate, because it is a
+     * judgment about the work rather than a fact about how many frames were
+     * kept: a session of one is still a session. Data built before the folders
+     * carried that judgment has no room, and falls back to the old rule. */
     var sessions = [], singles = [];
     order.forEach(function (k) {
-      var g = { name: k, plates: by[k], place: by[k][0].place || "" };
-      (by[k].length > 1 ? sessions : singles).push(g);
+      var b = by[k];
+      var g = { name: b.name, plates: b.plates, place: b.plates[0].place || "" };
+      var isSession = b.room ? b.room === "session" : b.plates.length > 1;
+      (isSession ? sessions : singles).push(g);
     });
     return { sessions: sessions, singles: singles };
   }
