@@ -200,12 +200,32 @@ def resize_jpeg(src: Path, dst: Path, max_dim: int, quality: int) -> None:
     )
 
 
+def within_limits(src: Path) -> bool:
+    """A JPEG already no larger than the export size. Re-encoding one of these
+    would throw quality away for nothing: it is already the size the site
+    serves, and every pass through the encoder softens it a little more."""
+    if src.suffix.lower() not in {".jpg", ".jpeg"}:
+        return False
+    try:
+        w, h = dims(src)
+    except Exception:
+        return False
+    return 0 < max(w, h) <= MAX_DIM
+
+
 def process_image(src: Path, slug: str, i: int) -> dict:
     """Export full + thumb (skipping already-built files) and return media facts."""
     full = MEDIA / slug / f"{i:02d}.jpg"
     thumb = MEDIA / slug / "t" / f"{i:02d}.jpg"
     if not full.exists():
-        resize_jpeg(src, full, MAX_DIM, JPEG_Q)
+        # Copied rather than re-encoded when it is already within size, so a
+        # rebuild costs nothing in quality. A real master is larger than this
+        # and gets resized once, as it always has.
+        if within_limits(src):
+            full.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, full)
+        else:
+            resize_jpeg(src, full, MAX_DIM, JPEG_Q)
     if not thumb.exists():
         resize_jpeg(src, thumb, THUMB_DIM, THUMB_Q)
     w, h = dims(full)
@@ -568,6 +588,28 @@ def video_dims(path: Path) -> tuple[int, int]:
 VIDEO_EXTS = {".mov", ".mp4", ".m4v"}
 
 
+def guard_videos(folders: list[str]) -> None:
+    """ffmpeg missing used to mean the video section was quietly published
+    empty. If there are clips to process and clips already published, that
+    would take In Passing off the site, so the build stops and says how to fix
+    it instead."""
+    if HAS_FFMPEG:
+        return
+    have_sources = any(
+        (SRC / f).is_dir() and any((SRC / f).glob("*.mp4")) for f in folders
+    )
+    have_published = (MEDIA / "in-passing").exists() and any(
+        (MEDIA / "in-passing").glob("*.mp4")
+    )
+    if have_sources and have_published:
+        raise SystemExit(
+            "\n!! ffmpeg is not installed, but there are clips to process and\n"
+            "   In Passing is already published.\n\n"
+            "   Building now would publish an empty video section. Install it\n"
+            "   first:  brew install ffmpeg"
+        )
+
+
 def build_videos(folders: list[str]) -> list[dict]:
     print(f"[in-passing] {', '.join(folders)}")
     if not HAS_FFMPEG:
@@ -661,7 +703,11 @@ def build_videos(folders: list[str]) -> list[dict]:
 # ---- assemble ---------------------------------------------------------------
 
 
+VIDEO_FOLDERS = ["Vids", "In Passing, PT"]
+
+
 def main() -> None:
+    guard_videos(VIDEO_FOLDERS)
     MEDIA.mkdir(parents=True, exist_ok=True)
 
     series = [
@@ -709,7 +755,7 @@ def main() -> None:
         "inPassing": {
             "excerpt": IN_PASSING_EXCERPT,
             # Base video set plus any later drops appended in order.
-            "clips": build_videos(["Vids", "In Passing, PT"]),
+            "clips": build_videos(VIDEO_FOLDERS),
         },
         # Ephemera images carry descriptive filenames, captioned like Wanderings.
         "ephemera": {

@@ -161,6 +161,7 @@ frontend/              The site. This folder is what gets published.
 photosandvideos/       The raw drop. Gitignored — see "Adding or changing photos".
 scripts/
   build_gallery.py               turns the raw drop into web assets + gallery data
+  seed_from_exports.py           fills every series folder from built exports
   seed_portraits_from_exports.py fills the portrait folders from built exports
   reorganize_portraits.py        converts an old flat portrait drop into folders
 backend/               FastAPI app. NOT deployed; see "The backend" below.
@@ -184,9 +185,10 @@ Two shapes, depending on the series:
 
 - **Portraits** is filed as folders — a folder per session. The folders are the
   instructions; see below.
-- **Everything else** is a flat folder per series under `photosandvideos/`,
-  named for the series (`Bible Belt/`, `Wanderings/`, `In Passing/`…). Drop
-  files in, and they appear in filename order.
+- **Everything else** is a flat folder per series under `photosandvideos/`.
+  Drop files in, remove files, and the site follows. The folder names are not
+  the section names — they are what was on the drive when the site was first
+  built, so they are listed below rather than guessed at.
 
 Either way, one command turns the raw drop into the website:
 
@@ -199,6 +201,20 @@ That writes web-sized assets into `frontend/media/<slug>/` and regenerates
 `frontend/gallery-data.js` (the `window.GALLERY` global the site reads). It is
 incremental — re-runs only process new or removed files. To force a rebuild of
 one image, delete it from `frontend/media/` and run again.
+
+| Section on the site | Folder to put photographs in | Filenames |
+| ------------------- | ---------------------------- | --------- |
+| Bible Belt | `Bible Belt Photo/` | order only; captions are `Untitled NN` |
+| Abandoned America | `Abandoned America/` | order only; captions are `Untitled NN` |
+| Wanderings | `Wanderings/` | **the filename becomes the caption** |
+| Ephemera | `Ephemera/` | **the filename becomes the caption** |
+| Portraits | `Portraits/` | foldered — see below |
+| In Passing | `Vids/` | the filename becomes the title; `.mp4` only |
+| Landing carousel | `main coursel /` | order only (note the trailing space) |
+| About portrait | `About/portrait.jpg` | that exact name |
+
+For the two that caption from filenames, an apostrophe is written as an
+underscore: `Don_t Look Back.jpg` becomes *Don't Look Back*.
 
 Each still is exported twice:
 
@@ -267,52 +283,63 @@ Say what changed and what you want done with it. The useful shapes are:
 Publishing still needs saying out loud, every time. A rebuild on its own only
 changes files on this computer.
 
-### The state of the folders right now
+### The photographs in these folders are web copies, not masters
 
-**The folders hold web-sized copies, not masters.** The originals are not on
-this machine, so the folders were filled from the published exports — 2000px,
-already JPEG-compressed once. That is right for seeing and rearranging the
-filing, which is what they are for today.
+Every file under `photosandvideos/` is 2000px on the long edge — the size the
+site serves. The originals are not on this machine, so the folders were filled
+from what is published, which are the best copies here.
 
-It means one thing to watch: rebuilding from these re-compresses an
-already-compressed file, and the photographs lose a little quality each time.
-Rearranging costs nothing; rebuilding does. Say what you have changed and it
-can be weighed before anything is written.
+**Rebuilding from them costs nothing.** `build_gallery.py` copies a JPEG that is
+already within the export size instead of re-encoding it, so a rebuild returns
+the same bytes rather than a slightly softer generation. Verified by rebuilding
+one photograph from each series into a scratch folder and comparing checksums:
+identical every time.
 
-The fix is to get the masters onto this Mac and drop them into these same
-folders, replacing what is there and keeping the folder names. The structure is
-already correct and waiting. Delete this section once that is done.
+What is lost is headroom, not quality. Nothing here can be re-exported larger
+than 2000px, cropped and re-exported at full size, or printed from. When the
+originals turn up, drop them into these same folders replacing what is there —
+they are larger, so they get resized once, exactly as they always were, and the
+folder names and structure carry on unchanged.
 
 ### If the folders are missing or empty
 
 **The raw photographs are not in this repository and never were.** They are
 several hundred megabytes of full-resolution files, so `photosandvideos/` is
-gitignored — cloning gets you the built website, not the masters. They live
-wherever the last build was run. If `photosandvideos/` is missing or empty on a
-machine, that machine simply does not have them, and `build_gallery.py` stops
-rather than deleting the exports under `frontend/media/`.
+gitignored — cloning gets you the built website, not the masters. If
+`photosandvideos/` is missing or empty on a machine, that machine does not have
+them, and `build_gallery.py` stops rather than deleting the exports under
+`frontend/media/`.
 
-Two scripts exist for getting back to a filled tree. Both are dry-run by
-default and print every file they would touch:
+Two scripts refill the tree from what is published. Both are dry-run by default
+and print every file they would touch:
 
 ```bash
-# fill the folders from the exports committed in this repo
-python3 scripts/seed_portraits_from_exports.py --apply
+python3 scripts/seed_from_exports.py --apply            # every series
+python3 scripts/seed_portraits_from_exports.py --apply  # Portraits, foldered
+```
 
-# convert an old flat drop of "Name - Month.jpg" files into the folders
+A third converts an old flat portrait drop (`Name - Month.jpg` files) into the
+folder layout:
+
+```bash
 python3 scripts/reorganize_portraits.py --apply
 ```
 
-`seed_portraits_from_exports.py` reads `gallery-data.js` for which photograph
-belongs to which session and which one the index uses as its hero, so the tree
-it writes reproduces the live site exactly. `reorganize_portraits.py` moves
-rather than copies, refuses to overwrite, and reads the year and place tables
-the flat layout depended on (`SESSION_YEARS`, `SESSION_PLACES` in
-`scripts/build_gallery.py`) — both now only matter for anything still flat,
+It moves rather than copies, refuses to overwrite, and reads the year and place
+tables the flat layout depended on (`SESSION_YEARS`, `SESSION_PLACES` in
+`scripts/build_gallery.py`) — both now matter only for anything still flat,
 since a folder name carries its own year and place.
 
-The first build after either one re-exports every portrait, because the source
-list that exports are keyed against has changed. Expect a few minutes.
+### Two things the build refuses to do
+
+Both exist because each would quietly destroy published work:
+
+- **Wipe a series whose source folder is empty.** Exports are numbered by
+  position, so a changed source list rebuilds the whole series. An empty folder
+  is not an instruction to delete the section — it means the photographs are not
+  on this computer.
+- **Publish an empty video section.** Video needs `ffmpeg`, and without it In
+  Passing would build to nothing. Install it with `brew install ffmpeg`.
 
 `media/<slug>/.sources` records the original camera filenames.
 
