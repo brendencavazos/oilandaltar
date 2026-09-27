@@ -233,6 +233,14 @@ there however many others share its name. The build records the room on each
 plate and the site reads it; nothing infers it from how many frames a shoot
 happened to keep.
 
+`scripts/seed_portraits_from_exports.py` fills the folders from the web-sized
+copies already committed under `frontend/media/portraits/`, reading
+`gallery-data.js` for which photograph belongs to which session and which one
+the index uses as its hero. It is how the filing was set up without the masters
+present. What it writes is 2000px, already compressed once — enough to see and
+rearrange, not to rebuild from. When the masters turn up, drop them into the
+same folders, replacing what is there, and keep the folder names.
+
 **The raw photographs are not in this repository and never were.** They are
 several hundred megabytes of full-resolution files, so `photosandvideos/` is
 gitignored — cloning gets you the built website, not the masters. They live
