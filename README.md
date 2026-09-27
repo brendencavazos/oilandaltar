@@ -338,8 +338,11 @@ Both exist because each would quietly destroy published work:
   position, so a changed source list rebuilds the whole series. An empty folder
   is not an instruction to delete the section — it means the photographs are not
   on this computer.
-- **Publish an empty video section.** Video needs `ffmpeg`, and without it In
-  Passing would build to nothing. Install it with `brew install ffmpeg`.
+- **Publish an empty video section.** Video needs `ffmpeg`. Without it the
+  build keeps the clips already published and says so, rather than taking In
+  Passing off the site. So photographs can be rebuilt on a machine with no
+  ffmpeg; only *changing the videos* needs it. To install it you need Homebrew
+  first (<https://brew.sh>), then `brew install ffmpeg`.
 
 `media/<slug>/.sources` records the original camera filenames.
 

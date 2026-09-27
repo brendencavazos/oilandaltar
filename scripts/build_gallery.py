@@ -588,35 +588,51 @@ def video_dims(path: Path) -> tuple[int, int]:
 VIDEO_EXTS = {".mov", ".mp4", ".m4v"}
 
 
-def guard_videos(folders: list[str]) -> None:
-    """ffmpeg missing used to mean the video section was quietly published
-    empty. If there are clips to process and clips already published, that
-    would take In Passing off the site, so the build stops and says how to fix
-    it instead."""
-    if HAS_FFMPEG:
-        return
-    have_sources = any(
-        (SRC / f).is_dir() and any((SRC / f).glob("*.mp4")) for f in folders
-    )
-    have_published = (MEDIA / "in-passing").exists() and any(
-        (MEDIA / "in-passing").glob("*.mp4")
-    )
-    if have_sources and have_published:
-        raise SystemExit(
-            "\n!! ffmpeg is not installed, but there are clips to process and\n"
-            "   In Passing is already published.\n\n"
-            "   Building now would publish an empty video section. Install it\n"
-            "   first:  brew install ffmpeg"
-        )
+def published_clips() -> list[dict]:
+    """The clips already in gallery-data.js. Without ffmpeg the video section
+    used to build to nothing, which would have taken In Passing off the site
+    on any machine that happened not to have it. Carrying the published clips
+    through instead keeps the photographs buildable without it."""
+    try:
+        raw = DATA_FILE.read_text(encoding="utf-8")
+        data = json.loads(raw.split("window.GALLERY =", 1)[1].strip().rstrip(";"))
+        return data.get("inPassing", {}).get("clips", []) or []
+    except Exception:
+        return []
+
+
+def source_clip_count(folders: list[str]) -> int:
+    n = 0
+    for f in folders:
+        d = SRC / f
+        if d.is_dir():
+            n += len(
+                [
+                    p
+                    for p in d.iterdir()
+                    if p.suffix.lower() in VIDEO_EXTS and not p.name.startswith(".")
+                ]
+            )
+    return n
 
 
 def build_videos(folders: list[str]) -> list[dict]:
     print(f"[in-passing] {', '.join(folders)}")
     if not HAS_FFMPEG:
-        print(
-            "    !! ffmpeg not found, skipping video transcode (re-run when installed)"
-        )
-        return []
+        kept = published_clips()
+        if not kept:
+            print("    !! ffmpeg not found and no clips published — section left empty")
+            return []
+        print(f"    !! ffmpeg not found — keeping the {len(kept)} clips already published")
+        found = source_clip_count(folders)
+        if found != len(kept):
+            print(
+                f"    !! {found} clips in the folders but {len(kept)} published: the\n"
+                f"       difference needs ffmpeg.  brew install ffmpeg"
+            )
+        else:
+            print("       Install ffmpeg to change the videos:  brew install ffmpeg")
+        return kept
     # Concatenate clips across folders, natural order within each.
     vids: list[Path] = []
     for folder in folders:
@@ -707,7 +723,6 @@ VIDEO_FOLDERS = ["Vids", "In Passing, PT"]
 
 
 def main() -> None:
-    guard_videos(VIDEO_FOLDERS)
     MEDIA.mkdir(parents=True, exist_ok=True)
 
     series = [
