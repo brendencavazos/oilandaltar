@@ -222,6 +222,24 @@ one image, delete it from `frontend/media/` and run again.
 For the two that caption from filenames, an apostrophe is written as an
 underscore: `Don_t Look Back.jpg` becomes *Don't Look Back*.
 
+**Filename order is wall order.** Every flat series renders in the natural sort
+of its filenames, so the way to arrange a section is to number the files
+`01.jpg`, `02.jpg`, … in the order you want them seen. For Bible Belt and
+Abandoned America the caption follows that position — the fifth file is
+*Untitled 05* — which means the numbers are not stable names: remove one
+photograph and everything after it renumbers. Never refer to a frame by its
+number outside the context of a particular build.
+
+Two practical consequences:
+
+- **Close the gaps after removing files.** Deleting `07.jpg` leaves the folder
+  starting to drift from the captions. Renumbering `01..NN` with no gaps keeps
+  the file number and the caption number identical, which is the only way to
+  discuss a section without confusion.
+- **Renumber in two passes.** Renaming `13.jpg` to `09.jpg` while `09.jpg`
+  still exists destroys a photograph. Move everything to a temporary name
+  first, then into place.
+
 Each still is exported twice:
 
 | Path                     | Size              | Used for              |
@@ -366,7 +384,20 @@ Both exist because each would quietly destroy published work:
   ffmpeg; only *changing the videos* needs it. To install it you need Homebrew
   first (<https://brew.sh>), then `brew install ffmpeg`.
 
-`media/<slug>/.sources` records the original camera filenames.
+`media/<slug>/.sources` is the manifest the rebuild decision is made from. It
+records each source file **and a digest of its contents**, one per line:
+
+```
+01.jpg  ead27f451d24581e
+02.jpg  28841b1371083ffc
+```
+
+The digest is not decoration. Exports are numbered by position, so reordering a
+folder means renaming `01..NN` into a different arrangement of *the same names* —
+and a manifest that recorded names alone saw no change at all, skipped the
+re-export, and left the site serving the old pictures in the new order with
+nothing visibly broken. That happened once and was only caught by comparing
+checksums.
 
 ## Publishing
 
