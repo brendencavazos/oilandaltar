@@ -21,6 +21,7 @@ image build still completes and the video section is left empty with a warning.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import shutil
@@ -113,15 +114,31 @@ def source_images(folder: str) -> list[Path]:
     return sorted(files, key=natural_key)
 
 
+def fingerprint(p: Path) -> str:
+    """Content digest, so the manifest notices a file whose NAME stayed the
+    same but whose CONTENT changed. Reordering a folder — renaming 01..33 into
+    a different arrangement of the same names — leaves the name list identical,
+    and a name-only manifest treats that as no change at all: the site keeps
+    serving the old exports under the new order."""
+    h = hashlib.sha256()
+    with p.open("rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()[:16]
+
+
 def ensure_index_sync(
     slug: str, srcs: list[Path], keys: list[str] | None = None
 ) -> None:
-    """Exports are named by list position (NN.jpg), so an insert/rename that
-    shifts the order would silently pair old exports with new titles. Keep a
-    manifest of the ordered source names; when it changes, wipe the series
-    folder so every index is re-exported from the right source."""
+    """Exports are named by list position (NN.jpg), so an insert, a rename or a
+    reorder would silently pair old exports with new titles. Keep a manifest of
+    the ordered source names AND their content digests; when it changes, wipe
+    the series folder so every index is re-exported from the right source."""
     manifest = MEDIA / slug / ".sources"
-    current = "\n".join(keys or [p.name for p in srcs])
+    names = keys or [p.name for p in srcs]
+    current = "\n".join(
+        f"{n}  {fingerprint(p)}" for n, p in zip(names, srcs)
+    )
     if manifest.exists() and manifest.read_text(encoding="utf-8") == current:
         return
 

@@ -27,16 +27,16 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/02.jpg",
           "thumb_url": "media/bible-belt/t/02.jpg",
-          "w": 2000,
-          "h": 1623,
-          "shape": "wide"
+          "w": 1606,
+          "h": 2000,
+          "shape": "tall"
         },
         {
           "title": "Untitled 03",
           "session": null,
           "image_url": "media/bible-belt/03.jpg",
           "thumb_url": "media/bible-belt/t/03.jpg",
-          "w": 1333,
+          "w": 1614,
           "h": 2000,
           "shape": "tall"
         },
@@ -45,52 +45,52 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/04.jpg",
           "thumb_url": "media/bible-belt/t/04.jpg",
-          "w": 1606,
-          "h": 2000,
-          "shape": "tall"
+          "w": 2000,
+          "h": 1363,
+          "shape": "wide"
         },
         {
           "title": "Untitled 05",
           "session": null,
           "image_url": "media/bible-belt/05.jpg",
           "thumb_url": "media/bible-belt/t/05.jpg",
-          "w": 1614,
-          "h": 2000,
-          "shape": "tall"
+          "w": 2000,
+          "h": 1412,
+          "shape": "wide"
         },
         {
           "title": "Untitled 06",
           "session": null,
           "image_url": "media/bible-belt/06.jpg",
           "thumb_url": "media/bible-belt/t/06.jpg",
-          "w": 1751,
+          "w": 1308,
           "h": 2000,
-          "shape": ""
+          "shape": "tall"
         },
         {
           "title": "Untitled 07",
           "session": null,
           "image_url": "media/bible-belt/07.jpg",
           "thumb_url": "media/bible-belt/t/07.jpg",
-          "w": 2000,
-          "h": 1363,
-          "shape": "wide"
+          "w": 1603,
+          "h": 2000,
+          "shape": "tall"
         },
         {
           "title": "Untitled 08",
           "session": null,
           "image_url": "media/bible-belt/08.jpg",
           "thumb_url": "media/bible-belt/t/08.jpg",
-          "w": 2000,
-          "h": 1412,
-          "shape": "wide"
+          "w": 1388,
+          "h": 2000,
+          "shape": "tall"
         },
         {
           "title": "Untitled 09",
           "session": null,
           "image_url": "media/bible-belt/09.jpg",
           "thumb_url": "media/bible-belt/t/09.jpg",
-          "w": 1308,
+          "w": 1709,
           "h": 2000,
           "shape": "tall"
         },
@@ -99,7 +99,7 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/10.jpg",
           "thumb_url": "media/bible-belt/t/10.jpg",
-          "w": 1481,
+          "w": 1552,
           "h": 2000,
           "shape": "tall"
         },
@@ -108,9 +108,9 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/11.jpg",
           "thumb_url": "media/bible-belt/t/11.jpg",
-          "w": 2000,
-          "h": 1680,
-          "shape": "wide"
+          "w": 1859,
+          "h": 2000,
+          "shape": ""
         },
         {
           "title": "Untitled 12",
@@ -126,7 +126,7 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/13.jpg",
           "thumb_url": "media/bible-belt/t/13.jpg",
-          "w": 1603,
+          "w": 1228,
           "h": 2000,
           "shape": "tall"
         },
@@ -135,16 +135,16 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/14.jpg",
           "thumb_url": "media/bible-belt/t/14.jpg",
-          "w": 1404,
+          "w": 1952,
           "h": 2000,
-          "shape": "tall"
+          "shape": ""
         },
         {
           "title": "Untitled 15",
           "session": null,
           "image_url": "media/bible-belt/15.jpg",
           "thumb_url": "media/bible-belt/t/15.jpg",
-          "w": 1388,
+          "w": 1628,
           "h": 2000,
           "shape": "tall"
         },
@@ -153,9 +153,9 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/16.jpg",
           "thumb_url": "media/bible-belt/t/16.jpg",
-          "w": 2000,
-          "h": 1333,
-          "shape": "wide"
+          "w": 1878,
+          "h": 2000,
+          "shape": ""
         },
         {
           "title": "Untitled 17",
@@ -163,7 +163,7 @@ window.GALLERY = {
           "image_url": "media/bible-belt/17.jpg",
           "thumb_url": "media/bible-belt/t/17.jpg",
           "w": 2000,
-          "h": 1333,
+          "h": 1312,
           "shape": "wide"
         },
         {
@@ -171,7 +171,7 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/18.jpg",
           "thumb_url": "media/bible-belt/t/18.jpg",
-          "w": 1454,
+          "w": 1707,
           "h": 2000,
           "shape": "tall"
         },
@@ -180,7 +180,7 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/19.jpg",
           "thumb_url": "media/bible-belt/t/19.jpg",
-          "w": 1709,
+          "w": 1630,
           "h": 2000,
           "shape": "tall"
         },
@@ -189,7 +189,7 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/20.jpg",
           "thumb_url": "media/bible-belt/t/20.jpg",
-          "w": 1552,
+          "w": 1522,
           "h": 2000,
           "shape": "tall"
         },
@@ -198,7 +198,7 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/21.jpg",
           "thumb_url": "media/bible-belt/t/21.jpg",
-          "w": 1859,
+          "w": 1967,
           "h": 2000,
           "shape": ""
         },
@@ -207,25 +207,25 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/22.jpg",
           "thumb_url": "media/bible-belt/t/22.jpg",
-          "w": 2000,
-          "h": 1333,
-          "shape": "wide"
+          "w": 1716,
+          "h": 2000,
+          "shape": "tall"
         },
         {
           "title": "Untitled 23",
           "session": null,
           "image_url": "media/bible-belt/23.jpg",
           "thumb_url": "media/bible-belt/t/23.jpg",
-          "w": 2000,
-          "h": 1333,
-          "shape": "wide"
+          "w": 1333,
+          "h": 2000,
+          "shape": "tall"
         },
         {
           "title": "Untitled 24",
           "session": null,
           "image_url": "media/bible-belt/24.jpg",
           "thumb_url": "media/bible-belt/t/24.jpg",
-          "w": 1228,
+          "w": 1229,
           "h": 2000,
           "shape": "tall"
         },
@@ -234,9 +234,9 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/25.jpg",
           "thumb_url": "media/bible-belt/t/25.jpg",
-          "w": 1416,
-          "h": 2000,
-          "shape": "tall"
+          "w": 2000,
+          "h": 1500,
+          "shape": "wide"
         },
         {
           "title": "Untitled 26",
@@ -244,7 +244,7 @@ window.GALLERY = {
           "image_url": "media/bible-belt/26.jpg",
           "thumb_url": "media/bible-belt/t/26.jpg",
           "w": 2000,
-          "h": 1619,
+          "h": 1500,
           "shape": "wide"
         },
         {
@@ -252,16 +252,16 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/27.jpg",
           "thumb_url": "media/bible-belt/t/27.jpg",
-          "w": 1952,
+          "w": 1333,
           "h": 2000,
-          "shape": ""
+          "shape": "tall"
         },
         {
           "title": "Untitled 28",
           "session": null,
           "image_url": "media/bible-belt/28.jpg",
           "thumb_url": "media/bible-belt/t/28.jpg",
-          "w": 1628,
+          "w": 1728,
           "h": 2000,
           "shape": "tall"
         },
@@ -270,18 +270,18 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/29.jpg",
           "thumb_url": "media/bible-belt/t/29.jpg",
-          "w": 1878,
+          "w": 1333,
           "h": 2000,
-          "shape": ""
+          "shape": "tall"
         },
         {
           "title": "Untitled 30",
           "session": null,
           "image_url": "media/bible-belt/30.jpg",
           "thumb_url": "media/bible-belt/t/30.jpg",
-          "w": 2000,
-          "h": 1204,
-          "shape": "wide"
+          "w": 1333,
+          "h": 2000,
+          "shape": "tall"
         },
         {
           "title": "Untitled 31",
@@ -289,7 +289,7 @@ window.GALLERY = {
           "image_url": "media/bible-belt/31.jpg",
           "thumb_url": "media/bible-belt/t/31.jpg",
           "w": 2000,
-          "h": 1312,
+          "h": 1333,
           "shape": "wide"
         },
         {
@@ -297,126 +297,9 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/bible-belt/32.jpg",
           "thumb_url": "media/bible-belt/t/32.jpg",
-          "w": 1707,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Untitled 33",
-          "session": null,
-          "image_url": "media/bible-belt/33.jpg",
-          "thumb_url": "media/bible-belt/t/33.jpg",
-          "w": 1630,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Untitled 34",
-          "session": null,
-          "image_url": "media/bible-belt/34.jpg",
-          "thumb_url": "media/bible-belt/t/34.jpg",
-          "w": 1522,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Untitled 35",
-          "session": null,
-          "image_url": "media/bible-belt/35.jpg",
-          "thumb_url": "media/bible-belt/t/35.jpg",
-          "w": 1547,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Untitled 36",
-          "session": null,
-          "image_url": "media/bible-belt/36.jpg",
-          "thumb_url": "media/bible-belt/t/36.jpg",
-          "w": 1764,
-          "h": 2000,
-          "shape": ""
-        },
-        {
-          "title": "Untitled 37",
-          "session": null,
-          "image_url": "media/bible-belt/37.jpg",
-          "thumb_url": "media/bible-belt/t/37.jpg",
-          "w": 1967,
-          "h": 2000,
-          "shape": ""
-        },
-        {
-          "title": "Untitled 38",
-          "session": null,
-          "image_url": "media/bible-belt/38.jpg",
-          "thumb_url": "media/bible-belt/t/38.jpg",
-          "w": 1716,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Untitled 39",
-          "session": null,
-          "image_url": "media/bible-belt/39.jpg",
-          "thumb_url": "media/bible-belt/t/39.jpg",
-          "w": 1333,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Untitled 40",
-          "session": null,
-          "image_url": "media/bible-belt/40.jpg",
-          "thumb_url": "media/bible-belt/t/40.jpg",
           "w": 2000,
           "h": 1333,
           "shape": "wide"
-        },
-        {
-          "title": "Untitled 41",
-          "session": null,
-          "image_url": "media/bible-belt/41.jpg",
-          "thumb_url": "media/bible-belt/t/41.jpg",
-          "w": 1229,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Untitled 42",
-          "session": null,
-          "image_url": "media/bible-belt/42.jpg",
-          "thumb_url": "media/bible-belt/t/42.jpg",
-          "w": 2000,
-          "h": 1500,
-          "shape": "wide"
-        },
-        {
-          "title": "Untitled 43",
-          "session": null,
-          "image_url": "media/bible-belt/43.jpg",
-          "thumb_url": "media/bible-belt/t/43.jpg",
-          "w": 2000,
-          "h": 1500,
-          "shape": "wide"
-        },
-        {
-          "title": "Untitled 44",
-          "session": null,
-          "image_url": "media/bible-belt/44.jpg",
-          "thumb_url": "media/bible-belt/t/44.jpg",
-          "w": 1333,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Untitled 45",
-          "session": null,
-          "image_url": "media/bible-belt/45.jpg",
-          "thumb_url": "media/bible-belt/t/45.jpg",
-          "w": 1728,
-          "h": 2000,
-          "shape": "tall"
         }
       ]
     },
@@ -435,43 +318,43 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/01.jpg",
           "thumb_url": "media/abandoned-america/t/01.jpg",
-          "w": 1624,
-          "h": 2000,
-          "shape": "tall"
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
         },
         {
           "title": "Untitled 02",
           "session": null,
           "image_url": "media/abandoned-america/02.jpg",
           "thumb_url": "media/abandoned-america/t/02.jpg",
-          "w": 2000,
-          "h": 1577,
-          "shape": "wide"
+          "w": 1333,
+          "h": 2000,
+          "shape": "tall"
         },
         {
           "title": "Untitled 03",
           "session": null,
           "image_url": "media/abandoned-america/03.jpg",
           "thumb_url": "media/abandoned-america/t/03.jpg",
-          "w": 2000,
-          "h": 1333,
-          "shape": "wide"
+          "w": 1651,
+          "h": 2000,
+          "shape": "tall"
         },
         {
           "title": "Untitled 04",
           "session": null,
           "image_url": "media/abandoned-america/04.jpg",
           "thumb_url": "media/abandoned-america/t/04.jpg",
-          "w": 1266,
-          "h": 2000,
-          "shape": "tall"
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
         },
         {
           "title": "Untitled 05",
           "session": null,
           "image_url": "media/abandoned-america/05.jpg",
           "thumb_url": "media/abandoned-america/t/05.jpg",
-          "w": 1498,
+          "w": 1365,
           "h": 2000,
           "shape": "tall"
         },
@@ -480,7 +363,7 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/06.jpg",
           "thumb_url": "media/abandoned-america/t/06.jpg",
-          "w": 1697,
+          "w": 1543,
           "h": 2000,
           "shape": "tall"
         },
@@ -489,16 +372,16 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/07.jpg",
           "thumb_url": "media/abandoned-america/t/07.jpg",
-          "w": 1960,
-          "h": 2000,
-          "shape": ""
+          "w": 2000,
+          "h": 1227,
+          "shape": "wide"
         },
         {
           "title": "Untitled 08",
           "session": null,
           "image_url": "media/abandoned-america/08.jpg",
           "thumb_url": "media/abandoned-america/t/08.jpg",
-          "w": 1609,
+          "w": 1552,
           "h": 2000,
           "shape": "tall"
         },
@@ -507,34 +390,34 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/09.jpg",
           "thumb_url": "media/abandoned-america/t/09.jpg",
-          "w": 1333,
+          "w": 1941,
           "h": 2000,
-          "shape": "tall"
+          "shape": ""
         },
         {
           "title": "Untitled 10",
           "session": null,
           "image_url": "media/abandoned-america/10.jpg",
           "thumb_url": "media/abandoned-america/t/10.jpg",
-          "w": 1609,
+          "w": 1960,
           "h": 2000,
-          "shape": "tall"
+          "shape": ""
         },
         {
           "title": "Untitled 11",
           "session": null,
           "image_url": "media/abandoned-america/11.jpg",
           "thumb_url": "media/abandoned-america/t/11.jpg",
-          "w": 1388,
-          "h": 2000,
-          "shape": "tall"
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
         },
         {
           "title": "Untitled 12",
           "session": null,
           "image_url": "media/abandoned-america/12.jpg",
           "thumb_url": "media/abandoned-america/t/12.jpg",
-          "w": 1655,
+          "w": 1498,
           "h": 2000,
           "shape": "tall"
         },
@@ -543,7 +426,7 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/13.jpg",
           "thumb_url": "media/abandoned-america/t/13.jpg",
-          "w": 1569,
+          "w": 1259,
           "h": 2000,
           "shape": "tall"
         },
@@ -552,7 +435,7 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/14.jpg",
           "thumb_url": "media/abandoned-america/t/14.jpg",
-          "w": 1552,
+          "w": 1259,
           "h": 2000,
           "shape": "tall"
         },
@@ -561,7 +444,7 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/15.jpg",
           "thumb_url": "media/abandoned-america/t/15.jpg",
-          "w": 1295,
+          "w": 1358,
           "h": 2000,
           "shape": "tall"
         },
@@ -570,7 +453,7 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/16.jpg",
           "thumb_url": "media/abandoned-america/t/16.jpg",
-          "w": 1505,
+          "w": 1333,
           "h": 2000,
           "shape": "tall"
         },
@@ -579,7 +462,7 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/17.jpg",
           "thumb_url": "media/abandoned-america/t/17.jpg",
-          "w": 1651,
+          "w": 1333,
           "h": 2000,
           "shape": "tall"
         },
@@ -597,7 +480,7 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/19.jpg",
           "thumb_url": "media/abandoned-america/t/19.jpg",
-          "w": 1259,
+          "w": 1569,
           "h": 2000,
           "shape": "tall"
         },
@@ -606,16 +489,16 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/20.jpg",
           "thumb_url": "media/abandoned-america/t/20.jpg",
-          "w": 2000,
-          "h": 1333,
-          "shape": "wide"
+          "w": 1333,
+          "h": 2000,
+          "shape": "tall"
         },
         {
           "title": "Untitled 21",
           "session": null,
           "image_url": "media/abandoned-america/21.jpg",
           "thumb_url": "media/abandoned-america/t/21.jpg",
-          "w": 1510,
+          "w": 1388,
           "h": 2000,
           "shape": "tall"
         },
@@ -624,7 +507,7 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/22.jpg",
           "thumb_url": "media/abandoned-america/t/22.jpg",
-          "w": 1478,
+          "w": 1609,
           "h": 2000,
           "shape": "tall"
         },
@@ -633,34 +516,34 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/23.jpg",
           "thumb_url": "media/abandoned-america/t/23.jpg",
-          "w": 1333,
-          "h": 2000,
-          "shape": "tall"
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
         },
         {
           "title": "Untitled 24",
           "session": null,
           "image_url": "media/abandoned-america/24.jpg",
           "thumb_url": "media/abandoned-america/t/24.jpg",
-          "w": 2000,
-          "h": 1607,
-          "shape": "wide"
+          "w": 1333,
+          "h": 2000,
+          "shape": "tall"
         },
         {
           "title": "Untitled 25",
           "session": null,
           "image_url": "media/abandoned-america/25.jpg",
           "thumb_url": "media/abandoned-america/t/25.jpg",
-          "w": 1333,
-          "h": 2000,
-          "shape": "tall"
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
         },
         {
           "title": "Untitled 26",
           "session": null,
           "image_url": "media/abandoned-america/26.jpg",
           "thumb_url": "media/abandoned-america/t/26.jpg",
-          "w": 1333,
+          "w": 1266,
           "h": 2000,
           "shape": "tall"
         },
@@ -669,16 +552,16 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/27.jpg",
           "thumb_url": "media/abandoned-america/t/27.jpg",
-          "w": 2000,
-          "h": 1227,
-          "shape": "wide"
+          "w": 1674,
+          "h": 1878,
+          "shape": ""
         },
         {
           "title": "Untitled 28",
           "session": null,
           "image_url": "media/abandoned-america/28.jpg",
           "thumb_url": "media/abandoned-america/t/28.jpg",
-          "w": 1712,
+          "w": 1549,
           "h": 2000,
           "shape": "tall"
         },
@@ -687,25 +570,25 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/29.jpg",
           "thumb_url": "media/abandoned-america/t/29.jpg",
-          "w": 1365,
-          "h": 2000,
-          "shape": "tall"
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
         },
         {
           "title": "Untitled 30",
           "session": null,
           "image_url": "media/abandoned-america/30.jpg",
           "thumb_url": "media/abandoned-america/t/30.jpg",
-          "w": 2000,
-          "h": 1333,
-          "shape": "wide"
+          "w": 1478,
+          "h": 2000,
+          "shape": "tall"
         },
         {
           "title": "Untitled 31",
           "session": null,
           "image_url": "media/abandoned-america/31.jpg",
           "thumb_url": "media/abandoned-america/t/31.jpg",
-          "w": 1616,
+          "w": 1642,
           "h": 2000,
           "shape": "tall"
         },
@@ -714,97 +597,7 @@ window.GALLERY = {
           "session": null,
           "image_url": "media/abandoned-america/32.jpg",
           "thumb_url": "media/abandoned-america/t/32.jpg",
-          "w": 2000,
-          "h": 1725,
-          "shape": "wide"
-        },
-        {
-          "title": "Untitled 33",
-          "session": null,
-          "image_url": "media/abandoned-america/33.jpg",
-          "thumb_url": "media/abandoned-america/t/33.jpg",
-          "w": 1333,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Untitled 34",
-          "session": null,
-          "image_url": "media/abandoned-america/34.jpg",
-          "thumb_url": "media/abandoned-america/t/34.jpg",
-          "w": 1464,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Untitled 35",
-          "session": null,
-          "image_url": "media/abandoned-america/35.jpg",
-          "thumb_url": "media/abandoned-america/t/35.jpg",
-          "w": 1642,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Untitled 36",
-          "session": null,
-          "image_url": "media/abandoned-america/36.jpg",
-          "thumb_url": "media/abandoned-america/t/36.jpg",
-          "w": 2000,
-          "h": 1333,
-          "shape": "wide"
-        },
-        {
-          "title": "Untitled 37",
-          "session": null,
-          "image_url": "media/abandoned-america/37.jpg",
-          "thumb_url": "media/abandoned-america/t/37.jpg",
-          "w": 2000,
-          "h": 1333,
-          "shape": "wide"
-        },
-        {
-          "title": "Untitled 38",
-          "session": null,
-          "image_url": "media/abandoned-america/38.jpg",
-          "thumb_url": "media/abandoned-america/t/38.jpg",
-          "w": 1941,
-          "h": 2000,
-          "shape": ""
-        },
-        {
-          "title": "Untitled 39",
-          "session": null,
-          "image_url": "media/abandoned-america/39.jpg",
-          "thumb_url": "media/abandoned-america/t/39.jpg",
-          "w": 1540,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Untitled 40",
-          "session": null,
-          "image_url": "media/abandoned-america/40.jpg",
-          "thumb_url": "media/abandoned-america/t/40.jpg",
           "w": 1595,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Untitled 41",
-          "session": null,
-          "image_url": "media/abandoned-america/41.jpg",
-          "thumb_url": "media/abandoned-america/t/41.jpg",
-          "w": 1358,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Untitled 42",
-          "session": null,
-          "image_url": "media/abandoned-america/42.jpg",
-          "thumb_url": "media/abandoned-america/t/42.jpg",
-          "w": 1549,
           "h": 2000,
           "shape": "tall"
         }
@@ -1358,10 +1151,19 @@ window.GALLERY = {
           "shape": "wide"
         },
         {
-          "title": "Don’t Wake Me From This Dream",
+          "title": "Deer in Headlights",
           "session": null,
           "image_url": "media/wanderings/11.jpg",
           "thumb_url": "media/wanderings/t/11.jpg",
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
+        },
+        {
+          "title": "Don’t Wake Me From This Dream",
+          "session": null,
+          "image_url": "media/wanderings/12.jpg",
+          "thumb_url": "media/wanderings/t/12.jpg",
           "w": 1342,
           "h": 2000,
           "shape": "tall"
@@ -1369,8 +1171,8 @@ window.GALLERY = {
         {
           "title": "Empty Places",
           "session": null,
-          "image_url": "media/wanderings/12.jpg",
-          "thumb_url": "media/wanderings/t/12.jpg",
+          "image_url": "media/wanderings/13.jpg",
+          "thumb_url": "media/wanderings/t/13.jpg",
           "w": 1683,
           "h": 2000,
           "shape": "tall"
@@ -1378,23 +1180,14 @@ window.GALLERY = {
         {
           "title": "Finding My Way Home",
           "session": null,
-          "image_url": "media/wanderings/13.jpg",
-          "thumb_url": "media/wanderings/t/13.jpg",
+          "image_url": "media/wanderings/14.jpg",
+          "thumb_url": "media/wanderings/t/14.jpg",
           "w": 1573,
           "h": 2000,
           "shape": "tall"
         },
         {
           "title": "Five Dollars To Know Your Fate",
-          "session": null,
-          "image_url": "media/wanderings/14.jpg",
-          "thumb_url": "media/wanderings/t/14.jpg",
-          "w": 2000,
-          "h": 1333,
-          "shape": "wide"
-        },
-        {
-          "title": "Following The Path To Salvation",
           "session": null,
           "image_url": "media/wanderings/15.jpg",
           "thumb_url": "media/wanderings/t/15.jpg",
@@ -1403,10 +1196,19 @@ window.GALLERY = {
           "shape": "wide"
         },
         {
-          "title": "Free To Travel Anywhere",
+          "title": "Following The Path To Salvation",
           "session": null,
           "image_url": "media/wanderings/16.jpg",
           "thumb_url": "media/wanderings/t/16.jpg",
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
+        },
+        {
+          "title": "Free To Travel Anywhere",
+          "session": null,
+          "image_url": "media/wanderings/17.jpg",
+          "thumb_url": "media/wanderings/t/17.jpg",
           "w": 2000,
           "h": 1037,
           "shape": "wide"
@@ -1414,8 +1216,8 @@ window.GALLERY = {
         {
           "title": "Freedom At Last",
           "session": null,
-          "image_url": "media/wanderings/17.jpg",
-          "thumb_url": "media/wanderings/t/17.jpg",
+          "image_url": "media/wanderings/18.jpg",
+          "thumb_url": "media/wanderings/t/18.jpg",
           "w": 1670,
           "h": 2000,
           "shape": "tall"
@@ -1423,8 +1225,8 @@ window.GALLERY = {
         {
           "title": "Groom Texas",
           "session": null,
-          "image_url": "media/wanderings/18.jpg",
-          "thumb_url": "media/wanderings/t/18.jpg",
+          "image_url": "media/wanderings/19.jpg",
+          "thumb_url": "media/wanderings/t/19.jpg",
           "w": 1820,
           "h": 2000,
           "shape": ""
@@ -1432,8 +1234,8 @@ window.GALLERY = {
         {
           "title": "Her Name Is Alice",
           "session": null,
-          "image_url": "media/wanderings/19.jpg",
-          "thumb_url": "media/wanderings/t/19.jpg",
+          "image_url": "media/wanderings/20.jpg",
+          "thumb_url": "media/wanderings/t/20.jpg",
           "w": 1508,
           "h": 2000,
           "shape": "tall"
@@ -1441,8 +1243,8 @@ window.GALLERY = {
         {
           "title": "House on The Praire",
           "session": null,
-          "image_url": "media/wanderings/20.jpg",
-          "thumb_url": "media/wanderings/t/20.jpg",
+          "image_url": "media/wanderings/21.jpg",
+          "thumb_url": "media/wanderings/t/21.jpg",
           "w": 1535,
           "h": 2000,
           "shape": "tall"
@@ -1450,8 +1252,8 @@ window.GALLERY = {
         {
           "title": "I Heard The Woods Call My Name",
           "session": null,
-          "image_url": "media/wanderings/21.jpg",
-          "thumb_url": "media/wanderings/t/21.jpg",
+          "image_url": "media/wanderings/22.jpg",
+          "thumb_url": "media/wanderings/t/22.jpg",
           "w": 2000,
           "h": 1333,
           "shape": "wide"
@@ -1459,8 +1261,8 @@ window.GALLERY = {
         {
           "title": "I Saw Something In The Window",
           "session": null,
-          "image_url": "media/wanderings/22.jpg",
-          "thumb_url": "media/wanderings/t/22.jpg",
+          "image_url": "media/wanderings/23.jpg",
+          "thumb_url": "media/wanderings/t/23.jpg",
           "w": 2000,
           "h": 1681,
           "shape": "wide"
@@ -1468,8 +1270,8 @@ window.GALLERY = {
         {
           "title": "Into New Worlds",
           "session": null,
-          "image_url": "media/wanderings/23.jpg",
-          "thumb_url": "media/wanderings/t/23.jpg",
+          "image_url": "media/wanderings/24.jpg",
+          "thumb_url": "media/wanderings/t/24.jpg",
           "w": 2000,
           "h": 1333,
           "shape": "wide"
@@ -1477,8 +1279,8 @@ window.GALLERY = {
         {
           "title": "Lost In A Labyrinth",
           "session": null,
-          "image_url": "media/wanderings/24.jpg",
-          "thumb_url": "media/wanderings/t/24.jpg",
+          "image_url": "media/wanderings/25.jpg",
+          "thumb_url": "media/wanderings/t/25.jpg",
           "w": 1595,
           "h": 2000,
           "shape": "tall"
@@ -1486,8 +1288,8 @@ window.GALLERY = {
         {
           "title": "Lost In The Fog",
           "session": null,
-          "image_url": "media/wanderings/25.jpg",
-          "thumb_url": "media/wanderings/t/25.jpg",
+          "image_url": "media/wanderings/26.jpg",
+          "thumb_url": "media/wanderings/t/26.jpg",
           "w": 1468,
           "h": 2000,
           "shape": "tall"
@@ -1495,8 +1297,8 @@ window.GALLERY = {
         {
           "title": "Loving Life Again",
           "session": null,
-          "image_url": "media/wanderings/26.jpg",
-          "thumb_url": "media/wanderings/t/26.jpg",
+          "image_url": "media/wanderings/27.jpg",
+          "thumb_url": "media/wanderings/t/27.jpg",
           "w": 2000,
           "h": 1333,
           "shape": "wide"
@@ -1504,8 +1306,8 @@ window.GALLERY = {
         {
           "title": "Meet Me At The Altar",
           "session": null,
-          "image_url": "media/wanderings/27.jpg",
-          "thumb_url": "media/wanderings/t/27.jpg",
+          "image_url": "media/wanderings/28.jpg",
+          "thumb_url": "media/wanderings/t/28.jpg",
           "w": 1420,
           "h": 2000,
           "shape": "tall"
@@ -1513,8 +1315,8 @@ window.GALLERY = {
         {
           "title": "Party Rocker",
           "session": null,
-          "image_url": "media/wanderings/28.jpg",
-          "thumb_url": "media/wanderings/t/28.jpg",
+          "image_url": "media/wanderings/29.jpg",
+          "thumb_url": "media/wanderings/t/29.jpg",
           "w": 2000,
           "h": 1333,
           "shape": "wide"
@@ -1522,8 +1324,8 @@ window.GALLERY = {
         {
           "title": "Reds and Blues Tonight",
           "session": null,
-          "image_url": "media/wanderings/29.jpg",
-          "thumb_url": "media/wanderings/t/29.jpg",
+          "image_url": "media/wanderings/30.jpg",
+          "thumb_url": "media/wanderings/t/30.jpg",
           "w": 1684,
           "h": 2000,
           "shape": "tall"
@@ -1531,17 +1333,26 @@ window.GALLERY = {
         {
           "title": "RGB",
           "session": null,
-          "image_url": "media/wanderings/30.jpg",
-          "thumb_url": "media/wanderings/t/30.jpg",
+          "image_url": "media/wanderings/31.jpg",
+          "thumb_url": "media/wanderings/t/31.jpg",
           "w": 1333,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "title": "Silent Hill",
+          "session": null,
+          "image_url": "media/wanderings/32.jpg",
+          "thumb_url": "media/wanderings/t/32.jpg",
+          "w": 1454,
           "h": 2000,
           "shape": "tall"
         },
         {
           "title": "Sodium Lights and Crushed Shadows",
           "session": null,
-          "image_url": "media/wanderings/31.jpg",
-          "thumb_url": "media/wanderings/t/31.jpg",
+          "image_url": "media/wanderings/33.jpg",
+          "thumb_url": "media/wanderings/t/33.jpg",
           "w": 2000,
           "h": 1327,
           "shape": "wide"
@@ -1549,17 +1360,35 @@ window.GALLERY = {
         {
           "title": "Solar Panels",
           "session": null,
-          "image_url": "media/wanderings/32.jpg",
-          "thumb_url": "media/wanderings/t/32.jpg",
+          "image_url": "media/wanderings/34.jpg",
+          "thumb_url": "media/wanderings/t/34.jpg",
           "w": 1406,
           "h": 2000,
           "shape": "tall"
         },
         {
+          "title": "Somewhere Safe",
+          "session": null,
+          "image_url": "media/wanderings/35.jpg",
+          "thumb_url": "media/wanderings/t/35.jpg",
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
+        },
+        {
+          "title": "Supernova Skies",
+          "session": null,
+          "image_url": "media/wanderings/36.jpg",
+          "thumb_url": "media/wanderings/t/36.jpg",
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
+        },
+        {
           "title": "The Eyes That Glow",
           "session": null,
-          "image_url": "media/wanderings/33.jpg",
-          "thumb_url": "media/wanderings/t/33.jpg",
+          "image_url": "media/wanderings/37.jpg",
+          "thumb_url": "media/wanderings/t/37.jpg",
           "w": 1255,
           "h": 2000,
           "shape": "tall"
@@ -1567,8 +1396,8 @@ window.GALLERY = {
         {
           "title": "The Hills Have Eyes",
           "session": null,
-          "image_url": "media/wanderings/34.jpg",
-          "thumb_url": "media/wanderings/t/34.jpg",
+          "image_url": "media/wanderings/38.jpg",
+          "thumb_url": "media/wanderings/t/38.jpg",
           "w": 1945,
           "h": 2000,
           "shape": ""
@@ -1576,17 +1405,26 @@ window.GALLERY = {
         {
           "title": "The Three Wise Men",
           "session": null,
-          "image_url": "media/wanderings/35.jpg",
-          "thumb_url": "media/wanderings/t/35.jpg",
+          "image_url": "media/wanderings/39.jpg",
+          "thumb_url": "media/wanderings/t/39.jpg",
           "w": 1214,
           "h": 2000,
           "shape": "tall"
         },
         {
+          "title": "They All Watch Me",
+          "session": null,
+          "image_url": "media/wanderings/40.jpg",
+          "thumb_url": "media/wanderings/t/40.jpg",
+          "w": 2000,
+          "h": 1204,
+          "shape": "wide"
+        },
+        {
           "title": "This Is My Silent Hill",
           "session": null,
-          "image_url": "media/wanderings/36.jpg",
-          "thumb_url": "media/wanderings/t/36.jpg",
+          "image_url": "media/wanderings/41.jpg",
+          "thumb_url": "media/wanderings/t/41.jpg",
           "w": 1333,
           "h": 2000,
           "shape": "tall"
@@ -1594,8 +1432,8 @@ window.GALLERY = {
         {
           "title": "Under The Moonlight",
           "session": null,
-          "image_url": "media/wanderings/37.jpg",
-          "thumb_url": "media/wanderings/t/37.jpg",
+          "image_url": "media/wanderings/42.jpg",
+          "thumb_url": "media/wanderings/t/42.jpg",
           "w": 1561,
           "h": 2000,
           "shape": "tall"
@@ -1843,10 +1681,19 @@ window.GALLERY = {
         "shape": "tall"
       },
       {
-        "title": "Can You Lead My Way",
+        "title": "Bible Marathon",
         "session": null,
         "image_url": "media/ephemera/06.jpg",
         "thumb_url": "media/ephemera/t/06.jpg",
+        "w": 2000,
+        "h": 1680,
+        "shape": "wide"
+      },
+      {
+        "title": "Can You Lead My Way",
+        "session": null,
+        "image_url": "media/ephemera/07.jpg",
+        "thumb_url": "media/ephemera/t/07.jpg",
         "w": 1816,
         "h": 2000,
         "shape": ""
@@ -1854,8 +1701,8 @@ window.GALLERY = {
       {
         "title": "Chapter and Verse",
         "session": null,
-        "image_url": "media/ephemera/07.jpg",
-        "thumb_url": "media/ephemera/t/07.jpg",
+        "image_url": "media/ephemera/08.jpg",
+        "thumb_url": "media/ephemera/t/08.jpg",
         "w": 1500,
         "h": 2000,
         "shape": "tall"
@@ -1863,8 +1710,8 @@ window.GALLERY = {
       {
         "title": "Christians Love Vandalism Too!",
         "session": null,
-        "image_url": "media/ephemera/08.jpg",
-        "thumb_url": "media/ephemera/t/08.jpg",
+        "image_url": "media/ephemera/09.jpg",
+        "thumb_url": "media/ephemera/t/09.jpg",
         "w": 2000,
         "h": 1500,
         "shape": "wide"
@@ -1872,23 +1719,14 @@ window.GALLERY = {
       {
         "title": "Chuch - After Hours",
         "session": null,
-        "image_url": "media/ephemera/09.jpg",
-        "thumb_url": "media/ephemera/t/09.jpg",
+        "image_url": "media/ephemera/10.jpg",
+        "thumb_url": "media/ephemera/t/10.jpg",
         "w": 1672,
         "h": 2000,
         "shape": "tall"
       },
       {
         "title": "Coffee and Cigs",
-        "session": null,
-        "image_url": "media/ephemera/10.jpg",
-        "thumb_url": "media/ephemera/t/10.jpg",
-        "w": 2000,
-        "h": 1500,
-        "shape": "wide"
-      },
-      {
-        "title": "Deck Testimony",
         "session": null,
         "image_url": "media/ephemera/11.jpg",
         "thumb_url": "media/ephemera/t/11.jpg",
@@ -1897,7 +1735,7 @@ window.GALLERY = {
         "shape": "wide"
       },
       {
-        "title": "Double Booking",
+        "title": "Deck Testimony",
         "session": null,
         "image_url": "media/ephemera/12.jpg",
         "thumb_url": "media/ephemera/t/12.jpg",
@@ -1906,10 +1744,19 @@ window.GALLERY = {
         "shape": "wide"
       },
       {
-        "title": "Encore, Encore!",
+        "title": "Double Booking",
         "session": null,
         "image_url": "media/ephemera/13.jpg",
         "thumb_url": "media/ephemera/t/13.jpg",
+        "w": 2000,
+        "h": 1500,
+        "shape": "wide"
+      },
+      {
+        "title": "Encore, Encore!",
+        "session": null,
+        "image_url": "media/ephemera/14.jpg",
+        "thumb_url": "media/ephemera/t/14.jpg",
         "w": 1783,
         "h": 2000,
         "shape": ""
@@ -1917,8 +1764,8 @@ window.GALLERY = {
       {
         "title": "Essential Reading",
         "session": null,
-        "image_url": "media/ephemera/14.jpg",
-        "thumb_url": "media/ephemera/t/14.jpg",
+        "image_url": "media/ephemera/15.jpg",
+        "thumb_url": "media/ephemera/t/15.jpg",
         "w": 1699,
         "h": 2000,
         "shape": "tall"
@@ -1926,8 +1773,8 @@ window.GALLERY = {
       {
         "title": "Fan Club Theology",
         "session": null,
-        "image_url": "media/ephemera/15.jpg",
-        "thumb_url": "media/ephemera/t/15.jpg",
+        "image_url": "media/ephemera/16.jpg",
+        "thumb_url": "media/ephemera/t/16.jpg",
         "w": 1500,
         "h": 2000,
         "shape": "tall"
@@ -1935,8 +1782,8 @@ window.GALLERY = {
       {
         "title": "Festival Merch",
         "session": null,
-        "image_url": "media/ephemera/16.jpg",
-        "thumb_url": "media/ephemera/t/16.jpg",
+        "image_url": "media/ephemera/17.jpg",
+        "thumb_url": "media/ephemera/t/17.jpg",
         "w": 2000,
         "h": 1500,
         "shape": "wide"
@@ -1944,8 +1791,8 @@ window.GALLERY = {
       {
         "title": "Fine Print",
         "session": null,
-        "image_url": "media/ephemera/17.jpg",
-        "thumb_url": "media/ephemera/t/17.jpg",
+        "image_url": "media/ephemera/18.jpg",
+        "thumb_url": "media/ephemera/t/18.jpg",
         "w": 1925,
         "h": 2000,
         "shape": ""
@@ -1953,8 +1800,8 @@ window.GALLERY = {
       {
         "title": "Free Delivery",
         "session": null,
-        "image_url": "media/ephemera/18.jpg",
-        "thumb_url": "media/ephemera/t/18.jpg",
+        "image_url": "media/ephemera/19.jpg",
+        "thumb_url": "media/ephemera/t/19.jpg",
         "w": 2000,
         "h": 1511,
         "shape": "wide"
@@ -1962,8 +1809,8 @@ window.GALLERY = {
       {
         "title": "Household Passion",
         "session": null,
-        "image_url": "media/ephemera/19.jpg",
-        "thumb_url": "media/ephemera/t/19.jpg",
+        "image_url": "media/ephemera/20.jpg",
+        "thumb_url": "media/ephemera/t/20.jpg",
         "w": 2000,
         "h": 1500,
         "shape": "wide"
@@ -1971,8 +1818,8 @@ window.GALLERY = {
       {
         "title": "Jesus’ biggest fans",
         "session": null,
-        "image_url": "media/ephemera/20.jpg",
-        "thumb_url": "media/ephemera/t/20.jpg",
+        "image_url": "media/ephemera/21.jpg",
+        "thumb_url": "media/ephemera/t/21.jpg",
         "w": 1365,
         "h": 2000,
         "shape": "tall"
@@ -1980,8 +1827,8 @@ window.GALLERY = {
       {
         "title": "Kings Night",
         "session": null,
-        "image_url": "media/ephemera/21.jpg",
-        "thumb_url": "media/ephemera/t/21.jpg",
+        "image_url": "media/ephemera/22.jpg",
+        "thumb_url": "media/ephemera/t/22.jpg",
         "w": 2000,
         "h": 1499,
         "shape": "wide"
@@ -1989,23 +1836,14 @@ window.GALLERY = {
       {
         "title": "Lawn Sign Eschatology",
         "session": null,
-        "image_url": "media/ephemera/22.jpg",
-        "thumb_url": "media/ephemera/t/22.jpg",
+        "image_url": "media/ephemera/23.jpg",
+        "thumb_url": "media/ephemera/t/23.jpg",
         "w": 1375,
         "h": 2000,
         "shape": "tall"
       },
       {
         "title": "Lookin for a smile",
-        "session": null,
-        "image_url": "media/ephemera/23.jpg",
-        "thumb_url": "media/ephemera/t/23.jpg",
-        "w": 2000,
-        "h": 1500,
-        "shape": "wide"
-      },
-      {
-        "title": "Monument, Overcast",
         "session": null,
         "image_url": "media/ephemera/24.jpg",
         "thumb_url": "media/ephemera/t/24.jpg",
@@ -2014,10 +1852,19 @@ window.GALLERY = {
         "shape": "wide"
       },
       {
-        "title": "Motion Blur Trinity",
+        "title": "Monument, Overcast",
         "session": null,
         "image_url": "media/ephemera/25.jpg",
         "thumb_url": "media/ephemera/t/25.jpg",
+        "w": 2000,
+        "h": 1500,
+        "shape": "wide"
+      },
+      {
+        "title": "Motion Blur Trinity",
+        "session": null,
+        "image_url": "media/ephemera/26.jpg",
+        "thumb_url": "media/ephemera/t/26.jpg",
         "w": 1333,
         "h": 2000,
         "shape": "tall"
@@ -2025,8 +1872,8 @@ window.GALLERY = {
       {
         "title": "Nativity, Floodlit",
         "session": null,
-        "image_url": "media/ephemera/26.jpg",
-        "thumb_url": "media/ephemera/t/26.jpg",
+        "image_url": "media/ephemera/27.jpg",
+        "thumb_url": "media/ephemera/t/27.jpg",
         "w": 2000,
         "h": 1331,
         "shape": "wide"
@@ -2034,8 +1881,8 @@ window.GALLERY = {
       {
         "title": "No Better Way to Start Your Day",
         "session": null,
-        "image_url": "media/ephemera/27.jpg",
-        "thumb_url": "media/ephemera/t/27.jpg",
+        "image_url": "media/ephemera/28.jpg",
+        "thumb_url": "media/ephemera/t/28.jpg",
         "w": 1965,
         "h": 2000,
         "shape": ""
@@ -2043,8 +1890,8 @@ window.GALLERY = {
       {
         "title": "Our Lady of Impala",
         "session": null,
-        "image_url": "media/ephemera/28.jpg",
-        "thumb_url": "media/ephemera/t/28.jpg",
+        "image_url": "media/ephemera/29.jpg",
+        "thumb_url": "media/ephemera/t/29.jpg",
         "w": 2000,
         "h": 1609,
         "shape": "wide"
@@ -2052,8 +1899,8 @@ window.GALLERY = {
       {
         "title": "Palm Reading",
         "session": null,
-        "image_url": "media/ephemera/29.jpg",
-        "thumb_url": "media/ephemera/t/29.jpg",
+        "image_url": "media/ephemera/30.jpg",
+        "thumb_url": "media/ephemera/t/30.jpg",
         "w": 2000,
         "h": 1500,
         "shape": "wide"
@@ -2061,8 +1908,8 @@ window.GALLERY = {
       {
         "title": "Paved With Good Intentions",
         "session": null,
-        "image_url": "media/ephemera/30.jpg",
-        "thumb_url": "media/ephemera/t/30.jpg",
+        "image_url": "media/ephemera/31.jpg",
+        "thumb_url": "media/ephemera/t/31.jpg",
         "w": 2000,
         "h": 1308,
         "shape": "wide"
@@ -2070,8 +1917,8 @@ window.GALLERY = {
       {
         "title": "Payphone Gospel",
         "session": null,
-        "image_url": "media/ephemera/31.jpg",
-        "thumb_url": "media/ephemera/t/31.jpg",
+        "image_url": "media/ephemera/32.jpg",
+        "thumb_url": "media/ephemera/t/32.jpg",
         "w": 1575,
         "h": 2000,
         "shape": "tall"
@@ -2079,8 +1926,8 @@ window.GALLERY = {
       {
         "title": "Porch Light",
         "session": null,
-        "image_url": "media/ephemera/32.jpg",
-        "thumb_url": "media/ephemera/t/32.jpg",
+        "image_url": "media/ephemera/33.jpg",
+        "thumb_url": "media/ephemera/t/33.jpg",
         "w": 1500,
         "h": 2000,
         "shape": "tall"
@@ -2088,8 +1935,8 @@ window.GALLERY = {
       {
         "title": "Range Rules",
         "session": null,
-        "image_url": "media/ephemera/33.jpg",
-        "thumb_url": "media/ephemera/t/33.jpg",
+        "image_url": "media/ephemera/34.jpg",
+        "thumb_url": "media/ephemera/t/34.jpg",
         "w": 1638,
         "h": 2000,
         "shape": "tall"
@@ -2097,23 +1944,14 @@ window.GALLERY = {
       {
         "title": "Relax, Hell Does Not Exist Either",
         "session": null,
-        "image_url": "media/ephemera/34.jpg",
-        "thumb_url": "media/ephemera/t/34.jpg",
+        "image_url": "media/ephemera/35.jpg",
+        "thumb_url": "media/ephemera/t/35.jpg",
         "w": 2000,
         "h": 1500,
         "shape": "wide"
       },
       {
         "title": "Retail Devotion",
-        "session": null,
-        "image_url": "media/ephemera/35.jpg",
-        "thumb_url": "media/ephemera/t/35.jpg",
-        "w": 1500,
-        "h": 2000,
-        "shape": "tall"
-      },
-      {
-        "title": "Rolling Salvation",
         "session": null,
         "image_url": "media/ephemera/36.jpg",
         "thumb_url": "media/ephemera/t/36.jpg",
@@ -2122,10 +1960,19 @@ window.GALLERY = {
         "shape": "tall"
       },
       {
-        "title": "Sidewalk Scripture",
+        "title": "Rolling Salvation",
         "session": null,
         "image_url": "media/ephemera/37.jpg",
         "thumb_url": "media/ephemera/t/37.jpg",
+        "w": 1500,
+        "h": 2000,
+        "shape": "tall"
+      },
+      {
+        "title": "Sidewalk Scripture",
+        "session": null,
+        "image_url": "media/ephemera/38.jpg",
+        "thumb_url": "media/ephemera/t/38.jpg",
         "w": 2000,
         "h": 1500,
         "shape": "wide"
@@ -2133,17 +1980,26 @@ window.GALLERY = {
       {
         "title": "Stoaway",
         "session": null,
-        "image_url": "media/ephemera/38.jpg",
-        "thumb_url": "media/ephemera/t/38.jpg",
+        "image_url": "media/ephemera/39.jpg",
+        "thumb_url": "media/ephemera/t/39.jpg",
         "w": 1686,
         "h": 2000,
         "shape": "tall"
       },
       {
+        "title": "The King Of Kings",
+        "session": null,
+        "image_url": "media/ephemera/40.jpg",
+        "thumb_url": "media/ephemera/t/40.jpg",
+        "w": 1764,
+        "h": 2000,
+        "shape": ""
+      },
+      {
         "title": "The Other Bumper",
         "session": null,
-        "image_url": "media/ephemera/39.jpg",
-        "thumb_url": "media/ephemera/t/39.jpg",
+        "image_url": "media/ephemera/41.jpg",
+        "thumb_url": "media/ephemera/t/41.jpg",
         "w": 2000,
         "h": 1908,
         "shape": ""
@@ -2151,8 +2007,8 @@ window.GALLERY = {
       {
         "title": "Times Square Sermon",
         "session": null,
-        "image_url": "media/ephemera/40.jpg",
-        "thumb_url": "media/ephemera/t/40.jpg",
+        "image_url": "media/ephemera/42.jpg",
+        "thumb_url": "media/ephemera/t/42.jpg",
         "w": 2000,
         "h": 1500,
         "shape": "wide"
@@ -2160,8 +2016,8 @@ window.GALLERY = {
       {
         "title": "Tracking Focus",
         "session": null,
-        "image_url": "media/ephemera/41.jpg",
-        "thumb_url": "media/ephemera/t/41.jpg",
+        "image_url": "media/ephemera/43.jpg",
+        "thumb_url": "media/ephemera/t/43.jpg",
         "w": 2000,
         "h": 1500,
         "shape": "wide"
@@ -2169,8 +2025,8 @@ window.GALLERY = {
       {
         "title": "Two Kinds of Salvation",
         "session": null,
-        "image_url": "media/ephemera/42.jpg",
-        "thumb_url": "media/ephemera/t/42.jpg",
+        "image_url": "media/ephemera/44.jpg",
+        "thumb_url": "media/ephemera/t/44.jpg",
         "w": 1333,
         "h": 2000,
         "shape": "tall"
@@ -2178,8 +2034,8 @@ window.GALLERY = {
       {
         "title": "Two-for-One Crucifixion",
         "session": null,
-        "image_url": "media/ephemera/43.jpg",
-        "thumb_url": "media/ephemera/t/43.jpg",
+        "image_url": "media/ephemera/45.jpg",
+        "thumb_url": "media/ephemera/t/45.jpg",
         "w": 1771,
         "h": 2000,
         "shape": ""
@@ -2187,8 +2043,8 @@ window.GALLERY = {
       {
         "title": "Uni - Wall Décor, Civic Edition",
         "session": null,
-        "image_url": "media/ephemera/44.jpg",
-        "thumb_url": "media/ephemera/t/44.jpg",
+        "image_url": "media/ephemera/46.jpg",
+        "thumb_url": "media/ephemera/t/46.jpg",
         "w": 2000,
         "h": 1500,
         "shape": "wide"
@@ -2196,8 +2052,8 @@ window.GALLERY = {
       {
         "title": "Vacancy, Blessed",
         "session": null,
-        "image_url": "media/ephemera/45.jpg",
-        "thumb_url": "media/ephemera/t/45.jpg",
+        "image_url": "media/ephemera/47.jpg",
+        "thumb_url": "media/ephemera/t/47.jpg",
         "w": 1541,
         "h": 2000,
         "shape": "tall"
@@ -2205,8 +2061,8 @@ window.GALLERY = {
       {
         "title": "Vacancy, Redeemed",
         "session": null,
-        "image_url": "media/ephemera/46.jpg",
-        "thumb_url": "media/ephemera/t/46.jpg",
+        "image_url": "media/ephemera/48.jpg",
+        "thumb_url": "media/ephemera/t/48.jpg",
         "w": 2000,
         "h": 1587,
         "shape": "wide"
@@ -2214,8 +2070,8 @@ window.GALLERY = {
       {
         "title": "Vanity, Sanctified",
         "session": null,
-        "image_url": "media/ephemera/47.jpg",
-        "thumb_url": "media/ephemera/t/47.jpg",
+        "image_url": "media/ephemera/49.jpg",
+        "thumb_url": "media/ephemera/t/49.jpg",
         "w": 2000,
         "h": 1686,
         "shape": "wide"
@@ -2223,8 +2079,8 @@ window.GALLERY = {
       {
         "title": "What Really Happened in the Garden of Eden",
         "session": null,
-        "image_url": "media/ephemera/48.jpg",
-        "thumb_url": "media/ephemera/t/48.jpg",
+        "image_url": "media/ephemera/50.jpg",
+        "thumb_url": "media/ephemera/t/50.jpg",
         "w": 2000,
         "h": 1500,
         "shape": "wide"
@@ -2232,8 +2088,8 @@ window.GALLERY = {
       {
         "title": "Windshield Ministry",
         "session": null,
-        "image_url": "media/ephemera/49.jpg",
-        "thumb_url": "media/ephemera/t/49.jpg",
+        "image_url": "media/ephemera/51.jpg",
+        "thumb_url": "media/ephemera/t/51.jpg",
         "w": 1500,
         "h": 2000,
         "shape": "tall"
