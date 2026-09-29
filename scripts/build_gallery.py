@@ -618,19 +618,17 @@ def published_clips() -> list[dict]:
         return []
 
 
-def source_clip_count(folders: list[str]) -> int:
-    n = 0
+def source_clips(folders: list[str]) -> list[Path]:
+    out: list[Path] = []
     for f in folders:
         d = SRC / f
         if d.is_dir():
-            n += len(
-                [
-                    p
-                    for p in d.iterdir()
-                    if p.suffix.lower() in VIDEO_EXTS and not p.name.startswith(".")
-                ]
-            )
-    return n
+            out += [
+                p
+                for p in d.iterdir()
+                if p.suffix.lower() in VIDEO_EXTS and not p.name.startswith(".")
+            ]
+    return out
 
 
 def build_videos(folders: list[str]) -> list[dict]:
@@ -640,16 +638,22 @@ def build_videos(folders: list[str]) -> list[dict]:
         if not kept:
             print("    !! ffmpeg not found and no clips published — section left empty")
             return []
-        print(f"    !! ffmpeg not found — keeping the {len(kept)} clips already published")
-        found = source_clip_count(folders)
-        if found != len(kept):
+        # Taking a clip down needs no transcoding, only adding or changing one
+        # does. So a published clip whose source file has gone is dropped here
+        # rather than held on the site until ffmpeg turns up.
+        titles = {clean_title(p.name) for p in source_clips(folders)}
+        live = [c for c in kept if c["title"] in titles]
+        for c in kept:
+            if c["title"] not in titles:
+                print(f"    · removed (source file gone): {c['title']}")
+        extra = len(titles) - len(live)
+        if extra > 0:
             print(
-                f"    !! {found} clips in the folders but {len(kept)} published: the\n"
-                f"       difference needs ffmpeg.  brew install ffmpeg"
+                f"    !! {extra} clip(s) in the folders are not published yet —\n"
+                f"       adding video needs ffmpeg.  brew install ffmpeg"
             )
-        else:
-            print("       Install ffmpeg to change the videos:  brew install ffmpeg")
-        return kept
+        print(f"    keeping {len(live)} published clip(s)")
+        return live
     # Concatenate clips across folders, natural order within each.
     vids: list[Path] = []
     for folder in folders:

@@ -1716,13 +1716,6 @@ window.GALLERY = {
         "h": 720
       },
       {
-        "title": "Houston Old Head",
-        "src": "media/in-passing/02.mp4",
-        "poster": "media/in-passing/02.jpg",
-        "w": 720,
-        "h": 1280
-      },
-      {
         "title": "Lens Flares",
         "src": "media/in-passing/03.mp4",
         "poster": "media/in-passing/03.jpg",
