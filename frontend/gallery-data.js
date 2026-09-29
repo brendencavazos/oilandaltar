@@ -649,7 +649,7 @@ window.GALLERY = {
           "room": "session",
           "image_url": "media/portraits/04.jpg",
           "thumb_url": "media/portraits/t/04.jpg",
-          "w": 1622,
+          "w": 1469,
           "h": 2000,
           "shape": "tall"
         },
@@ -679,7 +679,7 @@ window.GALLERY = {
           "room": "session",
           "image_url": "media/portraits/07.jpg",
           "thumb_url": "media/portraits/t/07.jpg",
-          "w": 1733,
+          "w": 1622,
           "h": 2000,
           "shape": "tall"
         },
@@ -689,43 +689,43 @@ window.GALLERY = {
           "room": "session",
           "image_url": "media/portraits/08.jpg",
           "thumb_url": "media/portraits/t/08.jpg",
-          "w": 1645,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Brooke N. · March 2026",
-          "session": "Brooke N. · March 2026",
-          "room": "session",
-          "image_url": "media/portraits/09.jpg",
-          "thumb_url": "media/portraits/t/09.jpg",
-          "w": 1426,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Brooke N. · March 2026",
-          "session": "Brooke N. · March 2026",
-          "room": "session",
-          "image_url": "media/portraits/10.jpg",
-          "thumb_url": "media/portraits/t/10.jpg",
           "w": 1469,
           "h": 2000,
           "shape": "tall"
         },
         {
-          "title": "Brooke N. · March 2026",
-          "session": "Brooke N. · March 2026",
+          "title": "Brooke N. · April 2026",
+          "session": "Brooke N. · April 2026",
           "room": "session",
-          "image_url": "media/portraits/11.jpg",
-          "thumb_url": "media/portraits/t/11.jpg",
+          "image_url": "media/portraits/09.jpg",
+          "thumb_url": "media/portraits/t/09.jpg",
           "w": 1632,
           "h": 2000,
           "shape": "tall"
         },
         {
-          "title": "Brooke N. · March 2026",
-          "session": "Brooke N. · March 2026",
+          "title": "Brooke N. · April 2026",
+          "session": "Brooke N. · April 2026",
+          "room": "session",
+          "image_url": "media/portraits/10.jpg",
+          "thumb_url": "media/portraits/t/10.jpg",
+          "w": 1426,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "title": "Brooke N. · April 2026",
+          "session": "Brooke N. · April 2026",
+          "room": "session",
+          "image_url": "media/portraits/11.jpg",
+          "thumb_url": "media/portraits/t/11.jpg",
+          "w": 1807,
+          "h": 2000,
+          "shape": ""
+        },
+        {
+          "title": "Brooke N. · April 2026",
+          "session": "Brooke N. · April 2026",
           "room": "session",
           "image_url": "media/portraits/12.jpg",
           "thumb_url": "media/portraits/t/12.jpg",
@@ -734,32 +734,32 @@ window.GALLERY = {
           "shape": "wide"
         },
         {
-          "title": "Brooke N. · March 2026",
-          "session": "Brooke N. · March 2026",
+          "title": "Brooke N. · April 2026",
+          "session": "Brooke N. · April 2026",
           "room": "session",
           "image_url": "media/portraits/13.jpg",
           "thumb_url": "media/portraits/t/13.jpg",
-          "w": 1469,
+          "w": 1333,
           "h": 2000,
           "shape": "tall"
         },
         {
-          "title": "Brooke N. · March 2026",
-          "session": "Brooke N. · March 2026",
+          "title": "Hannah L. · April 2026",
+          "session": "Hannah L. · April 2026",
           "room": "session",
           "image_url": "media/portraits/14.jpg",
           "thumb_url": "media/portraits/t/14.jpg",
-          "w": 1469,
+          "w": 1437,
           "h": 2000,
           "shape": "tall"
         },
         {
-          "title": "Brooke N. · March 2026",
-          "session": "Brooke N. · March 2026",
+          "title": "Hannah L. · April 2026",
+          "session": "Hannah L. · April 2026",
           "room": "session",
           "image_url": "media/portraits/15.jpg",
           "thumb_url": "media/portraits/t/15.jpg",
-          "w": 1333,
+          "w": 1523,
           "h": 2000,
           "shape": "tall"
         },
@@ -769,7 +769,7 @@ window.GALLERY = {
           "room": "session",
           "image_url": "media/portraits/16.jpg",
           "thumb_url": "media/portraits/t/16.jpg",
-          "w": 1437,
+          "w": 1490,
           "h": 2000,
           "shape": "tall"
         },
@@ -779,7 +779,7 @@ window.GALLERY = {
           "room": "session",
           "image_url": "media/portraits/17.jpg",
           "thumb_url": "media/portraits/t/17.jpg",
-          "w": 1523,
+          "w": 1307,
           "h": 2000,
           "shape": "tall"
         },
@@ -789,7 +789,7 @@ window.GALLERY = {
           "room": "session",
           "image_url": "media/portraits/18.jpg",
           "thumb_url": "media/portraits/t/18.jpg",
-          "w": 1490,
+          "w": 1439,
           "h": 2000,
           "shape": "tall"
         },
@@ -799,7 +799,7 @@ window.GALLERY = {
           "room": "session",
           "image_url": "media/portraits/19.jpg",
           "thumb_url": "media/portraits/t/19.jpg",
-          "w": 1307,
+          "w": 1479,
           "h": 2000,
           "shape": "tall"
         },
@@ -809,7 +809,7 @@ window.GALLERY = {
           "room": "session",
           "image_url": "media/portraits/20.jpg",
           "thumb_url": "media/portraits/t/20.jpg",
-          "w": 1439,
+          "w": 1533,
           "h": 2000,
           "shape": "tall"
         },
@@ -819,27 +819,27 @@ window.GALLERY = {
           "room": "session",
           "image_url": "media/portraits/21.jpg",
           "thumb_url": "media/portraits/t/21.jpg",
-          "w": 1479,
+          "w": 1162,
           "h": 2000,
           "shape": "tall"
         },
         {
-          "title": "Hannah L. · April 2026",
-          "session": "Hannah L. · April 2026",
+          "title": "Pranav N. · April 2026",
+          "session": "Pranav N. · April 2026",
           "room": "session",
           "image_url": "media/portraits/22.jpg",
           "thumb_url": "media/portraits/t/22.jpg",
-          "w": 1533,
+          "w": 1648,
           "h": 2000,
           "shape": "tall"
         },
         {
-          "title": "Hannah L. · April 2026",
-          "session": "Hannah L. · April 2026",
+          "title": "Pranav N. · April 2026",
+          "session": "Pranav N. · April 2026",
           "room": "session",
           "image_url": "media/portraits/23.jpg",
           "thumb_url": "media/portraits/t/23.jpg",
-          "w": 1162,
+          "w": 1496,
           "h": 2000,
           "shape": "tall"
         },
@@ -849,10 +849,9 @@ window.GALLERY = {
           "room": "session",
           "image_url": "media/portraits/24.jpg",
           "thumb_url": "media/portraits/t/24.jpg",
-          "w": 1648,
+          "w": 1747,
           "h": 2000,
-          "shape": "tall",
-          "place": "World Cup"
+          "shape": ""
         },
         {
           "title": "Pranav N. · April 2026",
@@ -860,10 +859,9 @@ window.GALLERY = {
           "room": "session",
           "image_url": "media/portraits/25.jpg",
           "thumb_url": "media/portraits/t/25.jpg",
-          "w": 1496,
+          "w": 1766,
           "h": 2000,
-          "shape": "tall",
-          "place": "World Cup"
+          "shape": ""
         },
         {
           "title": "Pranav N. · April 2026",
@@ -871,49 +869,16 @@ window.GALLERY = {
           "room": "session",
           "image_url": "media/portraits/26.jpg",
           "thumb_url": "media/portraits/t/26.jpg",
-          "w": 1747,
+          "w": 1542,
           "h": 2000,
-          "shape": "",
-          "place": "World Cup"
+          "shape": "tall"
         },
         {
-          "title": "Pranav N. · April 2026",
-          "session": "Pranav N. · April 2026",
+          "title": "Manny U. · May 2026",
+          "session": "Manny U. · May 2026",
           "room": "session",
           "image_url": "media/portraits/27.jpg",
           "thumb_url": "media/portraits/t/27.jpg",
-          "w": 1766,
-          "h": 2000,
-          "shape": "",
-          "place": "World Cup"
-        },
-        {
-          "title": "Pranav N. · April 2026",
-          "session": "Pranav N. · April 2026",
-          "room": "session",
-          "image_url": "media/portraits/28.jpg",
-          "thumb_url": "media/portraits/t/28.jpg",
-          "w": 1542,
-          "h": 2000,
-          "shape": "tall",
-          "place": "World Cup"
-        },
-        {
-          "title": "Manny U. · May 2026",
-          "session": "Manny U. · May 2026",
-          "room": "session",
-          "image_url": "media/portraits/29.jpg",
-          "thumb_url": "media/portraits/t/29.jpg",
-          "w": 1998,
-          "h": 2000,
-          "shape": ""
-        },
-        {
-          "title": "Manny U. · May 2026",
-          "session": "Manny U. · May 2026",
-          "room": "session",
-          "image_url": "media/portraits/30.jpg",
-          "thumb_url": "media/portraits/t/30.jpg",
           "w": 1789,
           "h": 2000,
           "shape": ""
@@ -922,8 +887,8 @@ window.GALLERY = {
           "title": "Manny U. · May 2026",
           "session": "Manny U. · May 2026",
           "room": "session",
-          "image_url": "media/portraits/31.jpg",
-          "thumb_url": "media/portraits/t/31.jpg",
+          "image_url": "media/portraits/28.jpg",
+          "thumb_url": "media/portraits/t/28.jpg",
           "w": 1660,
           "h": 2000,
           "shape": "tall"
@@ -932,9 +897,39 @@ window.GALLERY = {
           "title": "Manny U. · May 2026",
           "session": "Manny U. · May 2026",
           "room": "session",
+          "image_url": "media/portraits/29.jpg",
+          "thumb_url": "media/portraits/t/29.jpg",
+          "w": 1514,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "title": "Manny U. · May 2026",
+          "session": "Manny U. · May 2026",
+          "room": "session",
+          "image_url": "media/portraits/30.jpg",
+          "thumb_url": "media/portraits/t/30.jpg",
+          "w": 1998,
+          "h": 2000,
+          "shape": ""
+        },
+        {
+          "title": "Elena R. · June 2026",
+          "session": "Elena R. · June 2026",
+          "room": "session",
+          "image_url": "media/portraits/31.jpg",
+          "thumb_url": "media/portraits/t/31.jpg",
+          "w": 1409,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "title": "Elena R. · June 2026",
+          "session": "Elena R. · June 2026",
+          "room": "session",
           "image_url": "media/portraits/32.jpg",
           "thumb_url": "media/portraits/t/32.jpg",
-          "w": 1514,
+          "w": 1389,
           "h": 2000,
           "shape": "tall"
         },
@@ -949,31 +944,11 @@ window.GALLERY = {
           "shape": "tall"
         },
         {
-          "title": "Elena R. · June 2026",
-          "session": "Elena R. · June 2026",
-          "room": "session",
-          "image_url": "media/portraits/34.jpg",
-          "thumb_url": "media/portraits/t/34.jpg",
-          "w": 1409,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Elena R. · June 2026",
-          "session": "Elena R. · June 2026",
-          "room": "session",
-          "image_url": "media/portraits/35.jpg",
-          "thumb_url": "media/portraits/t/35.jpg",
-          "w": 1389,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
           "title": "Hannah L. · June 2026",
           "session": "Hannah L. · June 2026",
           "room": "session",
-          "image_url": "media/portraits/36.jpg",
-          "thumb_url": "media/portraits/t/36.jpg",
+          "image_url": "media/portraits/34.jpg",
+          "thumb_url": "media/portraits/t/34.jpg",
           "w": 1255,
           "h": 2000,
           "shape": "tall"
@@ -982,9 +957,29 @@ window.GALLERY = {
           "title": "Hannah L. · June 2026",
           "session": "Hannah L. · June 2026",
           "room": "session",
+          "image_url": "media/portraits/35.jpg",
+          "thumb_url": "media/portraits/t/35.jpg",
+          "w": 1422,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "title": "Hannah L. · July 2026",
+          "session": "Hannah L. · July 2026",
+          "room": "session",
+          "image_url": "media/portraits/36.jpg",
+          "thumb_url": "media/portraits/t/36.jpg",
+          "w": 1333,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "title": "Hannah L. · July 2026",
+          "session": "Hannah L. · July 2026",
+          "room": "session",
           "image_url": "media/portraits/37.jpg",
           "thumb_url": "media/portraits/t/37.jpg",
-          "w": 1422,
+          "w": 1333,
           "h": 2000,
           "shape": "tall"
         },
@@ -999,22 +994,32 @@ window.GALLERY = {
           "shape": "tall"
         },
         {
-          "title": "Hannah L. · July 2026",
-          "session": "Hannah L. · July 2026",
+          "title": "Brooke N. · Feburary 2026",
+          "session": "Brooke N. · Feburary 2026",
           "room": "session",
           "image_url": "media/portraits/39.jpg",
           "thumb_url": "media/portraits/t/39.jpg",
-          "w": 1333,
+          "w": 1645,
           "h": 2000,
           "shape": "tall"
         },
         {
-          "title": "Hannah L. · July 2026",
-          "session": "Hannah L. · July 2026",
+          "title": "Brooke N. · Feburary 2026",
+          "session": "Brooke N. · Feburary 2026",
           "room": "session",
           "image_url": "media/portraits/40.jpg",
           "thumb_url": "media/portraits/t/40.jpg",
-          "w": 1333,
+          "w": 1733,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "title": "Brooke N. · Feburary 2026",
+          "session": "Brooke N. · Feburary 2026",
+          "room": "session",
+          "image_url": "media/portraits/41.jpg",
+          "thumb_url": "media/portraits/t/41.jpg",
+          "w": 1537,
           "h": 2000,
           "shape": "tall"
         },
@@ -1022,8 +1027,8 @@ window.GALLERY = {
           "title": "Hannah L. · March 2026",
           "session": "Hannah L. · March 2026",
           "room": "places",
-          "image_url": "media/portraits/41.jpg",
-          "thumb_url": "media/portraits/t/41.jpg",
+          "image_url": "media/portraits/42.jpg",
+          "thumb_url": "media/portraits/t/42.jpg",
           "w": 1495,
           "h": 2000,
           "shape": "tall"
@@ -1032,8 +1037,8 @@ window.GALLERY = {
           "title": "Diego and Isaac · May 2026",
           "session": "Diego and Isaac · May 2026",
           "room": "places",
-          "image_url": "media/portraits/42.jpg",
-          "thumb_url": "media/portraits/t/42.jpg",
+          "image_url": "media/portraits/43.jpg",
+          "thumb_url": "media/portraits/t/43.jpg",
           "w": 2000,
           "h": 1333,
           "shape": "wide"
@@ -1042,9 +1047,159 @@ window.GALLERY = {
           "title": "Dani And Flavie · June 2026",
           "session": "Dani And Flavie · June 2026",
           "room": "places",
-          "image_url": "media/portraits/43.jpg",
-          "thumb_url": "media/portraits/t/43.jpg",
+          "image_url": "media/portraits/44.jpg",
+          "thumb_url": "media/portraits/t/44.jpg",
           "w": 1616,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "title": "3FF4FD71-632D-4CAD-967B-2E1C4D2702D3_1_105_c",
+          "session": "3FF4FD71-632D-4CAD-967B-2E1C4D2702D3_1_105_c",
+          "room": "places",
+          "image_url": "media/portraits/45.jpg",
+          "thumb_url": "media/portraits/t/45.jpg",
+          "w": 1024,
+          "h": 768,
+          "shape": "wide"
+        },
+        {
+          "title": "5B2A6620-6589-45FF-AC0F-D112748718F3_1_201_a",
+          "session": "5B2A6620-6589-45FF-AC0F-D112748718F3_1_201_a",
+          "room": "places",
+          "image_url": "media/portraits/46.jpg",
+          "thumb_url": "media/portraits/t/46.jpg",
+          "w": 1422,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "title": "7B5EF007-57B5-4A16-B707-3132AB3BB3C4_1_105_c",
+          "session": "7B5EF007-57B5-4A16-B707-3132AB3BB3C4_1_105_c",
+          "room": "places",
+          "image_url": "media/portraits/47.jpg",
+          "thumb_url": "media/portraits/t/47.jpg",
+          "w": 732,
+          "h": 1072,
+          "shape": "tall"
+        },
+        {
+          "title": "8F29FD2A-D89D-4B45-926E-45280CA3C4A2_1_105_c",
+          "session": "8F29FD2A-D89D-4B45-926E-45280CA3C4A2_1_105_c",
+          "room": "places",
+          "image_url": "media/portraits/48.jpg",
+          "thumb_url": "media/portraits/t/48.jpg",
+          "w": 748,
+          "h": 1048,
+          "shape": "tall"
+        },
+        {
+          "title": "9C9E4299-469C-480A-A70B-BE08032BCAEB_1_105_c",
+          "session": "9C9E4299-469C-480A-A70B-BE08032BCAEB_1_105_c",
+          "room": "places",
+          "image_url": "media/portraits/49.jpg",
+          "thumb_url": "media/portraits/t/49.jpg",
+          "w": 724,
+          "h": 1084,
+          "shape": "tall"
+        },
+        {
+          "title": "44AE894F-BF48-4BFF-9502-F3565C4CA7FD_1_105_c",
+          "session": "44AE894F-BF48-4BFF-9502-F3565C4CA7FD_1_105_c",
+          "room": "places",
+          "image_url": "media/portraits/50.jpg",
+          "thumb_url": "media/portraits/t/50.jpg",
+          "w": 724,
+          "h": 1086,
+          "shape": "tall"
+        },
+        {
+          "title": "69F9903E-DC19-4E6E-80DE-83CF5B23BAD5_1_105_c",
+          "session": "69F9903E-DC19-4E6E-80DE-83CF5B23BAD5_1_105_c",
+          "room": "places",
+          "image_url": "media/portraits/51.jpg",
+          "thumb_url": "media/portraits/t/51.jpg",
+          "w": 1024,
+          "h": 768,
+          "shape": "wide"
+        },
+        {
+          "title": "141E620D-1A41-4CF8-AEF4-4FDB99900822_1_105_c",
+          "session": "141E620D-1A41-4CF8-AEF4-4FDB99900822_1_105_c",
+          "room": "places",
+          "image_url": "media/portraits/52.jpg",
+          "thumb_url": "media/portraits/t/52.jpg",
+          "w": 768,
+          "h": 1024,
+          "shape": "tall"
+        },
+        {
+          "title": "664F4632-F127-4441-AA6F-AEFEA9AA1D4E_1_105_c",
+          "session": "664F4632-F127-4441-AA6F-AEFEA9AA1D4E_1_105_c",
+          "room": "places",
+          "image_url": "media/portraits/53.jpg",
+          "thumb_url": "media/portraits/t/53.jpg",
+          "w": 756,
+          "h": 1040,
+          "shape": "tall"
+        },
+        {
+          "title": "DSC00082",
+          "session": "DSC00082",
+          "room": "places",
+          "image_url": "media/portraits/54.jpg",
+          "thumb_url": "media/portraits/t/54.jpg",
+          "w": 1500,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "title": "DSC00086",
+          "session": "DSC00086",
+          "room": "places",
+          "image_url": "media/portraits/55.jpg",
+          "thumb_url": "media/portraits/t/55.jpg",
+          "w": 1500,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "title": "DSC00365",
+          "session": "DSC00365",
+          "room": "places",
+          "image_url": "media/portraits/56.jpg",
+          "thumb_url": "media/portraits/t/56.jpg",
+          "w": 1500,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "title": "DSC00398-2",
+          "session": "DSC00398-2",
+          "room": "places",
+          "image_url": "media/portraits/57.jpg",
+          "thumb_url": "media/portraits/t/57.jpg",
+          "w": 2000,
+          "h": 1500,
+          "shape": "wide"
+        },
+        {
+          "title": "E248BE06-24E7-4AD4-B86C-644437CE52C9_1_102_o",
+          "session": "E248BE06-24E7-4AD4-B86C-644437CE52C9_1_102_o",
+          "room": "places",
+          "image_url": "media/portraits/58.jpg",
+          "thumb_url": "media/portraits/t/58.jpg",
+          "w": 1396,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "title": "EAF3C524-1832-462D-8497-C448EF12BFA7_1_102_o",
+          "session": "EAF3C524-1832-462D-8497-C448EF12BFA7_1_102_o",
+          "room": "places",
+          "image_url": "media/portraits/59.jpg",
+          "thumb_url": "media/portraits/t/59.jpg",
+          "w": 1473,
           "h": 2000,
           "shape": "tall"
         }
