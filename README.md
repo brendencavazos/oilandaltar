@@ -12,8 +12,8 @@ an inquiry form.
 ## Portraits
 
 The section is people, not photographs. A **session** gets a cover and opens as
-its own wall at `#/portraits/s/<n>`. Eleven covers fit on a screen where
-forty-three photographs never could, and nobody scrolls past someone they were
+its own wall at `#/portraits/s/<n>`. Ten covers fit on a screen where
+fifty-nine photographs never could, and nobody scrolls past someone they were
 not looking for.
 
 **Places and Faces** (`#/portraits/places-and-faces`) holds portraits made at
@@ -40,14 +40,16 @@ actually changes as you step through, so it is the only thing shown. This holds
 for Places and Faces too. Every other series keeps its title and counter.
 
 A **place** is not a title. `Pranav N. — World Cup` tells one shoot apart from
-another by the same person — which matters for Hannah L., who has four — and
-reads as an occasion rather than an invented name. Sessions with no place on
-record show the name alone and look no less finished for it. A place is written
-into the session's folder name — see *Portraits: a folder per session* below.
+another by the same person — which matters for Brooke N. and Hannah L., who
+have three sessions each — and reads as an occasion rather than an invented
+name. Sessions with no place on record show the name alone and look no less
+finished for it. A place is written into the session's folder name, so it is
+lost the moment the folder is renamed without it; no session carries one at
+present. See *Portraits: a folder per session* below.
 
 The two rooms are reached by **tabs on the page**, not by an entry in the top
-bar. Navigation depth should track importance rather than structure: three
-photographs should not hold a slot in a navigation a visitor scans before they
+bar. Navigation depth should track importance rather than structure: a room
+holding a fraction of the work should not hold a slot in a navigation a visitor scans before they
 know anything about the work, and tabs show both rooms at once so neither can be
 mistaken for the whole section.
 
@@ -68,8 +70,8 @@ Sound plays from the first tap where the browser allows it, falling back to mute
 where autoplay rules forbid it, with a button to turn it on. Closing stops the
 download rather than leaving a clip streaming.
 
-Clips are sized `object-fit: contain`, never `cover`: two of the eleven are shot
-vertically and cropping them to a landscape box would be a lie about the work.
+Clips are sized `object-fit: contain`, never `cover`: one of the ten is shot
+vertically and cropping it to a landscape box would be a lie about the work.
 
 ## How the galleries behave
 
@@ -281,8 +283,15 @@ dragging and renaming in Finder. Nothing in the code has to change.
 
 A folder name is read as **`Name - Month Year`**, with an optional
 **`- Place`** after it. Anything that does not parse is used verbatim and a
-warning is printed, so a typo is loud rather than silent. Without a `cover.jpg`
-the first file does both jobs.
+warning is printed. Without a `cover.jpg` the first file does both jobs, and
+`Cover.jpg` works as well as `cover.jpg`.
+
+**A misspelled month is the one failure that stays quiet.** `Feburary` still
+matches the shape of a folder name, so no warning is printed — but the month is
+not recognised, so the session sorts to the *end* of its year instead of into
+place, and the misspelling appears on the page as the caption. This has already
+happened once and reached production. If a session lands somewhere unexpected
+on the index, check the spelling of the month first.
 
 **Which room a photograph sits in is a decision, not a count.** A session folder
 holding one photograph is a session, and a frame under Places and Faces stays
@@ -379,10 +388,14 @@ Both exist because each would quietly destroy published work:
   is not an instruction to delete the section — it means the photographs are not
   on this computer.
 - **Publish an empty video section.** Video needs `ffmpeg`. Without it the
-  build keeps the clips already published and says so, rather than taking In
-  Passing off the site. So photographs can be rebuilt on a machine with no
-  ffmpeg; only *changing the videos* needs it. To install it you need Homebrew
-  first (<https://brew.sh>), then `brew install ffmpeg`.
+  build keeps the clips already published rather than taking In Passing off the
+  site, so photographs can be rebuilt on a machine that has no ffmpeg.
+  *Removing* a clip still works without it — deleting the source file drops the
+  clip and the build says which one it dropped — because taking a video down
+  needs no transcoding. Only adding or changing one does. To install it you
+  need Homebrew first (<https://brew.sh>), then `brew install ffmpeg`.
+  Delete the orphaned `media/in-passing/NN.mp4` and `NN.jpg` by hand after a
+  removal, or the repo keeps carrying a file nothing points at.
 
 `media/<slug>/.sources` is the manifest the rebuild decision is made from. It
 records each source file **and a digest of its contents**, one per line:
