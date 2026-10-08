@@ -1262,7 +1262,7 @@ window.GALLERY = {
       "kind": "mixed",
       "layout": "mosaic",
       "excerpt": [
-        "Wanderings holds the ordinary, unplanned frames from daily life noticed in passing, not staged, not repeated."
+        "Wanderings is what turns up on the way to somewhere else. Roadside signs still burning in an empty lot, a corridor at the end of a long night, headlights on gravel, colour thrown into the trees. Ordinary things noticed in passing — not staged, and not gone back for."
       ],
       "plates": [
         {
@@ -1401,37 +1401,19 @@ window.GALLERY = {
           "shape": "tall"
         },
         {
-          "title": "House on The Praire",
+          "title": "I Saw Something In The Window",
           "session": null,
           "image_url": "media/wanderings/16.jpg",
           "thumb_url": "media/wanderings/t/16.jpg",
-          "w": 1535,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "I Saw Something In The Window",
-          "session": null,
-          "image_url": "media/wanderings/17.jpg",
-          "thumb_url": "media/wanderings/t/17.jpg",
           "w": 2000,
           "h": 1681,
           "shape": "wide"
         },
         {
-          "title": "Into New Worlds",
-          "session": null,
-          "image_url": "media/wanderings/18.jpg",
-          "thumb_url": "media/wanderings/t/18.jpg",
-          "w": 2000,
-          "h": 1333,
-          "shape": "wide"
-        },
-        {
           "title": "Lost In A Labyrinth",
           "session": null,
-          "image_url": "media/wanderings/19.jpg",
-          "thumb_url": "media/wanderings/t/19.jpg",
+          "image_url": "media/wanderings/17.jpg",
+          "thumb_url": "media/wanderings/t/17.jpg",
           "w": 1595,
           "h": 2000,
           "shape": "tall"
@@ -1439,8 +1421,8 @@ window.GALLERY = {
         {
           "title": "Lost In The Fog",
           "session": null,
-          "image_url": "media/wanderings/20.jpg",
-          "thumb_url": "media/wanderings/t/20.jpg",
+          "image_url": "media/wanderings/18.jpg",
+          "thumb_url": "media/wanderings/t/18.jpg",
           "w": 1468,
           "h": 2000,
           "shape": "tall"
@@ -1448,8 +1430,8 @@ window.GALLERY = {
         {
           "title": "Meet Me At The Altar",
           "session": null,
-          "image_url": "media/wanderings/21.jpg",
-          "thumb_url": "media/wanderings/t/21.jpg",
+          "image_url": "media/wanderings/19.jpg",
+          "thumb_url": "media/wanderings/t/19.jpg",
           "w": 1420,
           "h": 2000,
           "shape": "tall"
@@ -1457,8 +1439,8 @@ window.GALLERY = {
         {
           "title": "Party Rocker",
           "session": null,
-          "image_url": "media/wanderings/22.jpg",
-          "thumb_url": "media/wanderings/t/22.jpg",
+          "image_url": "media/wanderings/20.jpg",
+          "thumb_url": "media/wanderings/t/20.jpg",
           "w": 2000,
           "h": 1333,
           "shape": "wide"
@@ -1466,8 +1448,8 @@ window.GALLERY = {
         {
           "title": "Reds and Blues Tonight",
           "session": null,
-          "image_url": "media/wanderings/23.jpg",
-          "thumb_url": "media/wanderings/t/23.jpg",
+          "image_url": "media/wanderings/21.jpg",
+          "thumb_url": "media/wanderings/t/21.jpg",
           "w": 1684,
           "h": 2000,
           "shape": "tall"
@@ -1475,26 +1457,17 @@ window.GALLERY = {
         {
           "title": "Silent Hill",
           "session": null,
-          "image_url": "media/wanderings/24.jpg",
-          "thumb_url": "media/wanderings/t/24.jpg",
+          "image_url": "media/wanderings/22.jpg",
+          "thumb_url": "media/wanderings/t/22.jpg",
           "w": 1454,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "Solar Panels",
-          "session": null,
-          "image_url": "media/wanderings/25.jpg",
-          "thumb_url": "media/wanderings/t/25.jpg",
-          "w": 1406,
           "h": 2000,
           "shape": "tall"
         },
         {
           "title": "The Eyes That Glow",
           "session": null,
-          "image_url": "media/wanderings/26.jpg",
-          "thumb_url": "media/wanderings/t/26.jpg",
+          "image_url": "media/wanderings/23.jpg",
+          "thumb_url": "media/wanderings/t/23.jpg",
           "w": 1255,
           "h": 2000,
           "shape": "tall"
@@ -1502,8 +1475,8 @@ window.GALLERY = {
         {
           "title": "The Three Wise Men",
           "session": null,
-          "image_url": "media/wanderings/27.jpg",
-          "thumb_url": "media/wanderings/t/27.jpg",
+          "image_url": "media/wanderings/24.jpg",
+          "thumb_url": "media/wanderings/t/24.jpg",
           "w": 1214,
           "h": 2000,
           "shape": "tall"
@@ -1511,8 +1484,8 @@ window.GALLERY = {
         {
           "title": "They All Watch Me",
           "session": null,
-          "image_url": "media/wanderings/28.jpg",
-          "thumb_url": "media/wanderings/t/28.jpg",
+          "image_url": "media/wanderings/25.jpg",
+          "thumb_url": "media/wanderings/t/25.jpg",
           "w": 2000,
           "h": 1204,
           "shape": "wide"
@@ -1520,8 +1493,8 @@ window.GALLERY = {
         {
           "title": "This Is My Silent Hill",
           "session": null,
-          "image_url": "media/wanderings/29.jpg",
-          "thumb_url": "media/wanderings/t/29.jpg",
+          "image_url": "media/wanderings/26.jpg",
+          "thumb_url": "media/wanderings/t/26.jpg",
           "w": 1333,
           "h": 2000,
           "shape": "tall"

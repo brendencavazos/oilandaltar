@@ -58,8 +58,10 @@ EXCERPTS = {
         "than a moment caught in passing.",
     ],
     "wanderings": [
-        "Wanderings holds the ordinary, unplanned frames from daily life noticed in "
-        "passing, not staged, not repeated.",
+        "Wanderings is what turns up on the way to somewhere else. Roadside signs "
+        "still burning in an empty lot, a corridor at the end of a long night, "
+        "headlights on gravel, colour thrown into the trees. Ordinary things "
+        "noticed in passing — not staged, and not gone back for.",
     ],
     "bible-belt": [
         "The Bible Belt gets its name for a reason: a church on nearly every corner, in a "
