@@ -1302,19 +1302,10 @@ window.GALLERY = {
           "shape": "wide"
         },
         {
-          "title": "As Above So Below",
+          "title": "Bible Belt Bamboo Forest",
           "session": null,
           "image_url": "media/wanderings/05.jpg",
           "thumb_url": "media/wanderings/t/05.jpg",
-          "w": 2000,
-          "h": 1333,
-          "shape": "wide"
-        },
-        {
-          "title": "Bible Belt Bamboo Forest",
-          "session": null,
-          "image_url": "media/wanderings/06.jpg",
-          "thumb_url": "media/wanderings/t/06.jpg",
           "w": 1245,
           "h": 2000,
           "shape": "tall"
@@ -1322,8 +1313,8 @@ window.GALLERY = {
         {
           "title": "Bring Me Towards The Light",
           "session": null,
-          "image_url": "media/wanderings/07.jpg",
-          "thumb_url": "media/wanderings/t/07.jpg",
+          "image_url": "media/wanderings/06.jpg",
+          "thumb_url": "media/wanderings/t/06.jpg",
           "w": 1307,
           "h": 2000,
           "shape": "tall"
@@ -1331,8 +1322,8 @@ window.GALLERY = {
         {
           "title": "Chasing A Forest Fire",
           "session": null,
-          "image_url": "media/wanderings/08.jpg",
-          "thumb_url": "media/wanderings/t/08.jpg",
+          "image_url": "media/wanderings/07.jpg",
+          "thumb_url": "media/wanderings/t/07.jpg",
           "w": 2000,
           "h": 1280,
           "shape": "wide"
@@ -1340,8 +1331,8 @@ window.GALLERY = {
         {
           "title": "Dancing With Two Left Feet",
           "session": null,
-          "image_url": "media/wanderings/09.jpg",
-          "thumb_url": "media/wanderings/t/09.jpg",
+          "image_url": "media/wanderings/08.jpg",
+          "thumb_url": "media/wanderings/t/08.jpg",
           "w": 2000,
           "h": 1382,
           "shape": "wide"
@@ -1349,26 +1340,17 @@ window.GALLERY = {
         {
           "title": "Deer in Headlights",
           "session": null,
-          "image_url": "media/wanderings/10.jpg",
-          "thumb_url": "media/wanderings/t/10.jpg",
+          "image_url": "media/wanderings/09.jpg",
+          "thumb_url": "media/wanderings/t/09.jpg",
           "w": 2000,
           "h": 1333,
           "shape": "wide"
         },
         {
-          "title": "Don’t Wake Me From This Dream",
-          "session": null,
-          "image_url": "media/wanderings/11.jpg",
-          "thumb_url": "media/wanderings/t/11.jpg",
-          "w": 1342,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
           "title": "Empty Places",
           "session": null,
-          "image_url": "media/wanderings/12.jpg",
-          "thumb_url": "media/wanderings/t/12.jpg",
+          "image_url": "media/wanderings/10.jpg",
+          "thumb_url": "media/wanderings/t/10.jpg",
           "w": 1683,
           "h": 2000,
           "shape": "tall"
@@ -1376,8 +1358,8 @@ window.GALLERY = {
         {
           "title": "Finding My Way Home",
           "session": null,
-          "image_url": "media/wanderings/13.jpg",
-          "thumb_url": "media/wanderings/t/13.jpg",
+          "image_url": "media/wanderings/11.jpg",
+          "thumb_url": "media/wanderings/t/11.jpg",
           "w": 1573,
           "h": 2000,
           "shape": "tall"
@@ -1385,8 +1367,8 @@ window.GALLERY = {
         {
           "title": "Five Dollars To Know Your Fate",
           "session": null,
-          "image_url": "media/wanderings/14.jpg",
-          "thumb_url": "media/wanderings/t/14.jpg",
+          "image_url": "media/wanderings/12.jpg",
+          "thumb_url": "media/wanderings/t/12.jpg",
           "w": 2000,
           "h": 1333,
           "shape": "wide"
@@ -1394,26 +1376,17 @@ window.GALLERY = {
         {
           "title": "Following The Path To Salvation",
           "session": null,
-          "image_url": "media/wanderings/15.jpg",
-          "thumb_url": "media/wanderings/t/15.jpg",
+          "image_url": "media/wanderings/13.jpg",
+          "thumb_url": "media/wanderings/t/13.jpg",
           "w": 2000,
           "h": 1333,
           "shape": "wide"
         },
         {
-          "title": "Free To Travel Anywhere",
-          "session": null,
-          "image_url": "media/wanderings/16.jpg",
-          "thumb_url": "media/wanderings/t/16.jpg",
-          "w": 2000,
-          "h": 1037,
-          "shape": "wide"
-        },
-        {
           "title": "Groom Texas",
           "session": null,
-          "image_url": "media/wanderings/17.jpg",
-          "thumb_url": "media/wanderings/t/17.jpg",
+          "image_url": "media/wanderings/14.jpg",
+          "thumb_url": "media/wanderings/t/14.jpg",
           "w": 1820,
           "h": 2000,
           "shape": ""
@@ -1421,8 +1394,8 @@ window.GALLERY = {
         {
           "title": "Her Name Is Alice",
           "session": null,
-          "image_url": "media/wanderings/18.jpg",
-          "thumb_url": "media/wanderings/t/18.jpg",
+          "image_url": "media/wanderings/15.jpg",
+          "thumb_url": "media/wanderings/t/15.jpg",
           "w": 1508,
           "h": 2000,
           "shape": "tall"
@@ -1430,8 +1403,8 @@ window.GALLERY = {
         {
           "title": "House on The Praire",
           "session": null,
-          "image_url": "media/wanderings/19.jpg",
-          "thumb_url": "media/wanderings/t/19.jpg",
+          "image_url": "media/wanderings/16.jpg",
+          "thumb_url": "media/wanderings/t/16.jpg",
           "w": 1535,
           "h": 2000,
           "shape": "tall"
@@ -1439,8 +1412,8 @@ window.GALLERY = {
         {
           "title": "I Saw Something In The Window",
           "session": null,
-          "image_url": "media/wanderings/20.jpg",
-          "thumb_url": "media/wanderings/t/20.jpg",
+          "image_url": "media/wanderings/17.jpg",
+          "thumb_url": "media/wanderings/t/17.jpg",
           "w": 2000,
           "h": 1681,
           "shape": "wide"
@@ -1448,8 +1421,8 @@ window.GALLERY = {
         {
           "title": "Into New Worlds",
           "session": null,
-          "image_url": "media/wanderings/21.jpg",
-          "thumb_url": "media/wanderings/t/21.jpg",
+          "image_url": "media/wanderings/18.jpg",
+          "thumb_url": "media/wanderings/t/18.jpg",
           "w": 2000,
           "h": 1333,
           "shape": "wide"
@@ -1457,8 +1430,8 @@ window.GALLERY = {
         {
           "title": "Lost In A Labyrinth",
           "session": null,
-          "image_url": "media/wanderings/22.jpg",
-          "thumb_url": "media/wanderings/t/22.jpg",
+          "image_url": "media/wanderings/19.jpg",
+          "thumb_url": "media/wanderings/t/19.jpg",
           "w": 1595,
           "h": 2000,
           "shape": "tall"
@@ -1466,8 +1439,8 @@ window.GALLERY = {
         {
           "title": "Lost In The Fog",
           "session": null,
-          "image_url": "media/wanderings/23.jpg",
-          "thumb_url": "media/wanderings/t/23.jpg",
+          "image_url": "media/wanderings/20.jpg",
+          "thumb_url": "media/wanderings/t/20.jpg",
           "w": 1468,
           "h": 2000,
           "shape": "tall"
@@ -1475,8 +1448,8 @@ window.GALLERY = {
         {
           "title": "Meet Me At The Altar",
           "session": null,
-          "image_url": "media/wanderings/24.jpg",
-          "thumb_url": "media/wanderings/t/24.jpg",
+          "image_url": "media/wanderings/21.jpg",
+          "thumb_url": "media/wanderings/t/21.jpg",
           "w": 1420,
           "h": 2000,
           "shape": "tall"
@@ -1484,8 +1457,8 @@ window.GALLERY = {
         {
           "title": "Party Rocker",
           "session": null,
-          "image_url": "media/wanderings/25.jpg",
-          "thumb_url": "media/wanderings/t/25.jpg",
+          "image_url": "media/wanderings/22.jpg",
+          "thumb_url": "media/wanderings/t/22.jpg",
           "w": 2000,
           "h": 1333,
           "shape": "wide"
@@ -1493,8 +1466,8 @@ window.GALLERY = {
         {
           "title": "Reds and Blues Tonight",
           "session": null,
-          "image_url": "media/wanderings/26.jpg",
-          "thumb_url": "media/wanderings/t/26.jpg",
+          "image_url": "media/wanderings/23.jpg",
+          "thumb_url": "media/wanderings/t/23.jpg",
           "w": 1684,
           "h": 2000,
           "shape": "tall"
@@ -1502,26 +1475,17 @@ window.GALLERY = {
         {
           "title": "Silent Hill",
           "session": null,
-          "image_url": "media/wanderings/27.jpg",
-          "thumb_url": "media/wanderings/t/27.jpg",
+          "image_url": "media/wanderings/24.jpg",
+          "thumb_url": "media/wanderings/t/24.jpg",
           "w": 1454,
           "h": 2000,
           "shape": "tall"
         },
         {
-          "title": "Sodium Lights and Crushed Shadows",
-          "session": null,
-          "image_url": "media/wanderings/28.jpg",
-          "thumb_url": "media/wanderings/t/28.jpg",
-          "w": 2000,
-          "h": 1327,
-          "shape": "wide"
-        },
-        {
           "title": "Solar Panels",
           "session": null,
-          "image_url": "media/wanderings/29.jpg",
-          "thumb_url": "media/wanderings/t/29.jpg",
+          "image_url": "media/wanderings/25.jpg",
+          "thumb_url": "media/wanderings/t/25.jpg",
           "w": 1406,
           "h": 2000,
           "shape": "tall"
@@ -1529,26 +1493,17 @@ window.GALLERY = {
         {
           "title": "The Eyes That Glow",
           "session": null,
-          "image_url": "media/wanderings/30.jpg",
-          "thumb_url": "media/wanderings/t/30.jpg",
+          "image_url": "media/wanderings/26.jpg",
+          "thumb_url": "media/wanderings/t/26.jpg",
           "w": 1255,
           "h": 2000,
           "shape": "tall"
         },
         {
-          "title": "The Hills Have Eyes",
-          "session": null,
-          "image_url": "media/wanderings/31.jpg",
-          "thumb_url": "media/wanderings/t/31.jpg",
-          "w": 1945,
-          "h": 2000,
-          "shape": ""
-        },
-        {
           "title": "The Three Wise Men",
           "session": null,
-          "image_url": "media/wanderings/32.jpg",
-          "thumb_url": "media/wanderings/t/32.jpg",
+          "image_url": "media/wanderings/27.jpg",
+          "thumb_url": "media/wanderings/t/27.jpg",
           "w": 1214,
           "h": 2000,
           "shape": "tall"
@@ -1556,8 +1511,8 @@ window.GALLERY = {
         {
           "title": "They All Watch Me",
           "session": null,
-          "image_url": "media/wanderings/33.jpg",
-          "thumb_url": "media/wanderings/t/33.jpg",
+          "image_url": "media/wanderings/28.jpg",
+          "thumb_url": "media/wanderings/t/28.jpg",
           "w": 2000,
           "h": 1204,
           "shape": "wide"
@@ -1565,8 +1520,8 @@ window.GALLERY = {
         {
           "title": "This Is My Silent Hill",
           "session": null,
-          "image_url": "media/wanderings/34.jpg",
-          "thumb_url": "media/wanderings/t/34.jpg",
+          "image_url": "media/wanderings/29.jpg",
+          "thumb_url": "media/wanderings/t/29.jpg",
           "w": 1333,
           "h": 2000,
           "shape": "tall"
