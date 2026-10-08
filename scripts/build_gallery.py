@@ -381,13 +381,28 @@ def images_in(d: Path) -> list[Path]:
     return sorted(files, key=natural_key)
 
 
+COVER_RE = re.compile(r"^cover\s*(\d*)$")
+
+
 def cover_first(files: list[Path]) -> list[Path]:
-    """The frame named cover.* leads the wall and is the hero on the index.
-    Without one the first frame does both jobs, exactly as it always has."""
-    cover = [p for p in files if p.stem.lower() == "cover"]
-    if not cover:
+    """Files named cover, cover 2, cover 3 … lead the wall in that order, and
+    the first of them is the hero on the index. Numbering the opening frames
+    this way is how Brenden sequences a set, so 'cover' is read as position one
+    rather than as the only special name. Stray spaces are ignored — 'cover 2 '
+    is the same file. Without any cover the first frame does both jobs."""
+    def rank(p: Path) -> int | None:
+        m = COVER_RE.match(re.sub(r"\s+", " ", p.stem).strip().lower())
+        if not m:
+            return None
+        return int(m.group(1)) if m.group(1) else 1
+
+    covers = sorted(
+        (p for p in files if rank(p) is not None), key=lambda p: (rank(p), p.name.lower())
+    )
+    if not covers:
         return files
-    return cover[:1] + [p for p in files if p not in cover]
+    rest = [p for p in files if rank(p) is None]
+    return covers + rest
 
 
 def read_foldered(folder: str) -> tuple[list[dict], list[Path]]:
@@ -466,6 +481,133 @@ def session_of(path: Path) -> str:
     if " - " not in stem:  # loose 'Brookie*' edits -> Brooke's shoot
         return "Brooke N. - March"
     return stem
+
+
+# ---- Events -----------------------------------------------------------------
+#
+#   photosandvideos/Events/
+#     Last Call/
+#       event.txt      Name / Venue / Date / Shot on — four labelled lines
+#       cover.jpg      the frame shown on the Events index
+#       01.jpg …       the rest of the night, in filename order
+#
+# The frame count is never written down: it is however many photographs are in
+# the folder, so it cannot fall out of step with them.
+
+# The numerals the sections carry, in the order the navigation reads. app.js
+# holds the same list keyed by route and is what the page actually draws; these
+# are written into the data so the two never disagree when read side by side.
+#   I Bible Belt (and Ephemera) · II Abandoned America · III Portraits (and
+#   Places and Faces) · IV Events · V Wanderings · VI In Passing
+EVENTS_DIR = "Events"
+EVENT_FIELDS = {"name": "name", "venue": "venue", "date": "date", "shot on": "gear"}
+
+
+def read_event_txt(d: Path) -> dict:
+    """Parse the four labelled lines. A missing file, a missing line or a blank
+    value is not an error — the page simply leaves that line off."""
+    out: dict[str, str] = {}
+    f = d / "event.txt"
+    if not f.exists():
+        return out
+    # utf-8-sig drops the invisible byte-order mark some editors put at the
+    # start of a file, which would otherwise glue itself to the first label and
+    # make "Name" unrecognisable.
+    for line in f.read_text(encoding="utf-8-sig", errors="replace").splitlines():
+        if ":" not in line:
+            continue
+        label, _, value = line.partition(":")
+        # Forgiving about what a person actually types: stray spaces, a curly
+        # apostrophe, "Shot On" vs "shot on", a smart-quote colon.
+        key = EVENT_FIELDS.get(re.sub(r"\s+", " ", label).strip().lower())
+        if key and value.strip():
+            out[key] = value.strip()
+    return out
+
+
+def event_rank(ev: dict) -> tuple:
+    """Newest first, by the Date line. Written by a person, so the month and the
+    year are looked for independently rather than in a fixed order: '27
+    September 2026', 'October 8th, 2026' and 'Oct 8 2026' all work. Anything
+    with no month or no year sorts last rather than landing silently in the
+    middle of the run."""
+    text = ev.get("date", "").lower()
+    month = 0
+    for word in re.findall(r"[a-z]+", text):
+        for name, num in MONTHS.items():
+            if name.startswith(word) and len(word) >= 3:
+                month = num
+                break
+        if month:
+            break
+    year = re.search(r"\b(\d{4})\b", text)
+    if not month or not year:
+        return (0, 0, ev["name"].lower())
+    return (-int(year.group(1)), -month, ev["name"].lower())
+
+
+def build_events(slug: str, folder: str) -> list[dict]:
+    root = SRC / folder
+    print(f"[{slug}] {folder}")
+    if not root.is_dir():
+        print("    (no Events folder yet)")
+        return []
+
+    events = []
+    for d in sorted(root.iterdir(), key=lambda p: p.name.lower()):
+        if not d.is_dir() or d.name.startswith("."):
+            continue
+        files = cover_first(images_in(d))
+        if not files:
+            print(f"    · {d.name}: no photographs yet — skipped")
+            continue
+        info = read_event_txt(d)
+        if not info.get("name"):
+            info["name"] = d.name
+            print(f"    !! {d.name}: no Name in event.txt — using the folder name")
+        info["files"] = files
+        events.append(info)
+
+    if not events:
+        # Nothing filed yet, or every event emptied on purpose. The empty-source
+        # guard exists to catch missing masters for a published series; here an
+        # empty Events folder is a legitimate state, so clear the exports and
+        # carry on rather than aborting the whole build.
+        if (MEDIA / slug).exists():
+            shutil.rmtree(MEDIA / slug)
+        print("    no events filed")
+        return []
+
+    events.sort(key=event_rank)
+    for ev in events:
+        ev["files"] = dedup(ev["files"])
+
+    # Before any export: wiping the folder has to happen first, or the exports
+    # written this run are the ones deleted.
+    ordered = [f for ev in events for f in ev["files"]]
+    ensure_index_sync(
+        slug, ordered, [str(f.relative_to(SRC)) for f in ordered]
+    )
+
+    out = []
+    i = 0
+    for ev in events:
+        plates = []
+        for src in ev["files"]:
+            i += 1
+            plates.append(process_image(src, slug, i))
+        out.append(
+            {
+                "name": ev["name"],
+                "venue": ev.get("venue", ""),
+                "date": ev.get("date", ""),
+                "gear": ev.get("gear", ""),
+                "plates": plates,
+            }
+        )
+        tail = f" — {ev.get('venue')}" if ev.get("venue") else ""
+        print(f"    {ev['name']}{tail}: {len(plates)} photograph(s)")
+    return out
 
 
 def build_portraits(slug: str, folder: str) -> list[dict]:
@@ -776,7 +918,7 @@ def main() -> None:
         },
         {
             "slug": "wanderings",
-            "numeral": "IV",
+            "numeral": "V",
             "title": "Wanderings",
             "kind": "mixed",
             "layout": "mosaic",
@@ -787,6 +929,7 @@ def main() -> None:
 
     gallery = {
         "series": series,
+        "events": build_events("events", EVENTS_DIR),
         "carousel": build_carousel("main coursel "),
         "inPassing": {
             "excerpt": IN_PASSING_EXCERPT,

@@ -45,3 +45,10 @@ portraits-experiments/site/media
 portraits-experiments/site/gallery-data.js
 portraits-experiments/site/favicon*
 portraits-experiments/site/apple-touch-icon.png
+
+# the events mockups borrow their images from the live site at run time
+events-experiments/media
+events-experiments/site/media
+events-experiments/site/gallery-data.js
+events-experiments/site/favicon*
+events-experiments/site/apple-touch-icon.png

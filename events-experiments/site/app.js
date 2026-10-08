@@ -708,14 +708,26 @@
    * one named person, and an event is the opposite of that.
    * ------------------------------------------------------------------- */
 
-  /* Events are built from photosandvideos/Events/<folder>/ into
-   * gallery-data.js, the same way the series are. */
+  /* Real events come from gallery-data.js, built out of
+   * photosandvideos/Events/<folder>/. window.EVENTS is the stand-in data that
+   * held the prototype together before any event was filed; it is only used
+   * when nothing real has been built yet. */
   function eventList() {
-    return (window.GALLERY && window.GALLERY.events) || [];
+    var real = (window.GALLERY && window.GALLERY.events) || [];
+    if (real.length) return real;
+    return window.EVENTS || [];
   }
 
   function eventPlates(ev) {
-    return ev.plates || [];
+    return (ev.plates || []).map(function (p) {
+      if (typeof p !== "number") return p;          // already a plate
+      var s = seriesFor("portraits");               // stand-in: look it up
+      var all = (s && s.plates) || [];
+      for (var i = 0; i < all.length; i++) {
+        if (all[i].image_url.indexOf("/" + (p < 10 ? "0" + p : p) + ".jpg") > -1) return all[i];
+      }
+      return all[0];
+    });
   }
 
   /* B — the index: one row per event, three frames as a taste. */

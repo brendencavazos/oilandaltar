@@ -1,0 +1,24 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A — Events as a third tab</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,600;1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css"><style>
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px 20px}
+.card{margin:0}
+.cover{width:100%;aspect-ratio:4/5;object-fit:cover}
+.who{font-size:17px;margin:11px 0 0}
+.where{margin:5px 0 0;color:var(--eyebrow-ink);letter-spacing:.12em}
+.count{margin:3px 0 0;font-size:11px}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}
+</style></head><body>
+<header class="bar"><a class="brand" href="index.html">oilandaltar</a>
+<nav class="nav"><span class="">Projects</span><span class="on">Portraits</span><span class="">Wanderings</span><span class="">In Passing</span><span class="">About</span></nav></header>
+<main>
+<p class="kicker"><span class="num">III</span>Portraits</p>
+<p class="intro">Each session is a collaboration with a specific person, named and dated, rather than a moment caught in passing.</p>
+<div class="tabs"><span>Sessions</span><span>Places and Faces</span><span class="on">Events</span></div>
+<div class="grid"><figure class="card"><img class="cover" src="media/portraits/47.jpg" alt="" loading="lazy" ><figcaption><p class="serif who">Last Call</p><p class="eyebrow where">The Hall</p><p class="eyebrow count">20 photographs</p></figcaption></figure><figure class="card"><img class="cover" src="media/portraits/59.jpg" alt="" loading="lazy" ><figcaption><p class="serif who">Afters</p><p class="eyebrow where">Bar None</p><p class="eyebrow count">14 photographs</p></figcaption></figure><figure class="card"><img class="cover" src="media/portraits/62.jpg" alt="" loading="lazy" ><figcaption><p class="serif who">Opening Night</p><p class="eyebrow where">Paramount</p><p class="eyebrow count">31 photographs</p></figcaption></figure></div>
+</main>
+<div class="note"><b>A · Third tab inside Portraits</b>Sessions | Places and Faces | Events. Reuses the cover grid you already have — the only new thing is a venue line under the name. Cheapest to build, and events inherit every behaviour Portraits already has.</div>
+</body></html>

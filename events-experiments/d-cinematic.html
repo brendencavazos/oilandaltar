@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>D — Cinematic scroller</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,600;1,6..96,600&display=swap">
+<link rel="stylesheet" href="_base.css"><style>
+body{background:#0d0d0d;color:#eee}
+.bar{background:rgba(13,13,13,.86);border-bottom:1px solid #222}
+.brand,.nav{color:#eee}
+main{padding:0}
+.hero{height:62vh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 var(--edge) 34px;border-bottom:1px solid #222}
+.hero h1{font-size:clamp(40px,8vw,90px);margin:0;line-height:.95;color:#fff}
+.hero p{margin:12px 0 0;color:#9a9a9a}
+.pin{position:fixed;top:calc(var(--bar-h) + 16px);left:var(--edge);z-index:30;
+  font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:#7d7d7d}
+.fr{height:100vh;display:flex;align-items:center;justify-content:center;
+  position:relative}
+.big{max-height:84vh;max-width:92vw;object-fit:contain}
+.idx{position:absolute;bottom:26px;right:var(--edge);margin:0;font-size:11px;
+  font-weight:400;letter-spacing:.16em;color:#6f6f6f}
+</style></head><body>
+<header class="bar"><a class="brand" href="index.html">oilandaltar</a>
+<nav class="nav"><span class="">Projects</span><span class="on">Portraits</span><span class="">Wanderings</span><span class="">In Passing</span><span class="">About</span></nav></header>
+<p class="pin">Last Call — The Hall, Oklahoma City</p>
+<main>
+<div class="hero"><h1 class="serif">Last Call</h1>
+<p class="eyebrow" style="letter-spacing:.18em">The Hall, Oklahoma City · Saturday 27 September 2026 · 20 photographs</p></div>
+<section class="fr"><img class="big" src="media/portraits/47.jpg" alt="" loading="lazy" ><p class="idx">01 / 20</p></section><section class="fr"><img class="big" src="media/portraits/48.jpg" alt="" loading="lazy" ><p class="idx">02 / 20</p></section><section class="fr"><img class="big" src="media/portraits/49.jpg" alt="" loading="lazy" ><p class="idx">03 / 20</p></section><section class="fr"><img class="big" src="media/portraits/50.jpg" alt="" loading="lazy" ><p class="idx">04 / 20</p></section><section class="fr"><img class="big" src="media/portraits/51.jpg" alt="" loading="lazy" ><p class="idx">05 / 20</p></section><section class="fr"><img class="big" src="media/portraits/52.jpg" alt="" loading="lazy" ><p class="idx">06 / 20</p></section><section class="fr"><img class="big" src="media/portraits/53.jpg" alt="" loading="lazy" ><p class="idx">07 / 20</p></section><section class="fr"><img class="big" src="media/portraits/54.jpg" alt="" loading="lazy" ><p class="idx">08 / 20</p></section>
+</main>
+<div class="note"><b>D · Cinematic, one frame at a time</b>Goes dark and gives each photograph the whole screen. The event name stays pinned, a counter tracks where you are. Slow and immersive — closest to how In Passing already behaves.</div>
+</body></html>

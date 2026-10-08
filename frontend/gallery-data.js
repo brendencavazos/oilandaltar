@@ -1257,7 +1257,7 @@ window.GALLERY = {
     },
     {
       "slug": "wanderings",
-      "numeral": "IV",
+      "numeral": "V",
       "title": "Wanderings",
       "kind": "mixed",
       "layout": "mosaic",
@@ -1642,6 +1642,93 @@ window.GALLERY = {
           "w": 1561,
           "h": 2000,
           "shape": "tall"
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "CLUB DANCE DANCE REVOLUTION!",
+      "venue": "Mach8 SF, San Francisco",
+      "date": "October 8th, 2026",
+      "gear": "24MM, Club Lighting",
+      "plates": [
+        {
+          "image_url": "media/events/01.jpg",
+          "thumb_url": "media/events/t/01.jpg",
+          "w": 1419,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/02.jpg",
+          "thumb_url": "media/events/t/02.jpg",
+          "w": 1390,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/03.jpg",
+          "thumb_url": "media/events/t/03.jpg",
+          "w": 1676,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/04.jpg",
+          "thumb_url": "media/events/t/04.jpg",
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/05.jpg",
+          "thumb_url": "media/events/t/05.jpg",
+          "w": 2000,
+          "h": 1391,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/06.jpg",
+          "thumb_url": "media/events/t/06.jpg",
+          "w": 2000,
+          "h": 1616,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/07.jpg",
+          "thumb_url": "media/events/t/07.jpg",
+          "w": 1529,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/08.jpg",
+          "thumb_url": "media/events/t/08.jpg",
+          "w": 1724,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/09.jpg",
+          "thumb_url": "media/events/t/09.jpg",
+          "w": 2000,
+          "h": 1293,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/10.jpg",
+          "thumb_url": "media/events/t/10.jpg",
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/11.jpg",
+          "thumb_url": "media/events/t/11.jpg",
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
         }
       ]
     }

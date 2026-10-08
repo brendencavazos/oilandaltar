@@ -12,8 +12,8 @@ an inquiry form.
 ## Portraits
 
 The section is people, not photographs. A **session** gets a cover and opens as
-its own wall at `#/portraits/s/<n>`. Ten covers fit on a screen where
-fifty-nine photographs never could, and nobody scrolls past someone they were
+its own wall at `#/portraits/s/<n>`. Eleven covers fit on a screen where
+sixty-four photographs never could, and nobody scrolls past someone they were
 not looking for.
 
 **Places and Faces** (`#/portraits/places-and-faces`) holds portraits made at
@@ -72,6 +72,53 @@ download rather than leaving a clip streaming.
 
 Clips are sized `object-fit: contain`, never `cover`: one of the ten is shot
 vertically and cropping it to a landscape box would be a lie about the work.
+
+## Events
+
+Nights covered rather than arranged — a club, a show, a room full of people.
+**Events is its own section, not a kind of portrait.** The Portraits statement
+promises a collaboration with one named person; an event is the opposite of
+that, so filing it under Portraits would contradict the writing already on the
+page.
+
+The index is a list rather than a grid: date, name, venue, frame count, and
+three frames as a taste. You are choosing an occasion, not a face, so there is
+nothing to be gained by a wall of covers.
+
+An event opens with its identity in a panel that stays put while the
+photographs scroll past it — venue, how many frames, what it was shot on. Those
+three rows are the only ones; a blank line in `event.txt` leaves its row off
+rather than printing an empty label. The frame count is never written down, it
+is counted from the folder.
+
+The wall itself is the mosaic every other section uses, with the same reveal, so
+clicking into an event feels like clicking into a session even though the page
+around it is shaped differently.
+
+## The numerals
+
+Sections carry a Roman numeral in their eyebrow, in the order the navigation
+reads — left to right across the desktop bar, top to bottom in the phone sheet:
+
+| | | |
+| --- | --- | --- |
+| **I** | Bible Belt | and *View Ephemera*, its sub-page |
+| **II** | Abandoned America | |
+| **III** | Portraits | and *Places and Faces*, its sub-page |
+| **IV** | Events | |
+| **V** | Wanderings | |
+| **VI** | In Passing | |
+| — | About | not a body of work |
+
+A sub-page carries its parent's numeral. About has none.
+
+**They live in one place: `NUMERALS` in `app.js`, keyed by route.** They used to
+be spread across a list in `app.js`, the generated `gallery-data.js` and
+hard-coded strings at each `renderKicker` call, with nothing cross-checking
+them — which is how Events and In Passing both ended up as V, and how Ephemera
+ended up with no numeral at all while Places and Faces had one. The build writes
+matching numerals into the data so the two cannot be read as disagreeing, but
+the map is what the page draws.
 
 ## How the galleries behave
 
@@ -167,6 +214,9 @@ Two things in here are easy to break by tidying, so they are worth naming:
 ```
 frontend/              The site. This folder is what gets published.
 photosandvideos/       The raw drop. Gitignored — see "Adding or changing photos".
+  Events/                a folder per night, each with an event.txt
+  Portraits/             Sessions/ and Places and Faces/
+  <series>/              a flat folder per series
 scripts/
   build_gallery.py               turns the raw drop into web assets + gallery data
   seed_from_exports.py           fills every series folder from built exports
@@ -217,6 +267,7 @@ one image, delete it from `frontend/media/` and run again.
 | Wanderings | `Wanderings/` | **the filename becomes the caption** |
 | Ephemera | `Ephemera/` | **the filename becomes the caption** |
 | Portraits | `Portraits/` | foldered — see below |
+| Events | `Events/` | a folder per event with an `event.txt` — see below |
 | In Passing | `Vids/` | the filename becomes the title; `.mp4` only |
 | Landing carousel | `main coursel /` | order only (note the trailing space) |
 | About portrait | `About/portrait.jpg` | that exact name |
@@ -283,8 +334,15 @@ dragging and renaming in Finder. Nothing in the code has to change.
 
 A folder name is read as **`Name - Month Year`**, with an optional
 **`- Place`** after it. Anything that does not parse is used verbatim and a
-warning is printed. Without a `cover.jpg` the first file does both jobs, and
-`Cover.jpg` works as well as `cover.jpg`.
+warning is printed.
+
+**Sequencing the opening frames.** Files named `cover`, `cover 2`, `cover 3` …
+lead the wall in that order, and the first of them is the hero on the index —
+`cover` is read as position one rather than as the only special name. Numbers
+carry on from there, so `cover`, `cover 2`, `cover 3`, `4.jpg` is a valid run.
+Capitalisation and stray spaces are ignored, so `Cover.jpg` and `cover 2 .jpg`
+both work. Without any cover the first file does both jobs. This applies to
+portrait sessions and to events alike.
 
 **A misspelled month is the one failure that stays quiet.** `Feburary` still
 matches the shape of a folder name, so no warning is printed — but the month is
@@ -301,6 +359,48 @@ happened to keep.
 
 `photosandvideos/Portraits/HOW TO FILE PHOTOS.txt` says the same thing in plain
 language, next to the folders, for reading in Finder.
+
+### Events: a folder per night
+
+```
+photosandvideos/Events/
+├── HOW TO FILE EVENTS.txt
+└── CLUB DANCE DANCE REVOLUTION!/
+    ├── event.txt
+    ├── cover.jpg        the frame shown on the Events index
+    ├── cover 2.jpg      the rest of the opening, in order
+    ├── cover 3.jpg
+    └── 4.jpg …
+```
+
+`event.txt` is four labelled lines:
+
+```
+Name: CLUB DANCE DANCE REVOLUTION!
+Venue: Mach8 SF, San Francisco
+Date: October 8th, 2026
+Shot on: 24MM, Club Lighting
+```
+
+**The frame count is never written down** — it is counted from the folder, so it
+cannot fall out of step after photographs are added or removed. A blank line
+leaves its row off the page rather than printing an empty label. No `event.txt`
+at all falls back to the folder name, with a warning.
+
+The parser is deliberately forgiving, because this file is typed by hand:
+capitalisation, stray spaces, Windows line endings and the invisible byte-order
+mark some editors add are all tolerated. Only the four labels and their colons
+matter.
+
+**Dates are read the way a person writes them.** The month and the year are
+looked for independently, so `October 8th, 2026`, `27 September 2026`,
+`Oct 8 2026` and `Saturday 27 September 2026` all sort correctly. Events run
+newest first. A date with no recognisable month or no four-digit year sorts
+last rather than landing silently in the middle.
+
+**An empty `Events/` folder is a legitimate state** — the guard that refuses to
+wipe a series whose sources have gone does not apply here, because having no
+events filed is normal rather than a sign that masters are missing.
 
 ### After you rearrange the folders
 
