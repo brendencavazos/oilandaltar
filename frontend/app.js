@@ -726,6 +726,13 @@
       "people. Each one opens as its own set, with the client named where there " +
       "was one."]);
 
+    /* The rows live in a host of their own so they can rise on scroll like
+     * every other wall — an index that arrives instantly beside sections that
+     * animate reads as a different website. */
+    var host = document.createElement("div");
+    host.className = "ev-index";
+    view.appendChild(host);
+
     eventList().forEach(function (ev, i) {
       var row = document.createElement("article");
       row.className = "ev-row";
@@ -754,8 +761,10 @@
       row.appendChild(strip);
 
       row.addEventListener("click", function () { location.hash = "#/events/" + i; });
-      view.appendChild(row);
+      host.appendChild(row);
     });
+
+    armReveal(host);          // same rise as every other index
   }
 
   /* F — one event: the card stays put while the photographs scroll past it. */

@@ -1228,6 +1228,23 @@ html.js-reveal .sess-index .sess-card.shown { opacity: 1; transform: none; }
    Built from the vocabulary already on the page: the serif for names, the
    eyebrow for everything factual, a hairline between rows. */
 
+/* The index rows rise on scroll, the same way the session covers do. */
+@supports (animation-timeline: view()) {
+  html:not(.js-reveal) .ev-index .ev-row {
+    animation: piece-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
+  }
+}
+html.js-reveal .ev-index .ev-row {
+  animation: none !important;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.52s ease, transform 0.52s cubic-bezier(.22,.61,.36,1);
+}
+html.js-reveal .ev-index .ev-row.shown { opacity: 1; transform: none; }
+.ev-index .ev-row.shown { animation: none !important; opacity: 1 !important; transform: none !important; }
+
 /* B — the index */
 .ev-row {
   display: grid;
