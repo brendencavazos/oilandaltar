@@ -1214,31 +1214,11 @@ window.GALLERY = {
           "shape": "tall"
         },
         {
-          "title": "DSC00365",
-          "session": "DSC00365",
-          "room": "places",
-          "image_url": "media/portraits/61.jpg",
-          "thumb_url": "media/portraits/t/61.jpg",
-          "w": 1500,
-          "h": 2000,
-          "shape": "tall"
-        },
-        {
-          "title": "DSC00398-2",
-          "session": "DSC00398-2",
-          "room": "places",
-          "image_url": "media/portraits/62.jpg",
-          "thumb_url": "media/portraits/t/62.jpg",
-          "w": 2000,
-          "h": 1500,
-          "shape": "wide"
-        },
-        {
           "title": "E248BE06-24E7-4AD4-B86C-644437CE52C9_1_102_o",
           "session": "E248BE06-24E7-4AD4-B86C-644437CE52C9_1_102_o",
           "room": "places",
-          "image_url": "media/portraits/63.jpg",
-          "thumb_url": "media/portraits/t/63.jpg",
+          "image_url": "media/portraits/61.jpg",
+          "thumb_url": "media/portraits/t/61.jpg",
           "w": 1396,
           "h": 2000,
           "shape": "tall"
@@ -1247,8 +1227,8 @@ window.GALLERY = {
           "title": "EAF3C524-1832-462D-8497-C448EF12BFA7_1_102_o",
           "session": "EAF3C524-1832-462D-8497-C448EF12BFA7_1_102_o",
           "room": "places",
-          "image_url": "media/portraits/64.jpg",
-          "thumb_url": "media/portraits/t/64.jpg",
+          "image_url": "media/portraits/62.jpg",
+          "thumb_url": "media/portraits/t/62.jpg",
           "w": 1473,
           "h": 2000,
           "shape": "tall"
@@ -1542,47 +1522,245 @@ window.GALLERY = {
           "image_url": "media/events/05.jpg",
           "thumb_url": "media/events/t/05.jpg",
           "w": 2000,
-          "h": 1391,
+          "h": 1535,
           "shape": "wide"
         },
         {
           "image_url": "media/events/06.jpg",
           "thumb_url": "media/events/t/06.jpg",
           "w": 2000,
-          "h": 1616,
+          "h": 1391,
           "shape": "wide"
         },
         {
           "image_url": "media/events/07.jpg",
           "thumb_url": "media/events/t/07.jpg",
-          "w": 1529,
-          "h": 2000,
-          "shape": "tall"
+          "w": 2000,
+          "h": 1616,
+          "shape": "wide"
         },
         {
           "image_url": "media/events/08.jpg",
           "thumb_url": "media/events/t/08.jpg",
-          "w": 1724,
+          "w": 1529,
           "h": 2000,
           "shape": "tall"
         },
         {
           "image_url": "media/events/09.jpg",
           "thumb_url": "media/events/t/09.jpg",
+          "w": 1623,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/10.jpg",
+          "thumb_url": "media/events/t/10.jpg",
+          "w": 1840,
+          "h": 2000,
+          "shape": ""
+        },
+        {
+          "image_url": "media/events/11.jpg",
+          "thumb_url": "media/events/t/11.jpg",
+          "w": 1761,
+          "h": 2000,
+          "shape": ""
+        },
+        {
+          "image_url": "media/events/12.jpg",
+          "thumb_url": "media/events/t/12.jpg",
+          "w": 1718,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/13.jpg",
+          "thumb_url": "media/events/t/13.jpg",
+          "w": 1724,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/14.jpg",
+          "thumb_url": "media/events/t/14.jpg",
           "w": 2000,
           "h": 1293,
           "shape": "wide"
         },
         {
-          "image_url": "media/events/10.jpg",
-          "thumb_url": "media/events/t/10.jpg",
+          "image_url": "media/events/15.jpg",
+          "thumb_url": "media/events/t/15.jpg",
           "w": 2000,
           "h": 1333,
           "shape": "wide"
         },
         {
-          "image_url": "media/events/11.jpg",
-          "thumb_url": "media/events/t/11.jpg",
+          "image_url": "media/events/16.jpg",
+          "thumb_url": "media/events/t/16.jpg",
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/17.jpg",
+          "thumb_url": "media/events/t/17.jpg",
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/18.jpg",
+          "thumb_url": "media/events/t/18.jpg",
+          "w": 1766,
+          "h": 2000,
+          "shape": ""
+        }
+      ]
+    },
+    {
+      "name": "CLUB DANCE DANCE REVOLUTION! (Bright)",
+      "venue": "Mach8 SF, San Francisco",
+      "date": "October 8th, 2026",
+      "gear": "24MM, Club Lighting",
+      "client": "",
+      "plates": [
+        {
+          "image_url": "media/events/19.jpg",
+          "thumb_url": "media/events/t/19.jpg",
+          "w": 2000,
+          "h": 1956,
+          "shape": ""
+        },
+        {
+          "image_url": "media/events/20.jpg",
+          "thumb_url": "media/events/t/20.jpg",
+          "w": 2000,
+          "h": 1535,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/21.jpg",
+          "thumb_url": "media/events/t/21.jpg",
+          "w": 2000,
+          "h": 1391,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/22.jpg",
+          "thumb_url": "media/events/t/22.jpg",
+          "w": 2000,
+          "h": 1616,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/23.jpg",
+          "thumb_url": "media/events/t/23.jpg",
+          "w": 1529,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/24.jpg",
+          "thumb_url": "media/events/t/24.jpg",
+          "w": 1623,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/25.jpg",
+          "thumb_url": "media/events/t/25.jpg",
+          "w": 1676,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/26.jpg",
+          "thumb_url": "media/events/t/26.jpg",
+          "w": 1419,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/27.jpg",
+          "thumb_url": "media/events/t/27.jpg",
+          "w": 1390,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/28.jpg",
+          "thumb_url": "media/events/t/28.jpg",
+          "w": 1558,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/29.jpg",
+          "thumb_url": "media/events/t/29.jpg",
+          "w": 1761,
+          "h": 2000,
+          "shape": ""
+        },
+        {
+          "image_url": "media/events/30.jpg",
+          "thumb_url": "media/events/t/30.jpg",
+          "w": 1718,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/31.jpg",
+          "thumb_url": "media/events/t/31.jpg",
+          "w": 1724,
+          "h": 2000,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/32.jpg",
+          "thumb_url": "media/events/t/32.jpg",
+          "w": 2000,
+          "h": 1293,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/33.jpg",
+          "thumb_url": "media/events/t/33.jpg",
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/34.jpg",
+          "thumb_url": "media/events/t/34.jpg",
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/35.jpg",
+          "thumb_url": "media/events/t/35.jpg",
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/36.jpg",
+          "thumb_url": "media/events/t/36.jpg",
+          "w": 2000,
+          "h": 1333,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/37.jpg",
+          "thumb_url": "media/events/t/37.jpg",
+          "w": 1766,
+          "h": 2000,
+          "shape": ""
+        },
+        {
+          "image_url": "media/events/38.jpg",
+          "thumb_url": "media/events/t/38.jpg",
           "w": 2000,
           "h": 1333,
           "shape": "wide"
@@ -1597,50 +1775,50 @@ window.GALLERY = {
       "client": "",
       "plates": [
         {
-          "image_url": "media/events/12.jpg",
-          "thumb_url": "media/events/t/12.jpg",
+          "image_url": "media/events/39.jpg",
+          "thumb_url": "media/events/t/39.jpg",
           "w": 1024,
           "h": 768,
           "shape": "wide"
         },
         {
-          "image_url": "media/events/13.jpg",
-          "thumb_url": "media/events/t/13.jpg",
+          "image_url": "media/events/40.jpg",
+          "thumb_url": "media/events/t/40.jpg",
           "w": 1024,
           "h": 768,
           "shape": "wide"
         },
         {
-          "image_url": "media/events/14.jpg",
-          "thumb_url": "media/events/t/14.jpg",
+          "image_url": "media/events/41.jpg",
+          "thumb_url": "media/events/t/41.jpg",
           "w": 1024,
           "h": 768,
           "shape": "wide"
         },
         {
-          "image_url": "media/events/15.jpg",
-          "thumb_url": "media/events/t/15.jpg",
+          "image_url": "media/events/42.jpg",
+          "thumb_url": "media/events/t/42.jpg",
           "w": 2000,
           "h": 1789,
           "shape": ""
         },
         {
-          "image_url": "media/events/16.jpg",
-          "thumb_url": "media/events/t/16.jpg",
+          "image_url": "media/events/43.jpg",
+          "thumb_url": "media/events/t/43.jpg",
           "w": 768,
           "h": 1024,
           "shape": "tall"
         },
         {
-          "image_url": "media/events/17.jpg",
-          "thumb_url": "media/events/t/17.jpg",
+          "image_url": "media/events/44.jpg",
+          "thumb_url": "media/events/t/44.jpg",
           "w": 1024,
           "h": 768,
           "shape": "wide"
         },
         {
-          "image_url": "media/events/18.jpg",
-          "thumb_url": "media/events/t/18.jpg",
+          "image_url": "media/events/45.jpg",
+          "thumb_url": "media/events/t/45.jpg",
           "w": 768,
           "h": 1024,
           "shape": "tall"
@@ -1655,71 +1833,71 @@ window.GALLERY = {
       "client": "",
       "plates": [
         {
-          "image_url": "media/events/19.jpg",
-          "thumb_url": "media/events/t/19.jpg",
+          "image_url": "media/events/46.jpg",
+          "thumb_url": "media/events/t/46.jpg",
           "w": 768,
           "h": 1024,
           "shape": "tall"
         },
         {
-          "image_url": "media/events/20.jpg",
-          "thumb_url": "media/events/t/20.jpg",
+          "image_url": "media/events/47.jpg",
+          "thumb_url": "media/events/t/47.jpg",
           "w": 1024,
           "h": 768,
           "shape": "wide"
         },
         {
-          "image_url": "media/events/21.jpg",
-          "thumb_url": "media/events/t/21.jpg",
+          "image_url": "media/events/48.jpg",
+          "thumb_url": "media/events/t/48.jpg",
           "w": 1024,
           "h": 768,
           "shape": "wide"
         },
         {
-          "image_url": "media/events/22.jpg",
-          "thumb_url": "media/events/t/22.jpg",
+          "image_url": "media/events/49.jpg",
+          "thumb_url": "media/events/t/49.jpg",
           "w": 768,
           "h": 1024,
           "shape": "tall"
         },
         {
-          "image_url": "media/events/23.jpg",
-          "thumb_url": "media/events/t/23.jpg",
+          "image_url": "media/events/50.jpg",
+          "thumb_url": "media/events/t/50.jpg",
           "w": 768,
           "h": 1024,
           "shape": "tall"
         },
         {
-          "image_url": "media/events/24.jpg",
-          "thumb_url": "media/events/t/24.jpg",
+          "image_url": "media/events/51.jpg",
+          "thumb_url": "media/events/t/51.jpg",
           "w": 1024,
           "h": 768,
           "shape": "wide"
         },
         {
-          "image_url": "media/events/25.jpg",
-          "thumb_url": "media/events/t/25.jpg",
+          "image_url": "media/events/52.jpg",
+          "thumb_url": "media/events/t/52.jpg",
           "w": 768,
           "h": 1024,
           "shape": "tall"
         },
         {
-          "image_url": "media/events/26.jpg",
-          "thumb_url": "media/events/t/26.jpg",
+          "image_url": "media/events/53.jpg",
+          "thumb_url": "media/events/t/53.jpg",
           "w": 768,
           "h": 1024,
           "shape": "tall"
         },
         {
-          "image_url": "media/events/27.jpg",
-          "thumb_url": "media/events/t/27.jpg",
+          "image_url": "media/events/54.jpg",
+          "thumb_url": "media/events/t/54.jpg",
           "w": 1024,
           "h": 768,
           "shape": "wide"
         },
         {
-          "image_url": "media/events/28.jpg",
-          "thumb_url": "media/events/t/28.jpg",
+          "image_url": "media/events/55.jpg",
+          "thumb_url": "media/events/t/55.jpg",
           "w": 1024,
           "h": 768,
           "shape": "wide"
