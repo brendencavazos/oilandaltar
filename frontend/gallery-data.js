@@ -1641,23 +1641,88 @@ window.GALLERY = {
         {
           "image_url": "media/events/18.jpg",
           "thumb_url": "media/events/t/18.jpg",
-          "w": 1024,
-          "h": 768,
-          "shape": "wide"
-        },
+          "w": 768,
+          "h": 1024,
+          "shape": "tall"
+        }
+      ]
+    },
+    {
+      "name": "Hard Summer",
+      "venue": "Hollywood Park, Los Angeles",
+      "date": "August 2nd, 2026",
+      "gear": "07' Sony cybershot dsc-w80",
+      "client": "",
+      "plates": [
         {
           "image_url": "media/events/19.jpg",
           "thumb_url": "media/events/t/19.jpg",
-          "w": 1024,
-          "h": 768,
-          "shape": "wide"
+          "w": 768,
+          "h": 1024,
+          "shape": "tall"
         },
         {
           "image_url": "media/events/20.jpg",
           "thumb_url": "media/events/t/20.jpg",
+          "w": 1024,
+          "h": 768,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/21.jpg",
+          "thumb_url": "media/events/t/21.jpg",
+          "w": 1024,
+          "h": 768,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/22.jpg",
+          "thumb_url": "media/events/t/22.jpg",
           "w": 768,
           "h": 1024,
           "shape": "tall"
+        },
+        {
+          "image_url": "media/events/23.jpg",
+          "thumb_url": "media/events/t/23.jpg",
+          "w": 768,
+          "h": 1024,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/24.jpg",
+          "thumb_url": "media/events/t/24.jpg",
+          "w": 1024,
+          "h": 768,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/25.jpg",
+          "thumb_url": "media/events/t/25.jpg",
+          "w": 768,
+          "h": 1024,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/26.jpg",
+          "thumb_url": "media/events/t/26.jpg",
+          "w": 768,
+          "h": 1024,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/27.jpg",
+          "thumb_url": "media/events/t/27.jpg",
+          "w": 1024,
+          "h": 768,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/28.jpg",
+          "thumb_url": "media/events/t/28.jpg",
+          "w": 1024,
+          "h": 768,
+          "shape": "wide"
         }
       ]
     }
