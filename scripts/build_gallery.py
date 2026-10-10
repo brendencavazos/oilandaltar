@@ -502,7 +502,16 @@ def session_of(path: Path) -> str:
 #   I Bible Belt (and Ephemera) · II Abandoned America · III Portraits (and
 #   Places and Faces) · IV Events · V Wanderings · VI In Passing
 EVENTS_DIR = "Events"
-EVENT_FIELDS = {"name": "name", "venue": "venue", "date": "date", "shot on": "gear"}
+# "Commissioned by" is optional and does the work a client scans for: it says
+# plainly which nights were jobs. Absent on an event shot as an attendee, and
+# the row simply does not appear.
+EVENT_FIELDS = {
+    "name": "name",
+    "venue": "venue",
+    "date": "date",
+    "shot on": "gear",
+    "commissioned by": "client",
+}
 
 
 def read_event_txt(d: Path) -> dict:
@@ -604,6 +613,7 @@ def build_events(slug: str, folder: str) -> list[dict]:
                 "venue": ev.get("venue", ""),
                 "date": ev.get("date", ""),
                 "gear": ev.get("gear", ""),
+                "client": ev.get("client", ""),
                 "plates": plates,
             }
         )

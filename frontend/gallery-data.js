@@ -1508,6 +1508,7 @@ window.GALLERY = {
       "venue": "Mach8 SF, San Francisco",
       "date": "October 8th, 2026",
       "gear": "24MM, Club Lighting",
+      "client": "",
       "plates": [
         {
           "image_url": "media/events/01.jpg",
@@ -1585,6 +1586,78 @@ window.GALLERY = {
           "w": 2000,
           "h": 1333,
           "shape": "wide"
+        }
+      ]
+    },
+    {
+      "name": "ILYKIMCHI",
+      "venue": "1015, San Francisco",
+      "date": "October 7th, 2026",
+      "gear": "07' Sony cybershot dsc-w80",
+      "client": "",
+      "plates": [
+        {
+          "image_url": "media/events/12.jpg",
+          "thumb_url": "media/events/t/12.jpg",
+          "w": 1024,
+          "h": 768,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/13.jpg",
+          "thumb_url": "media/events/t/13.jpg",
+          "w": 1024,
+          "h": 768,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/14.jpg",
+          "thumb_url": "media/events/t/14.jpg",
+          "w": 1024,
+          "h": 768,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/15.jpg",
+          "thumb_url": "media/events/t/15.jpg",
+          "w": 2000,
+          "h": 1789,
+          "shape": ""
+        },
+        {
+          "image_url": "media/events/16.jpg",
+          "thumb_url": "media/events/t/16.jpg",
+          "w": 768,
+          "h": 1024,
+          "shape": "tall"
+        },
+        {
+          "image_url": "media/events/17.jpg",
+          "thumb_url": "media/events/t/17.jpg",
+          "w": 1024,
+          "h": 768,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/18.jpg",
+          "thumb_url": "media/events/t/18.jpg",
+          "w": 1024,
+          "h": 768,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/19.jpg",
+          "thumb_url": "media/events/t/19.jpg",
+          "w": 1024,
+          "h": 768,
+          "shape": "wide"
+        },
+        {
+          "image_url": "media/events/20.jpg",
+          "thumb_url": "media/events/t/20.jpg",
+          "w": 768,
+          "h": 1024,
+          "shape": "tall"
         }
       ]
     }

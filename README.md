@@ -16,9 +16,14 @@ its own wall at `#/portraits/s/<n>`. Eleven covers fit on a screen where
 sixty-four photographs never could, and nobody scrolls past someone they were
 not looking for.
 
-**Places and Faces** (`#/portraits/places-and-faces`) holds portraits made at
-events and in daily life — caught rather than arranged, and kept apart from the
-sessions for that reason. They enlarge but do not drill in.
+**Places and Faces** (`#/portraits/places-and-faces`) holds the portraits
+nobody sat for — friends and strangers both, on a night out or in passing. The
+distinction from a session is the **arrangement**, not how well Brenden knows
+the person: a close friend at a party belongs here, a stranger who sat for a
+shoot does not. They enlarge but do not drill in.
+
+It is also where the orphans go. A night that yielded enough strong frames
+becomes an Event; a night that yielded one or two good ones lands here.
 
 Which room a photograph belongs to is Brenden's call, made by which folder it
 sits in — not a rule about how many frames a shoot kept. A session of one
@@ -373,14 +378,26 @@ photosandvideos/Events/
     └── 4.jpg …
 ```
 
-`event.txt` is four labelled lines:
+`event.txt` is four labelled lines, with an optional fifth:
 
 ```
 Name: CLUB DANCE DANCE REVOLUTION!
 Venue: Mach8 SF, San Francisco
 Date: October 8th, 2026
 Shot on: 24MM, Club Lighting
+Commissioned by: <client>
 ```
+
+**`Commissioned by` is the one that does commercial work.** Events holds both
+paid jobs and nights Brenden was at anyway with a camera, and a visitor
+deciding whether to hire him needs to tell them apart. Where the line is
+present the credit shows in the accent colour on both the index and the event
+card; where it is absent nothing appears, so an ad-hoc night is not implied to
+be a job. Both kinds can share the room honestly.
+
+When there are four or five commissioned events, the section is strong enough
+to become commissioned work only, and the ad-hoc nights move to Places and
+Faces.
 
 **The frame count is never written down** — it is counted from the folder, so it
 cannot fall out of step after photographs are added or removed. A blank line

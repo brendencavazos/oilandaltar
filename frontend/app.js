@@ -723,7 +723,8 @@
     view.innerHTML = "";
     renderKicker(numeralFor("events"), "Events");
     renderIntro(["Nights photographed as they happened — clubs, shows, rooms full of " +
-      "people. Each event opens as its own set."]);
+      "people. Each one opens as its own set, with the client named where there " +
+      "was one."]);
 
     eventList().forEach(function (ev, i) {
       var row = document.createElement("article");
@@ -737,7 +738,8 @@
         '<h2 class="ev-name">' + ev.name + '</h2>' +
         (ev.venue ? '<p class="ev-venue">' + ev.venue + '</p>' : "") +
         '<p class="ev-count">' + plates.length +
-          (plates.length === 1 ? ' photograph' : ' photographs') + '</p>';
+          (plates.length === 1 ? ' photograph' : ' photographs') + '</p>' +
+        (ev.client ? '<p class="ev-client">Commissioned by ' + ev.client + '</p>' : "");
       row.appendChild(meta);
 
       var strip = document.createElement("div");
@@ -779,6 +781,7 @@
      * event.txt leaves its row off rather than printing an empty label. */
     var plates = eventPlates(ev);
     var rows = "";
+    if (ev.client) rows += '<dt>Commissioned by</dt><dd>' + ev.client + '</dd>';
     if (ev.venue) rows += '<dt>Venue</dt><dd>' + ev.venue + '</dd>';
     rows += '<dt>Frames</dt><dd>' + plates.length +
             (plates.length === 1 ? ' photograph' : ' photographs') + '</dd>';
@@ -805,7 +808,11 @@
   function renderPlacesAndFaces() {
     view.innerHTML = "";
     renderKicker(numeralFor("portraits/places-and-faces"), "Portraits / Places and Faces");
-    renderIntro(["Portraits caught in events and in daily life rather than arranged sessions."]);
+    /* The distinction from a session is the arrangement, not how well Brenden
+     * knows the person — a close friend at a party belongs here, a stranger who
+     * sat for a shoot does not. */
+    renderIntro(["Photographed where they stood — friends and strangers both, on a " +
+      "night out or in passing. Nothing arranged, nobody sat for it."]);
 
     var tabs2 = portraitTabs("places");
     if (tabs2) view.appendChild(tabs2);
