@@ -13,7 +13,7 @@ an inquiry form.
 
 The section is people, not photographs. A **session** gets a cover and opens as
 its own wall at `#/portraits/s/<n>`. Eleven covers fit on a screen where
-sixty-four photographs never could, and nobody scrolls past someone they were
+sixty-two photographs never could, and nobody scrolls past someone they were
 not looking for.
 
 **Places and Faces** (`#/portraits/places-and-faces`) holds the portraits
@@ -24,6 +24,13 @@ shoot does not. They enlarge but do not drill in.
 
 It is also where the orphans go. A night that yielded enough strong frames
 becomes an Event; a night that yielded one or two good ones lands here.
+
+**A photograph can move between sections, and sometimes should.** Groom Texas —
+a leaning water tower — sat in Wanderings until it was moved to Abandoned
+America, whose statement names water towers specifically. Moving one is a file
+drag plus a rebuild, but note that a frame changes caption style when it
+crosses: Wanderings and Ephemera caption from the filename, Bible Belt and
+Abandoned America number their frames. Groom Texas is now *Untitled 30*.
 
 Which room a photograph belongs to is Brenden's call, made by which folder it
 sits in — not a rule about how many frames a shoot kept. A session of one
@@ -387,6 +394,12 @@ Date: October 8th, 2026
 Shot on: 24MM, Club Lighting
 Commissioned by: <client>
 ```
+
+**Two folders of the same night is an audit state, not a finished one.** Two
+grades of one event were published side by side for a while so the colour could
+be judged on a phone. That works for an afternoon and reads as a duplicate to
+anyone else, because the index shows the same venue and date twice. Delete the
+losing folder as soon as the decision is made.
 
 **`Commissioned by` is the one that does commercial work.** Events holds both
 paid jobs and nights Brenden was at anyway with a camera, and a visitor
