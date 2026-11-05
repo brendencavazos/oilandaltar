@@ -564,8 +564,8 @@
      * it straight back into the session it was taken out of. */
     var order = [], by = {};
     (s.plates || []).forEach(function (p) {
-      var k = (p.room || "") + "\u0000" + (p.session || "—");
-      if (!by[k]) { by[k] = { name: p.session || "—", room: p.room || "", plates: [] }; order.push(k); }
+      var k = (p.room || "") + "\u0000" + (p.session || "Untitled");
+      if (!by[k]) { by[k] = { name: p.session || "Untitled", room: p.room || "", plates: [] }; order.push(k); }
       by[k].plates.push(p);
     });
     /* Which room a group belongs in is recorded on the plate, because it is a
@@ -636,7 +636,7 @@
       /* A place tells one shoot apart from another by the same person and reads
        * as an occasion rather than an invented title. Sessions with no place on
        * record show the name alone. */
-      who.textContent = splitSession(g.name).name + (g.place ? " \u2014 " + g.place : "");
+      who.textContent = splitSession(g.name).name + (g.place ? ", " + g.place : "");
       var n = document.createElement("p");
       n.className = "sess-count";
       n.textContent = g.plates.length + (g.plates.length === 1 ? " photograph" : " photographs");
@@ -722,7 +722,7 @@
   function renderEvents() {
     view.innerHTML = "";
     renderKicker(numeralFor("events"), "Events");
-    renderIntro(["Nights photographed as they happened — clubs, shows, rooms full of " +
+    renderIntro(["Nights photographed as they happened: clubs, shows, rooms full of " +
       "people. Each one opens as its own set, with the client named where there " +
       "was one."]);
 
@@ -820,7 +820,7 @@
     /* The distinction from a session is the arrangement, not how well Brenden
      * knows the person — a close friend at a party belongs here, a stranger who
      * sat for a shoot does not. */
-    renderIntro(["Photographed where they stood — friends and strangers both, on a " +
+    renderIntro(["Photographed where they stood: friends and strangers both, on a " +
       "night out or in passing. Nothing arranged, nobody sat for it."]);
 
     var tabs2 = portraitTabs("places");
@@ -972,7 +972,7 @@
     function fail(res) {
       status.classList.add("error");
       // Surface a Formspree validation message when there is one; else point to email.
-      var generic = "Couldn’t send — email Brenden.cavazos@gmail.com instead.";
+      var generic = "Couldn’t send. Email Brenden.cavazos@gmail.com instead.";
       if (!res || !res.json) { status.textContent = generic; return; }
       res.json().then(function (data) {
         var errs = data && data.errors;
@@ -995,7 +995,7 @@
         .then(function (res) {
           if (res.ok) {
             form.reset();
-            status.textContent = "Thank you — your message is on its way.";
+            status.textContent = "Thank you. Your message is on its way.";
           } else {
             fail(res);
           }
@@ -1119,15 +1119,15 @@
 
     var titles = {
       "": "Oil & Altar",
-      "bible-belt": "Oil & Altar — Bible Belt",
-      "bible-belt/ephemera": "Oil & Altar — View Ephemera",
-      "abandoned-america": "Oil & Altar — Abandoned America",
-      "portraits": "Oil & Altar — Portraits",
-      "portraits/places-and-faces": "Oil & Altar — Places and Faces",
-      "wanderings": "Oil & Altar — Wanderings",
-      "in-passing": "Oil & Altar — In Passing",
-      "about": "Oil & Altar — About",
-      "events": "Oil & Altar — Events"
+      "bible-belt": "Oil & Altar: Bible Belt",
+      "bible-belt/ephemera": "Oil & Altar: View Ephemera",
+      "abandoned-america": "Oil & Altar: Abandoned America",
+      "portraits": "Oil & Altar: Portraits",
+      "portraits/places-and-faces": "Oil & Altar: Places and Faces",
+      "wanderings": "Oil & Altar: Wanderings",
+      "in-passing": "Oil & Altar: In Passing",
+      "about": "Oil & Altar: About",
+      "events": "Oil & Altar: Events"
     };
     document.title = titles[route] || "Oil & Altar";
   }
